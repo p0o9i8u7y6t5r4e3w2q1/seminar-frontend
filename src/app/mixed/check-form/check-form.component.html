@@ -1,13 +1,85 @@
-<section class="content center" id="queryBorrowForm">
-  <div class="sheet small" id="whiteFormSmall">
-    <div>
-      <h3>請輸入流水號以查詢借用審查進度<br />若忘記流水號請洽系辦</h3>
-      <br />
-      <label><b>流水號：</b></label>
-      <input type="text" id="queryNum" />
-      <button id="inverseButton" class="button" onclick="queryBorrow()" title="送出" type="button">
-        送出
-      </button>
-    </div>
+<section class="content center column">
+  <div class="container sheet">
+    <h2><i class="calendar check icon"></i><strong> 補課審核 </strong></h2>
+    <hr />
+    <table class="listTable">
+      <tr>
+        <th>課程</th>
+        <th>教室</th>
+        <th>日期</th>
+        <th>開始節數</th>
+        <th>結束節數</th>
+        <th>申請人</th>
+        <th>審核結果</th>
+      </tr>
+      <tr>
+        <td>資料結構</td>
+        <td>61101</td>
+        <td>2019/07/03</td>
+        <td>7</td>
+        <td>9</td>
+        <td>XXX</td>
+        <td>
+          <button class="button">通過</button>
+          <button class="button">拒絕</button>
+        </td>
+      </tr>
+      <tr>
+        <td>工程經濟</td>
+        <td>61202</td>
+        <td>2019/07/04</td>
+        <td>2</td>
+        <td>3</td>
+        <td>OOO</td>
+        <td>
+          <button class="button">通過</button>
+          <button class="button">拒絕</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="container sheet">
+    <h2>
+      <i class="calendar check icon"></i><strong> 活動／器材借用審核 </strong>
+    </h2>
+    <hr />
+    <table class="listTable">
+      <tr>
+        <th>事由</th>
+        <th>教室</th>
+        <th>器材</th>
+        <th>日期</th>
+        <th>開始節數</th>
+        <th>結束節數</th>
+        <th>申請人</th>
+        <th>審核結果</th>
+      </tr>
+      <tr>
+        <td>開趴</td>
+        <td>61101</td>
+        <td>投影機</td>
+        <td>2019/07/03</td>
+        <td>1</td>
+        <td>9</td>
+        <td>XXX</td>
+        <td>
+          <button class="button">通過</button>
+          <button class="button">拒絕</button>
+        </td>
+      </tr>
+      <tr>
+        <td>系學會大會</td>
+        <td>61102</td>
+        <td>無</td>
+        <td>2019/09/04</td>
+        <td>6</td>
+        <td>8</td>
+        <td>OOO</td>
+        <td>
+          <button class="button">通過</button>
+          <button class="button">拒絕</button>
+        </td>
+      </tr>
+    </table>
   </div>
 </section>
