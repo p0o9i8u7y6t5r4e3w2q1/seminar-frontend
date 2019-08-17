@@ -1,0 +1,85 @@
+<section class="content center column">
+  <div class="container sheet">
+    <h2><i class="user icon"></i><strong> 系主任</strong></h2>
+    <hr />
+    <b>系主任：</b>
+    <select name="section">
+      <option value="1">王惠嘉　教授</option>
+      <option value="2">高　強　教授</option>
+      <option value="3">利德江　教授</option>
+    </select>
+    <button class="button">儲存</button><br />
+  </div>
+  <div class="container sheet">
+    <h2><i class="users icon"></i><strong> 教授</strong></h2>
+    <hr />
+    <div class="box center left" style="width:35%">
+      <div>
+        <span style="font-size:20px"><i class="user plus icon"></i><strong> 新增教授 </strong></span>
+        <form name="myForm" onsubmit="return validateForm()" method="post">
+          <div class="vgroup">
+            <label>教職員ID：</label><br />
+            <input type="text" name="ID" />
+          </div>
+          <div class="vgroup">
+            <label>姓名：</label><br />
+            <input type="text" name="name" />
+          </div>
+          <div class="vgroup">
+            <label>Email：</label><br />
+            <input type="text" name="email" /><br />
+          </div>
+          <div class="vgroup">
+            <label>密碼：</label><br />
+            <input type="text" name="password" />
+          </div>
+          <button class="button">新增</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="box center right">
+      <div>
+        <span style="font-size:20px"><i class="user times icon"></i><strong> 刪除教授 </strong></span>
+        <table style="width:380px" class="listTable">
+          <tr>
+            <th><b>姓名</b></th>
+            <th><b>教職員ID</b></th>
+            <th><b>刪除</b></th>
+          </tr>
+          <tr>
+            <td>王逸琳</td>
+            <td>123456789</td>
+            <td><input type="checkbox" name="delete" value="1" /></td>
+          </tr>
+          <tr>
+            <td>王維聰</td>
+            <td>222221123</td>
+            <td><input type="checkbox" name="delete" value="1" /></td>
+          </tr>
+          <tr>
+            <td>陳梁軒</td>
+            <td>222221123</td>
+            <td><input type="checkbox" name="delete" value="1" /></td>
+          </tr>
+          <tr>
+            <td>謝中奇</td>
+            <td>222221123</td>
+            <td><input type="checkbox" name="delete" value="1" /></td>
+          </tr>
+          <tr>
+            <td>黃宇翔</td>
+            <td>222221123</td>
+            <td><input type="checkbox" name="delete" value="1" /></td>
+          </tr>
+          <tr>
+            <td>翁慈宗</td>
+            <td>222221123</td>
+            <td><input type="checkbox" name="delete" value="1" /></td>
+          </tr>
+        </table>
+        <button class="button">刪除</button>
+      </div>
+    </div>
+  </div>
+</section>

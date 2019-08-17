@@ -1,0 +1,257 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #f4f4f4;
+  color: #555;
+  font-family: "Microsoft JhengHei", Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.6em;
+  margin: 0;
+}
+
+/* 只撐出中間範圍，但不做padding */
+.wrapper {
+  min-height: calc(100vh - 211px);
+}
+
+.content {
+  /* 測試出來的 */
+  min-height: calc(100vh - 271px);
+  padding: 30px 0;
+}
+
+.container {
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  width: 80%;
+}
+
+hr {
+  align-self: center;
+  border: 1px solid #ccc;
+  margin-bottom: 2em;
+  margin-top: 0.5em;
+}
+
+.center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.center.row {
+  flex-direction: row;
+}
+
+.center.column {
+  flex-direction: column;
+}
+
+/* 將為一組的區域填充周圍來區別 */
+.group {
+  padding: 10px 15px;
+}
+
+/* 只填充上下的範圍 */
+.vgroup {
+  padding: 10px 0;
+}
+
+/* 只填充左右的範圍 */
+.hgroup {
+  padding: 0 15px;
+}
+
+/* default button type */
+.button {
+  background-color: #424146;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  height: auto;
+  margin: 5px;
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+  width: auto;
+}
+
+.button:hover {
+  background-color: #717172;
+  color: #fff;
+}
+
+/* 消除連結偽裝的按鈕與原本按鈕的差異 */
+a.button {
+  padding: 4px 12px;
+}
+
+a {
+  color: #555;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #fff;
+}
+
+.left {
+  float: left;
+  width: 48%;
+}
+
+.right {
+  float: right;
+  width: 48%;
+}
+
+.clear {
+  clear: both;
+}
+
+.sheetLink:hover {
+  color: #ccc;
+}
+
+.sheet {
+  background: #fff;
+  border-radius: 8px;
+  margin: 10px;
+  max-width: 73%;
+  opacity: 0.9;
+  padding: 20px 40px 30px;
+  text-align: left;
+}
+
+.sheet.small {
+  border-radius: 4px;
+  text-align: center;
+  width: 35%;
+}
+
+.box {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 20px 30px;
+}
+
+/* default table type */
+table {
+  background: #555;
+  border-collapse: separate;
+  border-radius: 6px;
+  margin: 20px 0;
+  text-align: center;
+  width: auto;
+}
+
+tr {
+  background-color: #f4f4f4;
+}
+
+th,
+td {
+  border-left: none;
+  border-top: none;
+  padding: 4px 8px;
+}
+
+td:first-child,
+th:first-child {
+  border-left: none;
+}
+
+th {
+  background-color: #dcc8a5;
+  color: #555;
+}
+
+.listTable {
+  font-weight: bold;
+}
+
+.listTable td,
+th {
+  padding: 4px 12px;
+}
+
+.link {
+  color: #424146;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #797d7f;
+}
+
+/* ---- form elements ---- */
+input,
+select {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #797d7f;
+  font-size: 12px;
+  height: 35px;
+  padding: 6px 15px;
+}
+
+/* combine label and input box or select box */
+input[type="date"] {
+  background: #fff
+    url(http://www.clipartroo.com/images/85/may-calendar-clipart-85365.png) 90%
+    50% no-repeat;
+  background-size: 15px;
+  font-size: 14px;
+}
+
+input[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+
+input[type="checkbox"] {
+  vertical-align: middle;
+}
+
+/* form special setting */
+form table {
+  margin-top: 0;
+  background-color: transparent;
+  text-align: left;
+}
+
+input:not([type="checkbox"]),
+select {
+  width: 200px;
+}
+
+input.shortWidth,
+select.shortWidth {
+  width: 100px;
+}
+
+input.longWidth,
+select.longWidth {
+  width: 400px;
+}
+
+form .titleAndAddBtn {
+  line-height: 2.5em;
+  text-align: center;
+}
+
+form .titleAndAddBtn .button {
+  float: right;
+}

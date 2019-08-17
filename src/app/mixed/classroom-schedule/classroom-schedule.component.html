@@ -1,0 +1,185 @@
+<section class="content">
+  <div class="center column">
+    <form class="center" name="queryAvailableTimeForm" onsubmit="return validateQueryAvailableTimeForm()" method="post">
+      <div class="group">
+        <label><b>日期：</b>
+          <input type="date" name="queryDate" />
+        </label>
+      </div>
+
+      <div class="group">
+        <label><b>教室：</b> <select name="queryClassroom">
+            <option value="61101">61101</option>
+            <option value="61102">61102</option>
+            <option value="61103">61103</option>
+            <option value="61104">61104</option>
+            <option value="61200">61200(大階梯講堂)</option>
+            <option value="61201">61201</option>
+            <option value="61202">61202</option>
+            <option value="61204">61204</option>
+            <option value="61206">61206(多功能講堂)</option>
+            <option value="61208">61208</option>
+            <option value="61210">61210</option>
+            <option value="貴賓室">2F貴賓室</option>
+            <option value="61321">61321(小會議室)</option>
+            <option value="61306">61306(大會議室)</option>
+          </select>
+        </label>
+      </div>
+      <button class="button" title="查詢" type="submit">查詢</button>
+    </form>
+
+    <table id="resultSchedule">
+      <tr>
+        <th></th>
+        <th id="sunday">日</th>
+        <th id="monday">一</th>
+        <th id="tuesday">二</th>
+        <th id="wednesday">三</th>
+        <th id="thursday">四</th>
+        <th id="friday">五</th>
+        <th id="saturday">六</th>
+      </tr>
+      <tr>
+        <th>0 (7:10-8:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>1 (8:10-9:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>2 (9:10-10:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>3 (10:10-11:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>4 (11:10-12:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>N (12:10-13:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>5 (13:10-14:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>6 (14:10-15:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>7 (15:10-16:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>8 (16:10-17:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>9 (17:10-18:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>A (18:10-19:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>B (19:10-20:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>C (20:10-21:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+</section>

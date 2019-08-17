@@ -1,0 +1,51 @@
+<section class="content center">
+  <div class="sheet" id="whiteForm">
+    <h2 style="text-align:center">
+      國立成功大學工業與資訊管理學系<br />
+      教室設備借用使用須知
+    </h2>
+    <br />
+    <i class="cog icon"></i><b>服務對象：</b>本系(所)教職員工生 及 非本系(所)訪客<br />
+    <br />
+    <i class="cog icon"></i><b>申請方式:</b><br />
+    (1)填寫申請表，並簡述申請事由。待系辦公室審核後，系統將寄出電子郵件通知結果。<br />
+    (2)本系教職員工生請以職員證編號、學號申請，申請過後即可於借用日刷職員證、學生證開啟教室電源。<br />
+    (3)非本系訪客，請填寫真實姓名申請。申請通過後，請於借用日至三樓系辦公室繳費並領取臨時電卡，以開啟電源。<br />
+    <br />
+    <i class="cog icon"></i><b>收費標準：</b><br />
+    (1)全日以8小時計；半日以4小時計，不足以全日計算之。<br />
+    (2)本校各單位所舉辦之活動，使用一次以七折收費。<br />
+    (3)除上班時間外，例假日及晚上使用應另支付工讀生費用。工讀生計酬標準，以行政院勞工委員會最新基本工資規定為原則，不足1小時以1小時計[外加場地(含廁所)清潔費半日500元、全日900元]。<br />
+    (4)若各單位主辦、協辦活動或其他特殊狀況足以提升本系(所)教學及研究績效得經系主任(所長)同意後酌以減免。<br />
+    (5)收取之場地使用費已包含管理維修費及水電費，唯若因特殊理由免收者，仍須另外酌收管理維護費及水電管理費，收費標準另訂。<br />
+    (6)若有使用電腦等相關設備，將另外酌收整備費。<br />
+    (7)申請借用者，應向本系所辦公室及電腦室辦理借用手續，非定期使用場地應於7日前提出申請，否則不予受理。<br />
+    <br />
+    <i class="cog icon"></i><b>注意事項：</b><br />
+    (1)本系(所)公共場所之使用以<b>處理公事、學術單位借用</b>為原則。<br />
+    (2)申請借用需經過系主任(所長)核准後為原則登記使用。<br />
+    (3)非經管理者同意，請勿將設備攜出，違者照價賠償。<br />
+    (4)申請借用後，不得攜帶食物或飲料進入食用。<br />
+    (5)借用場地須保持場地之整潔，如有髒亂須負責清掃，使用完畢請將冷氣、電燈及門窗關閉。<br />
+    (6)其他未注意事項依照學校場地借用規則為準則規範。<br />
+
+    <div style="text-align:center;">
+      <p style="font-size:1.1em"><i class="exclamation circle icon"></i>
+        教授、助教如須<b>調課、補課</b>，為確保系統能判定修課學生身分，請登入系統<b>課程管理</b>申請！</p>
+
+      <form name="acceptConditionForm" onsubmit="return validateAcceptConditionForm()" method="post">
+        <label>
+          <input type="checkbox" id="checkAcceptCondition" name="checkAcceptCondition" required />
+          我已閱讀使用須知並同意以上規範
+        </label>
+        <br /><br />
+        <button class="button" id="imiimBtn" title="本系教職員生">
+          本系教職員生
+        </button>
+        <button class="button" id="imnotiimBtn" title="非本系教職員生">
+          非本系教職員生
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

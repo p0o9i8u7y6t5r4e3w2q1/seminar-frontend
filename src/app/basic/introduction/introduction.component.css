@@ -1,0 +1,31 @@
+.sheet section {
+  margin-bottom: 40px;
+}
+
+.left {
+  width: 50%;
+}
+
+.right {
+  color: #424146;
+  line-height: 2.2em;
+  padding-top: 55px;
+}
+
+.clear {
+  clear: both;
+  padding-top: 20px;
+  text-align: right;
+}
+
+@media (max-width: 600px) {
+  .left {
+    float: none;
+    width: 100%;
+  }
+
+  .right {
+    float: none;
+    width: 100%;
+  }
+}

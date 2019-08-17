@@ -1,0 +1,180 @@
+<section class="content center">
+  <div class="container sheet" id="whiteForm">
+    <h2>
+      <i class="trash alternate icon"></i><strong> 刪除課程時段</strong>
+    </h2>
+    <hr />
+    <div class="group">
+      <label>課程：</label>
+      <input type="text" id="delete_class_name" value="這是課程名稱" readonly />
+    </div>
+
+    <div class="group">
+      <label>教室：</label>
+      <input type="text" id="delete_classroom" value="61101" readonly />
+    </div>
+
+    <div class="group">
+      <label><b>日期：</b></label>
+      <input type="date" id="delete_date" />
+    </div>
+    <table id="delete_class">
+      <tr>
+        <th></th>
+        <th>星期日</th>
+        <th>星期一</th>
+        <th>星期二</th>
+        <th>星期三</th>
+        <th>星期四</th>
+        <th>星期五</th>
+        <th>星期六</th>
+      </tr>
+      <tr>
+        <th>0 (7:10-8:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>1 (8:10-9:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><input type="checkbox" value="check" id="period1" />資料結構</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>2 (9:10-10:00)</th>
+        <td></td>
+        <td><input type="checkbox" value="check" id="period2" />資料結構</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>3 (10:10-11:00)</th>
+        <td></td>
+        <td><input type="checkbox" value="check" id="period3"/>資料結構</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>4 (11:10-12:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>N (12:10-13:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>5 (13:10-14:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>6 (14:10-15:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>7 (15:10-16:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>8 (16:10-17:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>9 (17:10-18:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>A (18:10-19:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>B (19:10-20:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>C (20:10-21:00)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+
+    <br />
+    <div>
+      <button class="button" onclick="deleteClass()">刪除</button>
+      <button onclick="location.href='10_課程管理.html'" class="button" title="返回" type="button">返回</button>
+    </div>
+  </div>
+</section>

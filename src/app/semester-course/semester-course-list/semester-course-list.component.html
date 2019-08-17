@@ -1,0 +1,51 @@
+<section class="content">
+  <div class="container">
+    <span style="font-size:18px">
+      <i class="calendar alternate outline icon"></i>
+      <strong> 108學年度 第一學期 (2019/9/10 ~ 2020/1/13) </strong>
+    </span>
+
+    <a routerLink="/semester-course/create" routerLinkActive="active" class="button">新增課程</a>
+    <table class="listTable">
+      <tr>
+        <th>課程代號</th>
+        <th>課程</th>
+        <th>開課教授</th>
+        <th>時段</th>
+        <th>教室</th>
+        <th>修課學生名單</th>
+        <th>編輯課程</th>
+      </tr>
+      <tr>
+        <td>H34012</td>
+        <td>計算機程式與應用</td>
+        <td>王逸琳</td>
+        <td>[1]2-3, [3]2</td>
+        <td>61101</td>
+        <td>
+          <a href="http://moodle.ncku.edu.tw/" target="_blank" class="button">查詢</a>
+        </td>
+        <!--link to moodle's student list-->
+        <td>
+          <button routerLink="/semester-course/modify" routerLinkActive="active" class="button">修改</button>
+          <button class="button">刪除</button>
+        </td>
+      </tr>
+      <tr>
+        <td>H344900</td>
+        <td>雲端行動與應用</td>
+        <td>OOO</td>
+        <td>[2]6-8</td>
+        <td>61202</td>
+        <td>
+          <!--link to moodle's student list-->
+          <a href="http://moodle.ncku.edu.tw/" target="_blank" class="button">查詢</a>
+        </td>
+        <td>
+          <button onclick="location.href='22_修改學期課程.html'" class="button">修改</button>
+          <button class="button">刪除</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</section>

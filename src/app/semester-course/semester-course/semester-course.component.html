@@ -1,0 +1,97 @@
+<section class="content center">
+  <div class="container sheet" id="whiteForm">
+    <h2>
+      <i class="calendar plus outline icon"></i><strong> 新增課程 </strong>
+    </h2>
+    <hr />
+    <form name="myForm" onsubmit="return validateForm()" method="post">
+      <table>
+        <tr>
+          <th><label>課程代號：</label></th>
+          <td><input type="text" name="course name" /></td>
+          <th><label>課程名稱：</label></th>
+          <td><input type="text" name="course name" /></td>
+        </tr>
+        <tr>
+          <th><label>教授：</label></th>
+          <td><select name="professor">
+              <option value="1">劉任修 教授</option>
+              <option value="2">王逸琳 教授</option>
+              <option value="3">利德江 教授</option>
+            </select></td>
+            <th><label>教室：</label></th>
+            <td><select name="classroom">
+                <option value="61101">61101</option>
+                <option value="61102">61102</option>
+                <option value="61103">61103</option>
+                <option value="61104">61104</option>
+                <option value="61200">61200(大階梯講堂)</option>
+                <option value="61201">61201</option>
+                <option value="61202">61202</option>
+                <option value="61204">61204</option>
+                <option value="61206">61206(多功能講堂)</option>
+                <option value="61208">61208</option>
+                <option value="61210">61210</option>
+                <option value="貴賓室">2F貴賓室</option>
+                <option value="61321">61321(小會議室)</option>
+                <option value="61306">61306(大會議室)</option>
+              </select>
+            </td>
+        </tr>
+        <tr>
+          <th colspan="4" class="titleAndAddBtn"><b>課程時段</b>
+            <button class="button">+</button>
+          </th>
+        </tr>
+        <tr>
+          <th><label>時段：</label></th>
+          <td colspan="3"><select class="shortWidth" name="classroom">
+              <option value="1">Mon</option>
+              <option value="2">Tue</option>
+              <option value="3">Wed</option>
+              <option value="4">Thu</option>
+              <option value="5">Fri</option>
+              <option value="6">Sat</option>
+              <option value="7">Sun</option>
+            </select>
+            <select name="section">
+              <option value="1">1　(08:10~09:00)</option>
+              <option value="2">2　(09:10~10:00)</option>
+              <option value="3">3　(10:10~11:00)</option>
+              <option value="4">4　(11:10~12:00)</option>
+              <option value="N">N　(12:10~13:00)</option>
+              <option value="5">5　(13:10~14:00)</option>
+              <option value="6">6　(14:10~15:00)</option>
+              <option value="7">7　(15:10~16:00)</option>
+              <option value="8">8　(16:10~17:00)</option>
+              <option value="9">9　(17:10~18:00)</option>
+              <option value="A">A　(18:10~19:00)</option>
+              <option value="B">B　(19:10~20:00)</option>
+              <option value="C">C　(20:10~21:00)</option>
+              <option value="D">D　(21:10~22:00)</option>
+            </select>
+            <b>&nbsp;~&nbsp;</b>
+            <select name="section">
+              <option value="1">1　(08:10~09:00)</option>
+              <option value="2">2　(09:10~10:00)</option>
+              <option value="3">3　(10:10~11:00)</option>
+              <option value="4">4　(11:10~12:00)</option>
+              <option value="N">N　(12:10~13:00)</option>
+              <option value="5">5　(13:10~14:00)</option>
+              <option value="6">6　(14:10~15:00)</option>
+              <option value="7">7　(15:10~16:00)</option>
+              <option value="8">8　(16:10~17:00)</option>
+              <option value="9">9　(17:10~18:00)</option>
+              <option value="A">A　(18:10~19:00)</option>
+              <option value="B">B　(19:10~20:00)</option>
+              <option value="C">C　(20:10~21:00)</option>
+              <option value="D">D　(21:10~22:00)</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <button onclick="location.href='16_學期課程.html'" class="button">新增</button>
+      <button onclick="location.href='16_學期課程.html'" class="button">取消</button>
+    </form>
+  </div>
+</section>
