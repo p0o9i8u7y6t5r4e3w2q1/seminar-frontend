@@ -10,13 +10,8 @@
     </div>
 
     <div class="group">
-      <label>教室：</label>
-      <input type="text" id="delete_classroom" value="61101" readonly />
-    </div>
-
-    <div class="group">
       <label><b>日期：</b></label>
-      <input type="date" id="delete_date" />
+      <input type="date" id="delete_date" [(ngModel)]="date"/>
     </div>
     <table id="delete_class">
       <tr>
@@ -174,7 +169,7 @@
     <br />
     <div>
       <button class="button" onclick="deleteClass()">刪除</button>
-      <button onclick="location.href='10_課程管理.html'" class="button" title="返回" type="button">返回</button>
+      <button routerLink="/course-change" class="button" title="返回" type="button">返回</button>
     </div>
   </div>
 </section>

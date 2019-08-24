@@ -1,0 +1,10 @@
+export enum Auth {
+  LOGIN = 0,
+  COURSE_CHANGE = 1,
+  TA_SETTING = 2,
+  CHECK_BOOKING = 3,
+  CHECK_MAKEUP = 4,
+  MEMEBER_MANAGEMENT = 5,
+  SEMESTER_COURSE = 6,
+  CARD_RECORD = 7,
+}

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MakeupCourseComponent } from './makeup-course/makeup-course.component';
 import { SuspendedCourseComponent } from './suspended-course/suspended-course.component';
 import { TaSettingComponent } from './ta-setting/ta-setting.component';
@@ -13,6 +14,6 @@ import { CourseChangeListComponent } from './course-change-list/course-change-li
     TaSettingComponent,
     CourseChangeListComponent,
   ],
-  imports: [CommonModule, CourseChangeRoutingModule],
+  imports: [CommonModule, CourseChangeRoutingModule, FormsModule],
 })
 export class CourseChangeModule {}

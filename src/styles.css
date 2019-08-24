@@ -1,8 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+  width: 100vw;
+  overflow-x: hidden;
+}
+
 body {
   background-color: #f4f4f4;
   color: #555;
-  font-family: "Microsoft JhengHei", Helvetica, sans-serif;
+  font-family: 'Microsoft JhengHei', Helvetica, sans-serif;
   font-size: 16px;
   line-height: 1.6em;
   margin: 0;
@@ -15,8 +20,8 @@ body {
 
 .content {
   /* 測試出來的 */
-  min-height: calc(100vh - 271px);
-  padding: 30px 0;
+  min-height: calc(100vh - 251px);
+  padding: 20px 0 20px;
 }
 
 .container {
@@ -29,7 +34,7 @@ body {
 hr {
   align-self: center;
   border: 1px solid #ccc;
-  margin-bottom: 2em;
+  margin-bottom: 1.5em;
   margin-top: 0.5em;
 }
 
@@ -124,7 +129,7 @@ a:hover {
   margin: 10px;
   max-width: 73%;
   opacity: 0.9;
-  padding: 20px 40px 30px;
+  padding: 20px 40px;
   text-align: left;
 }
 
@@ -205,7 +210,7 @@ select {
 }
 
 /* combine label and input box or select box */
-input[type="date"] {
+input[type='date'] {
   background: #fff
     url(http://www.clipartroo.com/images/85/may-calendar-clipart-85365.png) 90%
     50% no-repeat;
@@ -213,15 +218,15 @@ input[type="date"] {
   font-size: 14px;
 }
 
-input[type="date"]::-webkit-inner-spin-button {
+input[type='date']::-webkit-inner-spin-button {
   display: none;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
+input[type='date']::-webkit-calendar-picker-indicator {
   opacity: 0;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   vertical-align: middle;
 }
 
@@ -232,7 +237,7 @@ form table {
   text-align: left;
 }
 
-input:not([type="checkbox"]),
+input:not([type='checkbox']),
 select {
   width: 200px;
 }

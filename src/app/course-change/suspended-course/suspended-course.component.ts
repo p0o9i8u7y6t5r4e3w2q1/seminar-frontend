@@ -9,6 +9,8 @@ import { BaseComponent } from '../../basic';
 export class SuspendedCourseComponent extends BaseComponent implements OnInit {
   protected title = '刪除課程申請';
 
+  date: Date;
+
   ngOnInit() {
     super.setTitle(this.title);
   }

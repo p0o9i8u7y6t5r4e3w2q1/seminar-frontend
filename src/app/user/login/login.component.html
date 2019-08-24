@@ -5,21 +5,19 @@
 
     <div class="group">
       <label><b>帳號：</b></label>
-      <input type="text" id="account" placeholder="Account" />
+      <input type="text" id="account" placeholder="Account" [(ngModel)]="userID" />
     </div>
 
     <div class="group">
       <label><b>密碼：</b></label>
-      <input type="password" id="password" placeholder="Password" />
+      <input type="password" id="password" placeholder="Password" [(ngModel)]="password" />
     </div>
 
     <div class="group">
       <a href="21_忘記密碼.html" class="sheetLink" title="忘記密碼" target="_self">忘記密碼</a>
     </div>
     <br />
-    <a href="08_註冊.html" title="註冊" class="button" target="_self">註冊</a>
-    <button onclick="login()" title="登入" class="button" target="_self">
-      登入
-    </button>
+    <button (click)="login()" title="登入" class="button" target="_self">登入</button>
+    <a title="註冊" class="button" routerLink="/signup" routerLinkActive="active" target="_self">註冊</a>
   </div>
 </section>

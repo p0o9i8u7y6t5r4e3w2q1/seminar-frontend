@@ -15,28 +15,13 @@
       <span style="font-size:20px"><i class="user times icon"></i><strong> 刪除助教 </strong></span><br />
       <table id="singleLineTable" style="width:400px;">
         <tr>
-          <th><b>姓名</b></th>
           <th><b>學號</b></th>
+          <th><b>姓名</b></th>
           <th><b>刪除</b></th>
         </tr>
-        <tr>
-          <td>王一明</td>
-          <td>H31234567</td>
-          <td><button class="button">刪除</button></td>
-        </tr>
-        <tr>
-          <td>王二明</td>
-          <td>H31234567</td>
-          <td><button class="button">刪除</button></td>
-        </tr>
-        <tr>
-          <td>王三明</td>
-          <td>H31234567</td>
-          <td><button class="button">刪除</button></td>
-        </tr>
-        <tr>
-          <td>王四明</td>
-          <td>H31234567</td>
+        <tr *ngFor="let ta of TAs">
+          <td>{{ta.id}}</td>
+          <td>{{ta.name}}</td>
           <td><button class="button">刪除</button></td>
         </tr>
       </table>

@@ -1,0 +1,41 @@
+<header>
+  <div class="container">
+    <a routerLink="/">
+      <img src="/assets/images/logo.png" height="70" alt="system logo" />
+    </a>
+
+    <!-- 未登入 -->
+    <div class="loginNavBar" *ngIf='!isLogin()'>
+      <a routerLink="/login" routerLinkActive="active" title="登入" target="_self">登入</a>
+      &nbsp; | &nbsp;
+      <a routerLink="/signup" routerLinkActive="active" title="註冊" target="_self">註冊</a>
+    </div>
+
+    <!-- 登入後 -->
+    <div class="loginNavBar" *ngIf='isLogin()'>
+      <a (click)="logout()" title="登出" target="_self">登出</a>
+      &nbsp; | &nbsp;
+      <a routerLink="/profile" routerLinkActive="active" title="個資修改" target="_self">個資修改</a>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="container">
+    <ng-container *ngFor="let item of menuItems;let i = index;">
+      <a *ngIf='display(i)' [title]="item.title" class="button" 
+        [routerLink]="item.routerName" routerLinkActive="active">{{item.title}}</a>
+    </ng-container>
+
+    <!--
+    <a class="button" title="查詢可借用時段" routerLink="/classroom-schedule" routeLinkActive="active">查詢可借用時段</a>
+    <a class="button" title="申請借用教室與設備" routerLink="/booking" routeLinkActive="active">申請借用</a>
+    <a class="button" title="查詢申請進度" routerLink="/query-form" routeLinkActive="active">查詢申請進度</a>
+    <a class="button" title="課程管理" routerLink="/course-change" routeLinkActive="active">課程管理</a>
+    <a class="button" title="借用審核" routerLink="/check-form" routeLinkActive="active">借用審核</a>
+    <a class="button" title="角色管理" routerLink="/role-setting" routeLinkActive="active">角色管理</a>
+    <a class="button" title="學期課程" routerLink="/semester-course" routeLinkActive="active">學期課程</a>
+    <a class="button" title="刷卡紀錄" routerLink="/card-record" routeLinkActive="active">刷卡紀錄</a>
+    -->
+  </div>
+</nav>
