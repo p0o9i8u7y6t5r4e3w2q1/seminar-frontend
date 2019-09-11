@@ -9,6 +9,10 @@ import { BaseComponent } from '../../basic';
 export class CardRecordComponent extends BaseComponent implements OnInit {
   protected title = '刷卡紀錄查詢';
 
+  classroomID = '';
+  startDate: Date;
+  endDate: Date;
+
   ngOnInit() {
     super.setTitle(this.title);
   }

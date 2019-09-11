@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Auth } from '../auth.constant';
+import { Auth } from '../constant/auth.constant';
 import { ApiService } from './api.service';
 import { TokenService } from './token.service';
 import { of, throwError, Observable } from 'rxjs';
@@ -119,7 +119,7 @@ export class AuthService {
   fetchUser() {
     this.api.get('/user/userInfo').subscribe({
       next: (data: any) => {
-        this.setUser(data.user);
+        this.setUser(data);
         this.init = true;
         this.runCallbacks(this.user);
       },
@@ -134,7 +134,7 @@ export class AuthService {
   login(userID: string, password: string): Observable<any> {
     return this.api
       .post('/user/login', { userID, password })
-      .pipe(tap(data => this.setUser(data.user)));
+      .pipe(tap(user => this.setUser(user)));
   }
 
   logout() {
@@ -148,6 +148,7 @@ export class AuthService {
   }
 
   private setUser(user: User) {
+    console.log({user})
     this.user = user;
     this.setAuths(this.user.authIDs);
     this.auths[Auth.LOGIN] = true;

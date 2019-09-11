@@ -13,7 +13,7 @@ const mixedRoutes: Routes = [
   { path: 'check-form', component: CheckFormComponent },
   { path: 'role-setting', component: RoleSettingComponent },
   { path: 'card-record', component: CardRecordComponent },
-  { path: 'cardreocrd/result', component: RecordResultComponent },
+  { path: 'card-record/result', component: RecordResultComponent },
   { path: 'query-form', component: QueryFormComponent },
   { path: 'query-formresult', component: QueryResultComponent },
 ];

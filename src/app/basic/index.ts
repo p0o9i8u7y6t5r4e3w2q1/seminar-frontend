@@ -5,7 +5,7 @@ export * from './component/introduction/introduction.component';
 export * from './component/not-found/not-found.component';
 export * from './component/base.component';
 export * from './router-constants';
-export * from './auth.constant';
+export * from './constant/auth.constant';
 export * from './constant/basic.constant';
 export * from './service/auth.service';
 export * from './service/api.service';

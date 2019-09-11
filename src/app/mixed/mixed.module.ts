@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { RoleSettingComponent } from './role-setting/role-setting.component';
 import { ClassroomScheduleComponent } from './classroom-schedule/classroom-schedule.component';
 import { MixedRoutingModule } from './mixed-routing.module';
@@ -19,6 +20,6 @@ import { QueryResultComponent } from './query-form/query-result.component';
     QueryFormComponent,
     QueryResultComponent,
   ],
-  imports: [CommonModule, MixedRoutingModule],
+  imports: [CommonModule, MixedRoutingModule, FormsModule],
 })
 export class MixedModule {}

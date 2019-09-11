@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base.component';
-import { Auth } from '../../auth.constant';
+import { Auth } from '../../constant/auth.constant';
 
 interface MenuItem {
   title: string;
@@ -24,7 +24,27 @@ export class HeaderComponent extends BaseComponent implements OnInit {
     { title: '刷卡紀錄', routerName: '/card-record' },
   ];
 
-  ngOnInit() {}
+  welcomeStr: string;
+
+  ngOnInit() {
+    this.authService.getUserAfterInit(user => {
+      this.welcomeStr =
+        user.name + ' ' + this.getRoleName(user.roleID) + ' 您好！';
+    });
+  }
+
+  getRoleName(type: number) {
+    switch (type) {
+      case 1:
+        return '助教';
+      case 2:
+        return '教授';
+      case 3:
+        return '系主任';
+      case 4:
+        return '系辦人員';
+    }
+  }
 
   public display(index: number): boolean {
     switch (index) {

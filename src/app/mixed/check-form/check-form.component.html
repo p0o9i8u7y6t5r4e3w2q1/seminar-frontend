@@ -9,28 +9,18 @@
         <th>日期</th>
         <th>開始節數</th>
         <th>結束節數</th>
+        <th>申請人身份</th>
         <th>申請人</th>
         <th>審核結果</th>
       </tr>
-      <tr>
-        <td>資料結構</td>
-        <td>61101</td>
-        <td>2019/07/03</td>
-        <td>7</td>
-        <td>9</td>
-        <td>XXX</td>
-        <td>
-          <button class="button">通過</button>
-          <button class="button">拒絕</button>
-        </td>
-      </tr>
-      <tr>
-        <td>工程經濟</td>
-        <td>61202</td>
-        <td>2019/07/04</td>
-        <td>2</td>
-        <td>3</td>
-        <td>OOO</td>
+      <tr *ngFor="let makeup of makeups">
+        <td>{{makeup.course}}</td>
+        <td>{{makeup.classroomID}}</td>
+        <td>{{makeup.timeRange.date | date: 'yyyy/MM/dd'}}</td>
+        <td>{{makeup.timeRange.startPeriod}}</td>
+        <td>{{makeup.timeRange.endPeriod}}</td>
+        <td>{{makeup.applicantRole}}</td>
+        <td>{{makeup.applicant}}</td>
         <td>
           <button class="button">通過</button>
           <button class="button">拒絕</button>

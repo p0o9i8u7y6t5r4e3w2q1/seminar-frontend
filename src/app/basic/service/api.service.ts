@@ -5,7 +5,7 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { TokenService, TOKEN } from './token.service';
-import { tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 type InitCallback = (work: boolean, hasToken: boolean) => void;
 interface ErrorCallback {
@@ -23,10 +23,12 @@ export class ApiService {
   private initCallbacks: InitCallback[] = [];
   private errorCallbacks: ErrorCallback[] = [];
 
-  private FETCH_TOKEN = tap((data: any) => {
+  private FETCH_TOKEN = map((data: any) => {
     if (data && data[TOKEN]) {
       this.tokenService.token = data[TOKEN];
     }
+    console.log(data.result)
+    return data.result;
   });
 
   constructor(

@@ -6,6 +6,7 @@
 
     <!-- 未登入 -->
     <div class="loginNavBar" *ngIf='!isLogin()'>
+      <span>{{welcomeStr}}</span>&nbsp;&nbsp;
       <a routerLink="/login" routerLinkActive="active" title="登入" target="_self">登入</a>
       &nbsp; | &nbsp;
       <a routerLink="/signup" routerLinkActive="active" title="註冊" target="_self">註冊</a>
