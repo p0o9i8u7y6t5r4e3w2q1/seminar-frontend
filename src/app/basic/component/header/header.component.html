@@ -6,7 +6,6 @@
 
     <!-- 未登入 -->
     <div class="loginNavBar" *ngIf='!isLogin()'>
-      <span>{{welcomeStr}}</span>&nbsp;&nbsp;
       <a routerLink="/login" routerLinkActive="active" title="登入" target="_self">登入</a>
       &nbsp; | &nbsp;
       <a routerLink="/signup" routerLinkActive="active" title="註冊" target="_self">註冊</a>
@@ -14,6 +13,7 @@
 
     <!-- 登入後 -->
     <div class="loginNavBar" *ngIf='isLogin()'>
+      <span>{{welcomeStr}}</span>&nbsp;&nbsp;
       <a (click)="logout()" title="登出" target="_self">登出</a>
       &nbsp; | &nbsp;
       <a routerLink="/profile" routerLinkActive="active" title="個資修改" target="_self">個資修改</a>

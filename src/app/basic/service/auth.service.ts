@@ -134,7 +134,7 @@ export class AuthService {
   login(userID: string, password: string): Observable<any> {
     return this.api
       .post('/user/login', { userID, password })
-      .pipe(tap(user => this.setUser(user)));
+      .pipe(tap(data => this.setUser(data)));
   }
 
   logout() {
