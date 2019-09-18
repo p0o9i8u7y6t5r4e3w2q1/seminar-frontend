@@ -5,11 +5,12 @@ import { MakeupCourseComponent } from './makeup-course/makeup-course.component';
 import { SuspendedCourseComponent } from './suspended-course/suspended-course.component';
 import { TaSettingComponent } from './ta-setting/ta-setting.component';
 
+
 const courseChangeRoutes: Routes = [
   { path: 'course-change', component: CourseChangeListComponent },
-  { path: 'course-change/makeup', component: MakeupCourseComponent },
-  { path: 'course-change/suspended', component: SuspendedCourseComponent },
-  { path: 'course-change/ta', component: TaSettingComponent },
+  { path: 'course-change/makeup/:course', component: MakeupCourseComponent },
+  { path: 'course-change/suspended/:course', component: SuspendedCourseComponent },
+  { path: 'course-change/ta/:course', component: TaSettingComponent },
 ];
 
 @NgModule({
