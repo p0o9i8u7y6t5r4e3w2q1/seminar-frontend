@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Input} from '@angular/core';
 import { BaseComponent } from '../../basic';
 
 interface MakeupCourseForm {
@@ -18,9 +18,8 @@ interface MakeupCourseForm {
 })
 export class MakeupCourseComponent extends BaseComponent implements OnInit {
   protected title = '新增課程時段';
-
-  course: any;
-
+  //@Input() course;
+  courseName: string;
   classroomID = '';
   date: Date;
   startPeriod = '';
@@ -28,6 +27,8 @@ export class MakeupCourseComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     super.setTitle(this.title);
+    this.courseName=this.route.snapshot.params['course'];
+  
   }
 
   createBody() {

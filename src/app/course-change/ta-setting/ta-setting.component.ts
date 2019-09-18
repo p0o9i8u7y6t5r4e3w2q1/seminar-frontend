@@ -8,7 +8,9 @@ import { BaseComponent } from '../../basic';
 })
 export class TaSettingComponent extends BaseComponent implements OnInit {
   protected title = '助教管理';
+  courseName: string;
 
+  
   taTestList = [
     {id: 'H31234567' , name: '王一明'},
     {id: 'H31234575' , name: '王二明'},
@@ -20,6 +22,7 @@ export class TaSettingComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     super.setTitle(this.title);
+    this.courseName=this.route.snapshot.params['course'];
     this.api.getStatusAfterInit((work: boolean, hasToken: boolean) => {
       if (work) {
         this.TAs = this.taTestList;

@@ -11,7 +11,11 @@ export class SuspendedCourseComponent extends BaseComponent implements OnInit {
 
   date: Date;
 
+  courseName: string;
+
+  
   ngOnInit() {
     super.setTitle(this.title);
+    this.courseName=this.route.snapshot.params['course'];
   }
 }
