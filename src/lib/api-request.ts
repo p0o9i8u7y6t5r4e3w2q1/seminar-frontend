@@ -1,4 +1,9 @@
-import { SwipeCardResult, ScheduleChangeType } from './constant-manager';
+import {
+  SwipeCardResult,
+  ScheduleChangeType,
+  EquipmentType,
+  RoleType,
+} from './constant-manager';
 
 export interface DatePeriodRangeDto {
   date: Date;
@@ -71,4 +76,38 @@ export interface SuspendedCourseDto {
 export interface UpdateSemesterCourseDto {
   time?: string;
   classroomID?: string;
+}
+
+export interface DeleteFormDto {
+  email: string;
+}
+
+export interface FindAvailableEquipmentDto {
+  timeRange: DatePeriodRangeDto;
+  equipType: EquipmentType;
+}
+
+export interface CheckFormDto {
+  roleType: RoleType;
+  isApproved: boolean;
+}
+
+export interface CheckAuthorizationDto {
+  uid: string;
+  classroomID: string;
+}
+
+export interface ChangeRoleDto {
+  userID: string;
+  role: RoleType;
+}
+
+export interface UpdatePasswordDto {
+  oldPassword: string;
+  newPassword: string;
+}
+
+export class LoginDto {
+  userID: string;
+  password: string;
 }
