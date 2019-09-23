@@ -1,6 +1,7 @@
 import { Component, OnInit , Input} from '@angular/core';
 import { BaseComponent } from '../../basic';
 
+
 interface MakeupCourseForm {
   courseID: string;
   classroomID: string;
@@ -18,17 +19,31 @@ interface MakeupCourseForm {
 })
 export class MakeupCourseComponent extends BaseComponent implements OnInit {
   protected title = '新增課程時段';
-  //@Input() course;
+  course:any;
+  readonly ROOT_URL='localhost/3000/course-change'
+  
+  courseID: string;
   courseName: string;
   classroomID = '';
   date: Date;
   startPeriod = '';
   endPeriod = '';
-
+  
+  
   ngOnInit() {
     super.setTitle(this.title);
-    this.courseName=this.route.snapshot.params['course'];
-  
+    this.courseID=this.route.snapshot.params['courseID'];
+    this.course=this.http.get(this.ROOT_URL+'/find/'+this.courseID);
+  }
+  validateAddNewClassForm(){
+    this.http.post(this.ROOT_URL+'makeup',{
+      "scID": this.courseID,
+      "timeRange": {
+      "date": this.date,
+      "startPeriod": this.startPeriod,
+      "endPeriod": this.endPeriod
+    },
+    "classroomID": this.classroomID})
   }
 
   createBody() {

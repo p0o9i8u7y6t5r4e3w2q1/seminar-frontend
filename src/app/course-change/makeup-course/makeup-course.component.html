@@ -2,11 +2,13 @@
   <div class="container sheet" id="whiteForm">
     <h2><i class="plus square icon"></i><strong> 新增課程時段 </strong></h2>
     <hr />
+    
     <form name="myForm" onsubmit="return validateAddNewClassForm()" method="post">
+      
       <table>
         <tr>
           <th><b>課程：</b></th>
-          <td><b>{{courseName}}</b></td>
+          <td><b>{{course.courseName}}</b></td>
         </tr>
         <tr>
           <th><label><b>日期：</b></label></th>

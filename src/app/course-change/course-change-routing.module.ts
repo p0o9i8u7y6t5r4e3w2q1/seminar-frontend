@@ -8,9 +8,9 @@ import { TaSettingComponent } from './ta-setting/ta-setting.component';
 
 const courseChangeRoutes: Routes = [
   { path: 'course-change', component: CourseChangeListComponent },
-  { path: 'course-change/makeup/:course', component: MakeupCourseComponent },
-  { path: 'course-change/suspended/:course', component: SuspendedCourseComponent },
-  { path: 'course-change/ta/:course', component: TaSettingComponent },
+  { path: 'course-change/makeup/:courseID', component: MakeupCourseComponent },
+  { path: 'course-change/suspended/:courseID', component: SuspendedCourseComponent },
+  { path: 'course-change/ta/:courseID', component: TaSettingComponent },
 ];
 
 @NgModule({
