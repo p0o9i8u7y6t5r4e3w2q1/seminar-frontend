@@ -20,7 +20,7 @@ interface MakeupCourseForm {
 export class MakeupCourseComponent extends BaseComponent implements OnInit {
   protected title = '新增課程時段';
   course:any;
-  readonly ROOT_URL='localhost/3000/course-change'
+  readonly ROOT_URL='localhost:3000/course-change'
   
   courseID: string;
   courseName: string;
@@ -36,7 +36,7 @@ export class MakeupCourseComponent extends BaseComponent implements OnInit {
     this.course=this.http.get(this.ROOT_URL+'/find/'+this.courseID);
   }
   validateAddNewClassForm(){
-    this.http.post(this.ROOT_URL+'makeup',{
+    this.http.post(this.ROOT_URL+'/makeup',{
       "scID": this.courseID,
       "timeRange": {
       "date": this.date,
@@ -44,6 +44,9 @@ export class MakeupCourseComponent extends BaseComponent implements OnInit {
       "endPeriod": this.endPeriod
     },
     "classroomID": this.classroomID})
+    .subscribe((result) => {
+      alert("hello from melo");
+    })
   }
 
   createBody() {
