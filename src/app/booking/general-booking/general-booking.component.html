@@ -4,7 +4,7 @@
       <strong>非本系借用申請 </strong><i class="pencil alternate icon"></i>
     </h2>
     <hr />
-    <form name="notiimRequestBorrowForm" onsubmit="return validateBorrowFormNotIIM()" method="post">
+    <form name="notiimRequestBorrowForm" method="post">
       <table>
         <tr>
           <th><label><b>姓名：</b></label></th>
@@ -12,7 +12,7 @@
         </tr>
         <tr>
           <th><label><b>電子信箱：</b></label></th>
-          <td colspan="5"><input type="email"" /></td>
+          <td colspan="5"><input type="email" /></td>
         </tr>
         <tr>
           <th><label><b>日期：</b></label></th>
@@ -20,38 +20,15 @@
         </tr>
         <tr>
           <th><label><b>節數：</b></label></th>
-          <td colspan="5"><select id=start_period>
-              <option value="1">1　(08:10~09:00)</option>
-              <option value="2">2　(09:10~10:00)</option>
-              <option value="3">3　(10:10~11:00)</option>
-              <option value="4">4　(11:10~12:00)</option>
-              <option value="N">N　(12:10~13:00)</option>
-              <option value="5">5　(13:10~14:00)</option>
-              <option value="6">6　(14:10~15:00)</option>
-              <option value="7">7　(15:10~16:00)</option>
-              <option value="8">8　(16:10~17:00)</option>
-              <option value="9">9　(17:10~18:00)</option>
-              <option value="A">A　(18:10~19:00)</option>
-              <option value="B">B　(19:10~20:00)</option>
-              <option value="C">C　(20:10~21:00)</option>
-              <option value="D">D　(21:10~22:00)</option>
+          <td colspan="5">
+            <select [(ngModel)]="form.timeRange.startPeriod" name="startPeriod">
+              <option value="" selected disabled hidden>結束節數</option>
+              <option *ngFor="let period of periodOptions" [value]='period.value'>{{period.title}}</option>
             </select>
             <b>&nbsp;~&nbsp;</b>
-            <select name="section" id=end_period>
-              <option value="1">1　(08:10~09:00)</option>
-              <option value="2">2　(09:10~10:00)</option>
-              <option value="3">3　(10:10~11:00)</option>
-              <option value="4">4　(11:10~12:00)</option>
-              <option value="N">N　(12:10~13:00)</option>
-              <option value="5">5　(13:10~14:00)</option>
-              <option value="6">6　(14:10~15:00)</option>
-              <option value="7">7　(15:10~16:00)</option>
-              <option value="8">8　(16:10~17:00)</option>
-              <option value="9">9　(17:10~18:00)</option>
-              <option value="A">A　(18:10~19:00)</option>
-              <option value="B">B　(19:10~20:00)</option>
-              <option value="C">C　(20:10~21:00)</option>
-              <option value="D">D　(21:10~22:00)</option>
+            <select [(ngModel)]="form.timeRange.endPeriod" name="endPeriod">
+              <option value="" selected disabled hidden>結束節數</option>
+              <option *ngFor="let period of periodOptions" [value]='period.value'>{{period.title}}</option>
             </select>
           </td>
         </tr>
@@ -61,21 +38,9 @@
         </tr>
         <tr>
           <th><label><b>教室：</b></label></th>
-          <td><select id="classroom">
-              <option value="61101">61101</option>
-              <option value="61102">61102</option>
-              <option value="61103">61103</option>
-              <option value="61104">61104</option>
-              <option value="61200">61200(大階梯講堂)</option>
-              <option value="61201">61201</option>
-              <option value="61202">61202</option>
-              <option value="61204">61204</option>
-              <option value="61206">61206(多功能講堂)</option>
-              <option value="61208">61208</option>
-              <option value="61210">61210</option>
-              <option value="貴賓室">2F貴賓室</option>
-              <option value="61321">61321(小會議室)</option>
-              <option value="61306">61306(大會議室)</option>
+          <td><select [(ngModel)]="form.classroomID" name="classroomID">
+            <option value="" selected disabled hidden>請選擇教室</option>
+            <option *ngFor="let room of classroomOptions" [value]='room.value'>{{room.title}}</option>
             </select>
           </td>
           <th><label><b>座位數：</b></label></th>

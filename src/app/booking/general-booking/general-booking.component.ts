@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../basic';
+import { CreateIIMBookingFormDto } from '../../../lib/api-request';
 
 @Component({
   selector: 'app-general-booking',
@@ -8,6 +9,8 @@ import { BaseComponent } from '../../basic';
 })
 export class GeneralBookingComponent extends BaseComponent implements OnInit {
   protected title = '非本系生申請借用';
+
+  form: CreateIIMBookingFormDto = {} as CreateIIMBookingFormDto;
 
   ngOnInit() {
     super.setTitle(this.title);

@@ -88,7 +88,6 @@ export interface FindAvailableEquipmentDto {
 }
 
 export interface CheckFormDto {
-  roleType: RoleType;
   isApproved: boolean;
 }
 
@@ -107,7 +106,7 @@ export interface UpdatePasswordDto {
   newPassword: string;
 }
 
-export class LoginDto {
+export interface LoginDto {
   userID: string;
   password: string;
 }

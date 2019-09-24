@@ -1,3 +1,5 @@
+import { EquipmentType } from '../../../lib';
+
 export const PERIOD_OPTIONS = [
   { value: '0', title: '0　(07: 10~08: 00)' },
   { value: '1', title: '1　(08: 10~09: 00)' },
@@ -32,4 +34,14 @@ export const CLASSROOM_OPTIONS = [
   { value: '61000', title: '2F貴賓室' },
   { value: '61321', title: '61321(小會議室)' },
   { value: '61306', title: '61306(大會議室)' },
+];
+
+export const EQUIPMENT_TYPE_OPTIONS = [
+  { value: EquipmentType.Projector, title: '投影機' },
+  { value: EquipmentType.Microphone, title: '麥克風' },
+  { value: EquipmentType.MiniMic, title: '小蜜蜂' },
+  { value: EquipmentType.PresentationRemote, title: '簡報筆' },
+  { value: EquipmentType.ProjectionScreen, title: '投影幕' },
+  { value: EquipmentType.ExtensionCord, title: '延長線' },
+  { value: EquipmentType.Laptop, title: '筆電' },
 ];
