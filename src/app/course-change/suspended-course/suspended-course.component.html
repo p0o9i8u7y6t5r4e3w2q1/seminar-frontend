@@ -6,12 +6,12 @@
     <hr />
     <div class="group">
       <label>課程：</label>
-      <input type="text" id="delete_class_name" value={{courseName}} readonly />
+      <input type="text" id="delete_class_name" value={{course.courseName}} readonly />
     </div>
 
     <div class="group">
       <label><b>日期：</b></label>
-      <input type="date" id="delete_date" [(ngModel)]="date"/>
+      <input type="date" id="delete_date" [(ngModel)]="date" (change)="queryClassTime"/>
     </div>
     <table id="delete_class">
       <tr>

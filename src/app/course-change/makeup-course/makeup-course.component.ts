@@ -19,8 +19,7 @@ interface MakeupCourseForm {
 })
 export class MakeupCourseComponent extends BaseComponent implements OnInit {
   protected title = '新增課程時段';
-  course:any;
-  readonly ROOT_URL='localhost:3000/course-change'
+  currentCourse:any;
   
   courseID: string;
   courseName: string;
@@ -33,10 +32,15 @@ export class MakeupCourseComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     super.setTitle(this.title);
     this.courseID=this.route.snapshot.params['courseID'];
-    this.course=this.http.get(this.ROOT_URL+'/find/'+this.courseID);
+    console.log(this.courseID);
+    this.api.get('/semester-course/findOne/'+this.courseID)
+    .subscribe((result)=>{
+      this.currentCourse=result;
+    })
+    console.log(this.currentCourse);
   }
   validateAddNewClassForm(){
-    this.http.post(this.ROOT_URL+'/makeup',{
+    this.api.post('/course-change/makeup/'+this.courseID,{
       "scID": this.courseID,
       "timeRange": {
       "date": this.date,
@@ -45,8 +49,11 @@ export class MakeupCourseComponent extends BaseComponent implements OnInit {
     },
     "classroomID": this.classroomID})
     .subscribe((result) => {
-      alert("hello from melo");
+      alert("補課申請已送出");
+      this.router.navigate(['course-change']);
     })
+    
+
   }
 
   createBody() {

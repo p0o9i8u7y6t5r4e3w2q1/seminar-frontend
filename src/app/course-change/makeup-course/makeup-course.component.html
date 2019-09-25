@@ -3,12 +3,12 @@
     <h2><i class="plus square icon"></i><strong> 新增課程時段 </strong></h2>
     <hr />
     
-    <form name="myForm" onsubmit="return validateAddNewClassForm()" method="post">
+    <form name="myForm" method="post">
       
       <table>
         <tr>
           <th><b>課程：</b></th>
-          <td><b>{{course.courseName}}</b></td>
+          <td><b>{{currentCourse.course}}</b></td>
         </tr>
         <tr>
           <th><label><b>日期：</b></label></th>
@@ -37,7 +37,7 @@
         </tr>
       </table>
       <div>
-        <button class="button" type="submit">送出申請</button>
+        <button (click)="validateAddNewClassForm()" class="button" type="submit">送出申請</button>
         <button id="inverseButton" onclick="location.href='/course-change'" class="button" title="返回" type="button">
           返回</button>
       </div>
