@@ -15,4 +15,8 @@ export class GeneralBookingComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     super.setTitle(this.title);
   }
+
+  submit() {
+    this.api.post('/booking/general', this.form);
+  }
 }

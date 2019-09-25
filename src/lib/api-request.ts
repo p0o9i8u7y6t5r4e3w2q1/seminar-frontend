@@ -37,7 +37,6 @@ export interface CreateIIMBookingFormDto {
 }
 
 export interface CreateMakeupCourseFormDto {
-  scID: string;
   timeRange: DatePeriodRangeDto;
   classroomID: string;
 }
@@ -69,8 +68,8 @@ export interface CreateUserDto {
 }
 
 export interface SuspendedCourseDto {
-  scID: string;
   timeRange: DatePeriodRangeDto;
+  classroomID: string;
 }
 
 export interface UpdateSemesterCourseDto {

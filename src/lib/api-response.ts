@@ -43,3 +43,11 @@ export interface Equipment {
   status: number;
   type: string;
 }
+
+export interface CardRecord {
+  id: number;
+  classroomID: string;
+  recordTime: Date;
+  swipeResult: number;
+  cardOwner: string;
+}
