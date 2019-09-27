@@ -10,9 +10,9 @@
       </tr>
       <tr *ngFor="let course of courses">
         <th>{{course.name}}</th>
-        <td><a class="link" routerLink="/course-change/makeup" routerLinkActive="active">新增</a></td>
-        <td><a class="link" routerLink="/course-change/suspended" routerLinkActive="active">刪除</a></td>
-        <td><a class="link" routerLink="/course-change/ta" routerLinkActive="active">修改</a></td>
+        <td><a class="link" [routerLink]="['/course-change/makeup/'+course.id]" routerLinkActive="active" >新增</a></td>
+        <td><a class="link" [routerLink]="['/course-change/suspended/'+course.id]" routerLinkActive="active">刪除</a></td>
+        <td><a class="link" [routerLink]="['/course-change/ta/'+course.id]" routerLinkActive="active">修改</a></td>
       </tr>
     </table>
   </div>
