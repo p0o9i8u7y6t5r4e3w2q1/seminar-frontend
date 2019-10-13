@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../basic';
-import { CreateIIMBookingFormDto } from '../../../lib/api-request';
+import { CreateGeneralBookingFormDto } from '../../../lib/api-request';
 
 @Component({
   selector: 'app-general-booking',
@@ -10,7 +10,17 @@ import { CreateIIMBookingFormDto } from '../../../lib/api-request';
 export class GeneralBookingComponent extends BaseComponent implements OnInit {
   protected title = '非本系生申請借用';
 
-  form: CreateIIMBookingFormDto = {} as CreateIIMBookingFormDto;
+  form: CreateGeneralBookingFormDto = {
+    applicantName: '',
+    applicantEmail: '',
+    reason: '',
+    classroomID: '',
+    timeRange: {
+      date: null,
+      startPeriod: '',
+      endPeriod: '',
+    },
+  };
 
   ngOnInit() {
     super.setTitle(this.title);

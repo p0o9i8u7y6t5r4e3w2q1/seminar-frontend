@@ -19,8 +19,8 @@ export class CourseChangeListComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     super.setTitle(this.title);
-    this.api.getStatusAfterInit((work: boolean, hasToken: boolean) => {
-      if (work) {
+    this.api.afterInit(() => {
+      if (this.api.isServerWork) {
         this.courses = this.courseTestList;
       } else {
         this.courses = this.courseTestList;

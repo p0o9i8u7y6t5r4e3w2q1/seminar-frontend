@@ -18,16 +18,18 @@ export class HeaderComponent extends BaseComponent implements OnInit {
     { title: '申請借用教室與設備', routerName: '/booking' },
     { title: '查詢申請進度', routerName: '/query-form' },
     { title: '課程管理', routerName: '/course-change' },
-    { title: '借用審核', routerName: '/check-form' },
+    { title: '審核申請', routerName: '/check-form' },
     { title: '角色管理', routerName: '/role-setting' },
     { title: '學期課程', routerName: '/semester-course' },
     { title: '刷卡紀錄', routerName: '/card-record' },
   ];
 
   welcomeStr: string;
+  pendingFormCount = 5;
 
   ngOnInit() {
-    this.authService.getUserAfterInit(user => {
+    this.userService.afterInit(() => {
+      const user = this.userService.getUser();
       this.welcomeStr =
         user.name + ' ' + this.getRoleName(user.roleID) + ' 您好！';
     });
@@ -49,29 +51,29 @@ export class HeaderComponent extends BaseComponent implements OnInit {
   public display(index: number): boolean {
     switch (index) {
       case 3:
-        return this.authService.hasAuth(Auth.COURSE_CHANGE);
+        return this.userService.hasAuth(Auth.COURSE_CHANGE);
       case 4:
         return (
-          this.authService.hasAuth(Auth.CHECK_MAKEUP) ||
-          this.authService.hasAuth(Auth.CHECK_BOOKING)
+          this.userService.hasAuth(Auth.CHECK_MAKEUP) ||
+          this.userService.hasAuth(Auth.CHECK_BOOKING)
         );
       case 5:
-        return this.authService.hasAuth(Auth.MEMEBER_MANAGEMENT);
+        return this.userService.hasAuth(Auth.MEMEBER_MANAGEMENT);
       case 6:
-        return this.authService.hasAuth(Auth.SEMESTER_COURSE);
+        return this.userService.hasAuth(Auth.SEMESTER_COURSE);
       case 7:
-        return this.authService.hasAuth(Auth.CARD_RECORD);
+        return this.userService.hasAuth(Auth.CARD_RECORD);
       default:
         return true;
     }
   }
 
   public isLogin(): boolean {
-    return this.authService.hasAuth(Auth.LOGIN);
+    return this.userService.hasAuth(Auth.LOGIN);
   }
 
   public logout() {
-    this.authService.logout();
+    this.userService.logout();
     this.router.navigate(['/']);
   }
 }

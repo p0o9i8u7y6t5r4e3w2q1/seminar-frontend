@@ -4,9 +4,12 @@
     <hr />
     <b>系主任：</b>
     <select name="section">
-      <option value="1">王惠嘉　教授</option>
-      <option value="2">高　強　教授</option>
-      <option value="3">利德江　教授</option>
+      <ng-container *ngFor="let teacher of teachers">
+        <option *ngIf="teacher.id !== deptHead.id; else deptHeadOption" [value]="teacher.id">{{teacher.name}}</option>
+        <ng-template #deptHeadOption>
+          <option [value]="teacher.id" selected>{{teacher.name}}</option>
+        </ng-template>
+      </ng-container>
     </select>
     <button class="button">儲存</button><br />
   </div>
@@ -47,34 +50,9 @@
             <th><b>教職員ID</b></th>
             <th><b>刪除</b></th>
           </tr>
-          <tr>
-            <td>王逸琳</td>
-            <td>123456789</td>
-            <td><input type="checkbox" name="delete" value="1" /></td>
-          </tr>
-          <tr>
-            <td>王維聰</td>
-            <td>222221123</td>
-            <td><input type="checkbox" name="delete" value="1" /></td>
-          </tr>
-          <tr>
-            <td>陳梁軒</td>
-            <td>222221123</td>
-            <td><input type="checkbox" name="delete" value="1" /></td>
-          </tr>
-          <tr>
-            <td>謝中奇</td>
-            <td>222221123</td>
-            <td><input type="checkbox" name="delete" value="1" /></td>
-          </tr>
-          <tr>
-            <td>黃宇翔</td>
-            <td>222221123</td>
-            <td><input type="checkbox" name="delete" value="1" /></td>
-          </tr>
-          <tr>
-            <td>翁慈宗</td>
-            <td>222221123</td>
+          <tr *ngFor="let teacher of teachers">
+            <td>{{teacher.name}}</td>
+            <td>{{teacher.id}}</td>
             <td><input type="checkbox" name="delete" value="1" /></td>
           </tr>
         </table>

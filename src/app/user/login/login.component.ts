@@ -17,7 +17,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   login() {
-    this.authService.login(this.userID, this.password).subscribe({
+    this.userService.login(this.userID, this.password).subscribe({
       next: () => {
         alert('登入成功');
         this.router.navigate(['/course-change']);

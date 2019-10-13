@@ -5,23 +5,16 @@ import { ApiService } from './api.service';
 import { TokenService } from './token.service';
 import { of, throwError, Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
+import { User } from '../../../lib/api-response';
 
-interface User {
-  id: string;
-  email: string;
-  name: string;
-  roleID: number;
-  authIDs: Auth[];
-}
-
-type UserCallback = (user: User) => void;
+type InitCallback = () => void;
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class UserService {
   private auths: boolean[] = new Array<boolean>(8);
-  private userCallbacks: UserCallback[] = [];
+  private initCallbacks: InitCallback[] = [];
   private user: User;
   private init = false;
 
@@ -98,10 +91,10 @@ export class AuthService {
     private readonly tokenService: TokenService,
     protected readonly router: Router,
   ) {
-    this.api.getStatusAfterInit((serverWork: boolean, hasToken: boolean) => {
-      if (serverWork && hasToken) {
+    this.api.afterInit(() => {
+      if (this.api.isServerWork() && this.tokenService.hasToken()) {
         this.fetchUser();
-      } else if (!serverWork) {
+      } else if (this.api.isServerWork()) {
         this.login = this.loginTest;
         this.logout = this.logoutTest;
         alert(
@@ -117,16 +110,16 @@ export class AuthService {
   }
 
   fetchUser() {
-    this.api.get('/user/userInfo').subscribe({
+    this.api.get('/user/info').subscribe({
       next: (data: any) => {
         this.setUser(data);
         this.init = true;
-        this.runCallbacks(this.user);
+        this.runCallbacks();
       },
       error: error => {
-        console.log(error);
+        this.tokenService.removeToken();
         this.init = true;
-        this.runCallbacks(this.user);
+        this.runCallbacks();
       },
     });
   }
@@ -148,7 +141,6 @@ export class AuthService {
   }
 
   private setUser(user: User) {
-    console.log({user})
     this.user = user;
     this.setAuths(this.user.authIDs);
     this.auths[Auth.LOGIN] = true;
@@ -192,18 +184,18 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  private runCallbacks(user: User) {
-    while (this.userCallbacks.length > 0) {
-      const callback = this.userCallbacks.shift();
-      callback(user);
+  private runCallbacks() {
+    while (this.initCallbacks.length > 0) {
+      const callback = this.initCallbacks.shift();
+      callback();
     }
   }
 
-  getUserAfterInit(callback: UserCallback) {
+  afterInit(callback: () => void) {
     if (!this.init) {
-      this.userCallbacks.push(callback);
+      this.initCallbacks.push(callback);
     } else {
-      callback(this.user);
+      callback();
     }
   }
 }

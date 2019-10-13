@@ -9,7 +9,15 @@ import { BaseComponent } from '../../basic';
 export class QueryFormComponent extends BaseComponent implements OnInit {
   protected title = '查詢申請進度';
 
+  formID: string;
+
   ngOnInit() {
     this.setTitle(this.title);
+  }
+
+  query() {
+    this.router.navigate(['query-form/result'], {
+      state: { formID: this.formID },
+    });
   }
 }

@@ -10,6 +10,9 @@ export class ClassroomScheduleComponent extends BaseComponent
   implements OnInit {
   protected title = '查詢可借用時段';
 
+  classroomID: string = '';
+  date: Date = null;
+
   ngOnInit() {
     super.setTitle(this.title);
   }

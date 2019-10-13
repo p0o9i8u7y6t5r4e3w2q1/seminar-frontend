@@ -7,7 +7,7 @@ import { BaseComponent, Auth } from '../../basic';
   styleUrls: ['./check-form.component.css'],
 })
 export class CheckFormComponent extends BaseComponent implements OnInit {
-  protected title = '借用審核';
+  protected title = '審核申請';
 
   makeupTestList = [
     {
@@ -34,7 +34,32 @@ export class CheckFormComponent extends BaseComponent implements OnInit {
     },
   ];
 
-  bookingTestList = [{}];
+  bookingTestList = [
+    {
+      applicantRole: '學生',
+      applicant: 'H34055041',
+      reason: '開趴',
+      classroomID: '61101',
+      equipments: ['投影機', '小蜜蜂'],
+      timeRange: {
+        date: new Date('2019-07-03'),
+        startPeriod: '7',
+        endPeriod: '9',
+      },
+    },
+    {
+      applicantRole: '學生',
+      applicant: 'H34054087',
+      reason: '系學會大會',
+      classroomID: '61102',
+      equipments: null,
+      timeRange: {
+        date: new Date('2019-09-04'),
+        startPeriod: '6',
+        endPeriod: '8',
+      },
+    },
+  ];
 
   makeupAuth = false;
   bookingAuth = false;
@@ -44,11 +69,12 @@ export class CheckFormComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     super.setTitle(this.title);
-    this.authService.getUserAfterInit(user => {
-      this.makeupAuth = this.authService.hasAuth(Auth.CHECK_MAKEUP);
-      this.bookingAuth = this.authService.hasAuth(Auth.CHECK_BOOKING);
+    this.userService.afterInit(() => {
+      this.makeupAuth = this.userService.hasAuth(Auth.CHECK_MAKEUP);
+      this.bookingAuth = this.userService.hasAuth(Auth.CHECK_BOOKING);
     });
 
     this.makeups = this.makeupTestList;
+    this.bookings = this.bookingTestList;
   }
 }

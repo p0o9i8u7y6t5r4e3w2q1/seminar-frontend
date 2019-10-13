@@ -7,11 +7,7 @@ import {
 import { TokenService, TOKEN } from './token.service';
 import { map } from 'rxjs/operators';
 
-type InitCallback = (work: boolean, hasToken: boolean) => void;
-interface ErrorCallback {
-  status: number;
-  callback: (error: HttpErrorResponse) => void;
-}
+type InitCallback = () => void;
 
 @Injectable({
   providedIn: 'root',
@@ -21,13 +17,12 @@ export class ApiService {
   private serverWork: boolean;
   private init = false;
   private initCallbacks: InitCallback[] = [];
-  private errorCallbacks: ErrorCallback[] = [];
 
   private FETCH_TOKEN = map((data: any) => {
     if (data && data[TOKEN]) {
       this.tokenService.token = data[TOKEN];
     }
-    console.log(data.result)
+    console.log(data.result);
     return data.result;
   });
 
@@ -43,35 +38,28 @@ export class ApiService {
       next: () => {
         this.serverWork = true;
         this.init = true;
-        this.runCallbacks(this.serverWork);
+        this.runCallbacks();
       },
       error: error => {
-        this.serverWork = error.status !== 400 && error.status !== 0;
+        this.serverWork = error.status !== 404 && error.status !== 0;
         this.init = true;
-        this.runCallbacks(this.serverWork);
+        this.runCallbacks();
       },
     });
   }
 
-  getStatusAfterInit(callback: InitCallback) {
+  afterInit(callback: () => void) {
     if (!this.init) {
       this.initCallbacks.push(callback);
     } else {
-      callback(this.serverWork, this.tokenService.hasToken());
+      callback();
     }
   }
 
-  addErrorCallback(
-    status: number,
-    callback: (error: HttpErrorResponse) => void,
-  ) {
-    this.errorCallbacks.push({ status, callback });
-  }
-
-  private runCallbacks(serverWork: boolean) {
+  private runCallbacks() {
     while (this.initCallbacks.length > 0) {
       const callback = this.initCallbacks.shift();
-      callback(serverWork, this.tokenService.hasToken());
+      callback();
     }
   }
 

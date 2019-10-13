@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MakeupCourseComponent } from './makeup-course/makeup-course.component';
-import { SuspendedCourseComponent } from './suspended-course/suspended-course.component';
-import { TaSettingComponent } from './ta-setting/ta-setting.component';
-import { CourseChangeRoutingModule } from './course-change-routing.module';
-import { CourseChangeListComponent } from './course-change-list/course-change-list.component';
+import {
+  CourseChangeComponents,
+  CourseChangeRoutes,
+} from './course-change.setting';
 
 @NgModule({
-  declarations: [
-    MakeupCourseComponent,
-    SuspendedCourseComponent,
-    TaSettingComponent,
-    CourseChangeListComponent,
+  declarations: CourseChangeComponents,
+  imports: [
+    RouterModule.forChild(CourseChangeRoutes),
+    CommonModule,
+    FormsModule,
   ],
-  imports: [CommonModule, CourseChangeRoutingModule, FormsModule],
 })
 export class CourseChangeModule {}

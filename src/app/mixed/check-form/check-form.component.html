@@ -44,27 +44,14 @@
         <th>申請人</th>
         <th>審核結果</th>
       </tr>
-      <tr>
-        <td>開趴</td>
-        <td>61101</td>
-        <td>投影機</td>
-        <td>2019/07/03</td>
-        <td>1</td>
-        <td>9</td>
-        <td>XXX</td>
-        <td>
-          <button class="button">通過</button>
-          <button class="button">拒絕</button>
-        </td>
-      </tr>
-      <tr>
-        <td>系學會大會</td>
-        <td>61102</td>
-        <td>無</td>
-        <td>2019/09/04</td>
-        <td>6</td>
-        <td>8</td>
-        <td>OOO</td>
+      <tr *ngFor="let booking of bookings">
+        <td>{{booking.reason}}</td>
+        <td>{{booking.classroomID}}</td>
+        <td>{{(booking.equipments)? booking.equipments.join(', ') : '無'}}</td>
+        <td>{{booking.timeRange.date | date:'yyyy/MM/dd'}}</td>
+        <td>{{booking.timeRange.startPeriod}}</td>
+        <td>{{booking.timeRange.endPeriod}}</td>
+        <td>{{booking.applicant}}</td>
         <td>
           <button class="button">通過</button>
           <button class="button">拒絕</button>

@@ -23,7 +23,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     super.setTitle(this.title);
-    this.authService.getUserAfterInit((user: any) => this.initUser(user));
+    this.userService.afterInit(() => this.initUser(this.userService.getUser()));
   }
 
   initUser(user: any) {

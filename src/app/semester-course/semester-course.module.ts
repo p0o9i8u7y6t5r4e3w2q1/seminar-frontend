@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SemesterCourseListComponent } from './semester-course-list/semester-course-list.component';
-import { SemesterCourseComponent } from './semester-course/semester-course.component';
-import { SemesterCourseRouteModule } from './semester-course-route.module';
+import {
+  SemesterCourseComponents,
+  SemesterCourseRoutes,
+} from './semester-course.setting';
 
 @NgModule({
-  declarations: [SemesterCourseListComponent, SemesterCourseComponent],
-  imports: [CommonModule, SemesterCourseRouteModule, FormsModule],
+  declarations: SemesterCourseComponents,
+  imports: [
+    RouterModule.forChild(SemesterCourseRoutes),
+    CommonModule,
+    FormsModule,
+  ],
 })
 export class SemesterCourseModule {}

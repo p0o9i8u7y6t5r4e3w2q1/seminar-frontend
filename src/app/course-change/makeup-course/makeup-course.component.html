@@ -12,16 +12,16 @@
         </tr>
         <tr>
           <th><label><b>日期：</b></label></th>
-          <td><input type="date" id="new_class_date" name="date" [(ngModel)]="date" /></td>
+          <td><input type="date" id="new_class_date" name="date" [(ngModel)]="form.timeRange.date" /></td>
         </tr>
         <tr>
           <th><label><b>節數：</b></label></th>
-          <td><select id="new_class_start_period" name="startPeriod" [(ngModel)]="startPeriod">
+          <td><select id="new_class_start_period" name="startPeriod" [(ngModel)]="form.timeRange.startPeriod">
               <option value="" selected disabled hidden>起始節數</option>
               <option *ngFor="let period of periodOptions" [value]='period.value'>{{period.title}}</option>
             </select>
             <b>&nbsp;~&nbsp;</b>
-            <select id="new_class_end_period" name="endPeriod" [(ngModel)]="endPeriod">
+            <select id="new_class_end_period" name="endPeriod" [(ngModel)]="form.timeRange.endPeriod">
               <option value="" selected disabled hidden>結束節數</option>
               <option *ngFor="let period of periodOptions" [value]='period.value'>{{period.title}}</option>
             </select>
@@ -29,7 +29,7 @@
         </tr>
         <tr>
           <th><label><b>教室：</b></label></th>
-          <td><select id="new_class_classroom" name="classroomID" [(ngModel)]="classroomID">
+          <td><select id="new_class_classroom" name="classroomID" [(ngModel)]="form.classroomID">
               <option value="" selected disabled hidden>請選擇教室</option>
               <option *ngFor="let room of classroomOptions" [value]='room.value'>{{room.title}}</option>
             </select>

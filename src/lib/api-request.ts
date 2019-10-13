@@ -96,8 +96,7 @@ export interface CheckAuthorizationDto {
 }
 
 export interface ChangeRoleDto {
-  userID: string;
-  role: RoleType;
+  roleID: RoleType;
 }
 
 export interface UpdatePasswordDto {

@@ -10,7 +10,17 @@ import { CreateIIMBookingFormDto } from '../../../lib/api-request';
 export class IimBookingComponent extends BaseComponent implements OnInit {
   protected title = '本系生申請借用';
 
-  form: CreateIIMBookingFormDto = {} as CreateIIMBookingFormDto;
+  form: CreateIIMBookingFormDto = {
+    applicantID: '',
+    applicantEmail: '',
+    reason: '',
+    classroomID: '',
+    timeRange: {
+      date: null,
+      startPeriod: '',
+      endPeriod: '',
+    },
+  };
 
   ngOnInit() {
     super.setTitle(this.title);
