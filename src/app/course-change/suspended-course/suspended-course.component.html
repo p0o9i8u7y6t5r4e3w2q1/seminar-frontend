@@ -11,7 +11,7 @@
 
     <div class="group">
       <label><b>日期：</b></label>
-      <input type="date" id="delete_date" [(ngModel)]="date" (change)="queryClassTime"/>
+      <input type="date" id="delete_date" [(ngModel)]="dto.timeRange.date" (change)="queryClassTime"/>
     </div>
     <table id="delete_class">
       <tr>

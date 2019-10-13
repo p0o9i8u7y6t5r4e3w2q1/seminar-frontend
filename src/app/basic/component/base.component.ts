@@ -6,8 +6,8 @@ import { CLASSROOM_OPTIONS, PERIOD_OPTIONS } from '../constant/basic.constant';
 
 export abstract class BaseComponent {
   protected init: () => void;
-  protected readonly classroomOptions = CLASSROOM_OPTIONS;
-  protected readonly periodOptions = PERIOD_OPTIONS;
+  public readonly classroomOptions = CLASSROOM_OPTIONS;
+  public readonly periodOptions = PERIOD_OPTIONS;
 
   constructor(
     protected readonly titleService: Title,

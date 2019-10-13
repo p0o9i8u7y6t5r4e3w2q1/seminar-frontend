@@ -5,18 +5,15 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { TokenService, TOKEN } from './token.service';
-import { map } from 'rxjs/operators';
-
-type InitCallback = () => void;
+import { of, Observable } from 'rxjs';
+import { map, shareReplay, catchError, timeout } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
   private baseUrl = 'http://localhost:3000/api';
-  private serverWork: boolean;
-  private init = false;
-  private initCallbacks: InitCallback[] = [];
+  public readonly serverWork$: Observable<boolean>;
 
   private FETCH_TOKEN = map((data: any) => {
     if (data && data[TOKEN]) {
@@ -30,41 +27,15 @@ export class ApiService {
     private readonly http: HttpClient,
     private readonly tokenService: TokenService,
   ) {
-    this.initService();
-  }
-
-  initService() {
-    this.get('/app').subscribe({
-      next: () => {
-        this.serverWork = true;
-        this.init = true;
-        this.runCallbacks();
-      },
-      error: error => {
-        this.serverWork = error.status !== 404 && error.status !== 0;
-        this.init = true;
-        this.runCallbacks();
-      },
-    });
-  }
-
-  afterInit(callback: () => void) {
-    if (!this.init) {
-      this.initCallbacks.push(callback);
-    } else {
-      callback();
-    }
-  }
-
-  private runCallbacks() {
-    while (this.initCallbacks.length > 0) {
-      const callback = this.initCallbacks.shift();
-      callback();
-    }
-  }
-
-  isServerWork() {
-    return this.serverWork;
+    this.serverWork$ = this.get('/app').pipe(
+      timeout(700),
+      map(() => true),
+      catchError(error => {
+        console.log(error);
+        return of(false);
+      }),
+      shareReplay(1),
+    );
   }
 
   getApiUrl(apiName: string) {

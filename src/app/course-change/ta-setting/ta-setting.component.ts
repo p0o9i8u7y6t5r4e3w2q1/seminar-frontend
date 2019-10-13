@@ -22,8 +22,8 @@ export class TaSettingComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     super.setTitle(this.title);
     this.courseName = this.route.snapshot.params['course'];
-    this.api.afterInit(() => {
-      if (this.api.isServerWork()) {
+    this.api.serverWork$.subscribe((serverWork: boolean) => {
+      if (serverWork) {
         this.TAs = this.taTestList;
       } else {
         this.TAs = this.taTestList;

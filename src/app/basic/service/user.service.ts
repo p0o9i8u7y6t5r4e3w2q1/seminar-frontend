@@ -3,20 +3,17 @@ import { Router } from '@angular/router';
 import { Auth } from '../constant/auth.constant';
 import { ApiService } from './api.service';
 import { TokenService } from './token.service';
-import { of, throwError, Observable } from 'rxjs';
+import { of, throwError, Observable, BehaviorSubject } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { User } from '../../../lib/api-response';
-
-type InitCallback = () => void;
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private auths: boolean[] = new Array<boolean>(8);
-  private initCallbacks: InitCallback[] = [];
-  private user: User;
-  private init = false;
+  private user: User = null;
+  isLoginSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
   public NOT_LOGIN_HANDLE = catchError(error => {
     if (error === 401) {
@@ -91,10 +88,13 @@ export class UserService {
     private readonly tokenService: TokenService,
     protected readonly router: Router,
   ) {
-    this.api.afterInit(() => {
-      if (this.api.isServerWork() && this.tokenService.hasToken()) {
+    this.api.serverWork$.subscribe((serverWork: boolean) => {
+      if (serverWork && this.tokenService.hasToken()) {
         this.fetchUser();
-      } else if (this.api.isServerWork()) {
+      } else if (serverWork) {
+        // this.init = true;
+        this.isLoginSubject.next(false);
+      } else {
         this.login = this.loginTest;
         this.logout = this.logoutTest;
         alert(
@@ -104,23 +104,16 @@ export class UserService {
             '3. 帳號：z1000002,  密碼：0000, 姓名：王惠嘉, 身份：系主任\n' +
             '4. 帳號：z0000002,  密碼：0000, 姓名：陳賢豪, 身份：系辦\n',
         );
-        this.init = true;
+        // this.init = true;
+        this.isLoginSubject.next(false);
       }
     });
   }
 
   fetchUser() {
     this.api.get('/user/info').subscribe({
-      next: (data: any) => {
-        this.setUser(data);
-        this.init = true;
-        this.runCallbacks();
-      },
-      error: error => {
-        this.tokenService.removeToken();
-        this.init = true;
-        this.runCallbacks();
-      },
+      next: data => this.setUser(data),
+      error: error => this.clearUser(),
     });
   }
 
@@ -144,15 +137,17 @@ export class UserService {
     this.user = user;
     this.setAuths(this.user.authIDs);
     this.auths[Auth.LOGIN] = true;
-  }
-
-  getUser() {
-    return this.user;
+    this.isLoginSubject.next(true);
   }
 
   private clearUser() {
     this.auths.fill(false);
     this.user = null;
+    this.isLoginSubject.next(false);
+  }
+
+  getUser() {
+    return this.user;
   }
 
   private setAuths(auths: Auth[]) {
@@ -184,18 +179,7 @@ export class UserService {
     this.router.navigate(['/']);
   }
 
-  private runCallbacks() {
-    while (this.initCallbacks.length > 0) {
-      const callback = this.initCallbacks.shift();
-      callback();
-    }
-  }
-
-  afterInit(callback: () => void) {
-    if (!this.init) {
-      this.initCallbacks.push(callback);
-    } else {
-      callback();
-    }
+  get isLogin$(): Observable<boolean> {
+    return this.isLoginSubject.asObservable();
   }
 }

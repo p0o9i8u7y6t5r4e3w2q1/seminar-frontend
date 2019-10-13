@@ -14,7 +14,14 @@ export class SuspendedCourseComponent extends BaseComponent implements OnInit {
 
   courseID: string;
   courseName: '';
-  dto: SuspendedCourseDto = {} as SuspendedCourseDto;
+  dto: SuspendedCourseDto = {
+    classroomID: '',
+    timeRange: {
+      date: null,
+      startPeriod: null,
+      endPeriod: null,
+    },
+  };
 
   ngOnInit() {
     super.setTitle(this.title);

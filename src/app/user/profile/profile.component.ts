@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { take } from 'rxjs/operators';
 import { BaseComponent } from '../../basic';
+import { User } from '../../../lib/api-response';
 
 @Component({
   selector: 'app-profile',
@@ -9,11 +11,7 @@ import { BaseComponent } from '../../basic';
 export class ProfileComponent extends BaseComponent implements OnInit {
   protected title = '個資修改';
 
-  user: any = {
-    id: '',
-    name: '',
-    email: '',
-  };
+  user: User = {} as User;
 
   password: any = {
     oldPwd: '',
@@ -23,7 +21,16 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     super.setTitle(this.title);
-    this.userService.afterInit(() => this.initUser(this.userService.getUser()));
+    this.userService
+      .isLogin$.pipe(take(1))
+      .subscribe((isLogin: boolean) => {
+        if (isLogin) {
+          this.user = this.userService.getUser();
+        } else {
+          alert('尚未登入，請登入再操作');
+          this.router.navigate(['/']);
+        }
+      });
   }
 
   initUser(user: any) {

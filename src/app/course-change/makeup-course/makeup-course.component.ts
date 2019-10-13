@@ -29,7 +29,6 @@ export class MakeupCourseComponent extends BaseComponent implements OnInit {
     console.log(this.courseID);
     this.api.get(`/semester-courses/${this.courseID}`).subscribe(result => {
       this.currentCourse = result;
-      console.log(this.currentCourse);
     });
   }
 

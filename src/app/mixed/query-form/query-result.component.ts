@@ -9,8 +9,6 @@ import { BaseComponent } from '../../basic';
 export class QueryResultComponent extends BaseComponent implements OnInit {
   protected title = '申請進度結果';
 
-  @Input() state: string;
-
   ngOnInit() {
     this.setTitle(this.title);
   }

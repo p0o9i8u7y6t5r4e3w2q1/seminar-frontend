@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseComponent } from '../base.component';
+import { Router } from '@angular/router';
 import { Auth } from '../../constant/auth.constant';
+import { ROLE_NAME } from '../../constant/basic.constant';
+import { UserService } from '../../service/user.service';
 
 interface MenuItem {
   title: string;
@@ -12,7 +14,7 @@ interface MenuItem {
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent extends BaseComponent implements OnInit {
+export class HeaderComponent implements OnInit {
   menuItems: MenuItem[] = [
     { title: '查詢可借用時段', routerName: '/classroom-schedule' },
     { title: '申請借用教室與設備', routerName: '/booking' },
@@ -25,27 +27,19 @@ export class HeaderComponent extends BaseComponent implements OnInit {
   ];
 
   welcomeStr: string;
-  pendingFormCount = 5;
+
+  constructor(
+    private readonly userService: UserService,
+    private readonly router: Router,
+  ) {}
 
   ngOnInit() {
-    this.userService.afterInit(() => {
-      const user = this.userService.getUser();
-      this.welcomeStr =
-        user.name + ' ' + this.getRoleName(user.roleID) + ' 您好！';
+    this.userService.isLogin$.subscribe((isLogin: boolean) => {
+      if (isLogin) {
+        const user = this.userService.getUser();
+        this.welcomeStr = `${user.name}  ${ROLE_NAME[user.roleID]} 您好！`;
+      }
     });
-  }
-
-  getRoleName(type: number) {
-    switch (type) {
-      case 1:
-        return '助教';
-      case 2:
-        return '教授';
-      case 3:
-        return '系主任';
-      case 4:
-        return '系辦人員';
-    }
   }
 
   public display(index: number): boolean {

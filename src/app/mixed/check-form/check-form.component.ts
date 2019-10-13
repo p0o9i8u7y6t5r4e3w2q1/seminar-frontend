@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent, Auth } from '../../basic';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-check-form',
@@ -69,7 +70,7 @@ export class CheckFormComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     super.setTitle(this.title);
-    this.userService.afterInit(() => {
+    this.userService.isLogin$.pipe(take(1)).subscribe(() => {
       this.makeupAuth = this.userService.hasAuth(Auth.CHECK_MAKEUP);
       this.bookingAuth = this.userService.hasAuth(Auth.CHECK_BOOKING);
     });
