@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth } from '../constant/auth.constant';
 import { ApiService } from './api.service';
-import { TokenService } from './token.service';
+import { StorageService } from './storage.service';
 import { of, throwError, Observable, BehaviorSubject } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { User } from '../../../lib/api-response';
@@ -78,18 +78,18 @@ export class UserService {
   }
 
   logoutTest() {
-    this.tokenService.removeToken();
+    this.storage.token = null;
     this.clearUser();
   }
   /* end of test */
 
   constructor(
     private readonly api: ApiService,
-    private readonly tokenService: TokenService,
+    private readonly storage: StorageService,
     protected readonly router: Router,
   ) {
     this.api.serverWork$.subscribe((serverWork: boolean) => {
-      if (serverWork && this.tokenService.hasToken()) {
+      if (serverWork && this.storage.token) {
         this.fetchUser();
       } else if (serverWork) {
         // this.init = true;
@@ -129,7 +129,7 @@ export class UserService {
         console.log(error);
       },
     });
-    this.tokenService.removeToken();
+    this.storage.token = null;
     this.clearUser();
   }
 
@@ -164,10 +164,10 @@ export class UserService {
     if (this.auths[Auth.LOGIN]) {
       // 因為無動作而讓token過期
       this.clearUser();
-      this.tokenService.removeToken();
+      this.storage.token = null;
       alert('過久無動作，請重新登入');
       this.router.navigate(['/login']);
-    } else if (!this.tokenService.hasToken()) {
+    } else if (!this.storage.token) {
       // 尚未登入，卻到需要登入的部份
       alert('此部份需登入才能操作');
       this.router.navigate(['/login']);

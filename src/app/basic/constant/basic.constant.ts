@@ -46,4 +46,5 @@ export const EQUIPMENT_TYPE_OPTIONS = [
   { value: EquipmentType.Laptop, title: '筆電' },
 ];
 
-export const ROLE_NAME = ['遊客', '助教', '教授', '系主任', '系辦人員'];
+export const ROLE_NAME = [null, '助教', '教授', '系主任', '系辦人員'];
+export const FORM_PROGRESS = ['拒絕', '通過', '審核中'];

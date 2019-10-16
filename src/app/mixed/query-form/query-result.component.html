@@ -1,10 +1,10 @@
 <section class="content center">
   <div class="sheet small" id="whiteFormSmall">
-    <b>流水號：12345678</b><br /><br />
-    教室：61101<br />
-    時段：2(09:10~10:00) ~ 4(01:10~12:00)<br />
-    審查進度：審查中<br /><br />
-    <a href="05_查詢進度(流水號).html" class="button">查詢下一筆</a>
+    <b>流水號：{{form.formID}}</b><br /><br />
+    教室：{{form.classroomID}}<br />
+    時段：{{form.timeRange.startPeriod}} ~ {{form.timeRange.endPeriod}}<br />
+    審查進度：{{formProgress}}<br /><br />
+    <a routerLink="/query-form" class="button">返回</a>
     <button onclick="deleteConfirmation()" class="button">取消申請</button>
   </div>
 </section>

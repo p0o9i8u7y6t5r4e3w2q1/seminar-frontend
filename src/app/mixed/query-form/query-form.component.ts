@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../basic';
 
+const FORM = 'form';
+
 @Component({
   selector: 'app-query-form',
   templateUrl: './query-form.component.html',
@@ -16,8 +18,13 @@ export class QueryFormComponent extends BaseComponent implements OnInit {
   }
 
   query() {
-    this.router.navigate(['query-form/result'], {
-      state: { formID: this.formID },
+    this.api.get(`forms/${this.formID}`).subscribe(form => {
+      if (form) {
+        this.storage.set(FORM, form);
+        this.router.navigate(['query-form/result']);
+      } else {
+        alert('查無此申請');
+      }
     });
   }
 }

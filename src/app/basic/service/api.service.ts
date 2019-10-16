@@ -4,7 +4,7 @@ import {
   HttpHeaders,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { TokenService, TOKEN } from './token.service';
+import { StorageService, TOKEN } from './storage.service';
 import { of, Observable } from 'rxjs';
 import { map, shareReplay, catchError, timeout } from 'rxjs/operators';
 
@@ -17,7 +17,7 @@ export class ApiService {
 
   private FETCH_TOKEN = map((data: any) => {
     if (data && data[TOKEN]) {
-      this.tokenService.token = data[TOKEN];
+      this.storage.token = data[TOKEN];
     }
     console.log(data.result);
     return data.result;
@@ -25,8 +25,9 @@ export class ApiService {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly tokenService: TokenService,
+    private readonly storage: StorageService,
   ) {
+    // 只在一開始監測server運作，並且分享檢測結果，不重複檢測
     this.serverWork$ = this.get('/app').pipe(
       timeout(700),
       map(() => true),
@@ -54,9 +55,9 @@ export class ApiService {
 
   getDefaultOptions() {
     const options: any = {};
-    if (this.tokenService.hasToken()) {
+    if (this.storage.token) {
       options.headers = new HttpHeaders({
-        Authorization: 'Bearer ' + this.tokenService.token,
+        Authorization: 'Bearer ' + this.storage.token,
       });
     }
     return options;
