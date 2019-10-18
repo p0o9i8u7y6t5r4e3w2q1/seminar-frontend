@@ -45,6 +45,3 @@ export const EQUIPMENT_TYPE_OPTIONS = [
   { value: EquipmentType.ExtensionCord, title: '延長線' },
   { value: EquipmentType.Laptop, title: '筆電' },
 ];
-
-export const ROLE_NAME = [null, '助教', '教授', '系主任', '系辦人員'];
-export const FORM_PROGRESS = ['拒絕', '通過', '審核中'];

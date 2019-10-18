@@ -1,5 +1,5 @@
 <section class="content center column">
-  <div class="container sheet">
+  <div class="container sheet" *ngIf="makeupAuth">
     <h2><i class="calendar check icon"></i><strong> 補課審核 </strong></h2>
     <hr />
     <table class="listTable">
@@ -28,7 +28,7 @@
       </tr>
     </table>
   </div>
-  <div class="container sheet">
+  <div class="container sheet" *ngIf="bookingAuth">
     <h2>
       <i class="calendar check icon"></i><strong> 活動／器材借用審核 </strong>
     </h2>
@@ -44,17 +44,17 @@
         <th>申請人</th>
         <th>審核結果</th>
       </tr>
-      <tr *ngFor="let booking of bookings">
+      <tr *ngFor="let booking of bookings;let i = index">
         <td>{{booking.reason}}</td>
         <td>{{booking.classroomID}}</td>
         <td>{{(booking.equipments)? booking.equipments.join(', ') : '無'}}</td>
         <td>{{booking.timeRange.date | date:'yyyy/MM/dd'}}</td>
         <td>{{booking.timeRange.startPeriod}}</td>
         <td>{{booking.timeRange.endPeriod}}</td>
-        <td>{{booking.applicant}}</td>
+        <td>{{booking.applicantName || booking.applicantID}}</td>
         <td>
-          <button class="button">通過</button>
-          <button class="button">拒絕</button>
+          <button class="button" (click)="checkBookingForm(i, true)">通過</button>
+          <button class="button" (click)="checkBookingForm(i, false)">拒絕</button>
         </td>
       </tr>
     </table>

@@ -26,7 +26,15 @@ export class GeneralBookingComponent extends BaseComponent implements OnInit {
     super.setTitle(this.title);
   }
 
-  submit() {
-    this.api.post('/booking/general', this.form);
+  onSubmit() {
+    this.api.post('/bookings/general', this.form).subscribe({
+      next: () => {
+        alert('送出成功');
+      },
+      error: error => {
+        console.log(error);
+        alert('送出失敗');
+      },
+    });
   }
 }

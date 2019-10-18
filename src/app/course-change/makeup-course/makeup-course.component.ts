@@ -12,7 +12,7 @@ export class MakeupCourseComponent extends BaseComponent implements OnInit {
   protected title = '新增課程時段';
 
   courseID: string;
-  currentCourse: SemesterCourse;
+  course: SemesterCourse = null;
 
   form: CreateMakeupCourseFormDto = {
     classroomID: '',
@@ -27,9 +27,11 @@ export class MakeupCourseComponent extends BaseComponent implements OnInit {
     super.setTitle(this.title);
     this.courseID = this.route.snapshot.params['courseID'];
     console.log(this.courseID);
-    this.api.get(`/semester-courses/${this.courseID}`).subscribe(result => {
-      this.currentCourse = result;
-    });
+    this.api
+      .get(`/semester-courses/${this.courseID}`)
+      .subscribe((result: SemesterCourse) => {
+        this.course = result;
+      });
   }
 
   validateAddNewClassForm() {

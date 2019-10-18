@@ -16,11 +16,11 @@
           <td>{{result.time | date:'yyyy/MM/dd'}}</td>
           <td>{{result.time | date:'HH:mm'}}</td>
           <td>{{result.cardOwner}}</td>
-          <td>{{getSwipeResultString(result.swipeResult)}}</td>
-          <td>{{getEletricityResultString(result.eletricityResult)}}</td>
+          <td>{{result.swipeResult | string: 'swipe_result' }}</td>
+          <td>{{result.swipeResult | string: 'electricity_result' }}</td>
         </tr>
       </table>
     </div>
-    <a routerLink="/card-record" class="button">返回</a>
+    <a onclick="history.back()" class="button">返回</a>
   </div>
 </section>

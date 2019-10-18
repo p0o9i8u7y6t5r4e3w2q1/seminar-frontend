@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Auth } from '../constant/auth.constant';
 import { ApiService } from './api.service';
 import { StorageService } from './storage.service';
 import { of, throwError, Observable, BehaviorSubject } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { User } from '../../../lib/api-response';
+
+const NOT_LOGGED_IN_MEG = 'Not Logged In';
 
 @Injectable({
   providedIn: 'root',
@@ -15,9 +18,11 @@ export class UserService {
   private user: User = null;
   isLoginSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
-  public NOT_LOGIN_HANDLE = catchError(error => {
-    if (error === 401) {
+  public NOT_LOGGED_IN_HANDLE = catchError((error: HttpErrorResponse) => {
+    if (error.status === 401 && error.error.message === NOT_LOGGED_IN_MEG) {
+      console.log('need login');
       this.notLogin();
+      this.clearUser();
       return of([]);
     }
     return throwError(error);
@@ -78,7 +83,6 @@ export class UserService {
   }
 
   logoutTest() {
-    this.storage.token = null;
     this.clearUser();
   }
   /* end of test */
@@ -88,11 +92,16 @@ export class UserService {
     private readonly storage: StorageService,
     protected readonly router: Router,
   ) {
+    if (this.storage.token) {
+      this.fetchUser();
+    }
+    this.api.registerGlobalOperation(this.NOT_LOGGED_IN_HANDLE);
+
+    /*
     this.api.serverWork$.subscribe((serverWork: boolean) => {
       if (serverWork && this.storage.token) {
         this.fetchUser();
       } else if (serverWork) {
-        // this.init = true;
         this.isLoginSubject.next(false);
       } else {
         this.login = this.loginTest;
@@ -104,15 +113,16 @@ export class UserService {
             '3. 帳號：z1000002,  密碼：0000, 姓名：王惠嘉, 身份：系主任\n' +
             '4. 帳號：z0000002,  密碼：0000, 姓名：陳賢豪, 身份：系辦\n',
         );
-        // this.init = true;
         this.isLoginSubject.next(false);
       }
     });
+    */
   }
 
   fetchUser() {
     this.api.get('/user/info').subscribe({
-      next: data => this.setUser(data),
+      next: (data: User) => this.setUser(data),
+      // 第一次取得使用者資料失敗，不必顯示尚未登入資訊
       error: error => this.clearUser(),
     });
   }
@@ -129,7 +139,6 @@ export class UserService {
         console.log(error);
       },
     });
-    this.storage.token = null;
     this.clearUser();
   }
 
@@ -143,6 +152,7 @@ export class UserService {
   private clearUser() {
     this.auths.fill(false);
     this.user = null;
+    this.storage.token = null;
     this.isLoginSubject.next(false);
   }
 
@@ -161,17 +171,12 @@ export class UserService {
   }
 
   private notLogin() {
-    if (this.auths[Auth.LOGIN]) {
-      // 因為無動作而讓token過期
-      this.clearUser();
-      this.storage.token = null;
-      alert('過久無動作，請重新登入');
-      this.router.navigate(['/login']);
-    } else if (!this.storage.token) {
-      // 尚未登入，卻到需要登入的部份
-      alert('此部份需登入才能操作');
-      this.router.navigate(['/login']);
+    if (this.storage.token) {
+      alert('登入已過期，請重新登入');
+    } else {
+      alert('尚未登入，請登入後再操作');
     }
+    this.router.navigate(['/login']);
   }
 
   private noAuth() {

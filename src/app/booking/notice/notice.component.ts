@@ -13,12 +13,13 @@ export class NoticeComponent extends BaseComponent implements OnInit {
     super.setTitle(this.title);
   }
 
-  submit() {
-    let activeButton: string = document.activeElement.getAttribute('name');
+  onSubmit() {
+    const activeButton: string = document.activeElement.getAttribute('name');
+    console.log(activeButton);
     if (activeButton === 'iimBtn') {
-      this.router.navigate(['/iim']);
+      this.router.navigate(['/booking/iim']);
     } else {
-      this.router.navigate(['/general']);
+      this.router.navigate(['/booking/general']);
     }
   }
 }

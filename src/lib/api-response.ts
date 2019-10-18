@@ -31,7 +31,7 @@ export interface Classroom {
 
 export interface SemesterCourse {
   id: string;
-  course: string;
+  name: string;
   time: Date;
   teacherID: string;
   classroomID: string;

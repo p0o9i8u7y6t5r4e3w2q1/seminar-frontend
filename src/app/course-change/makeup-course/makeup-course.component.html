@@ -2,13 +2,13 @@
   <div class="container sheet" id="whiteForm">
     <h2><i class="plus square icon"></i><strong> 新增課程時段 </strong></h2>
     <hr />
-    
+
     <form name="myForm" method="post">
-      
+
       <table>
         <tr>
           <th><b>課程：</b></th>
-          <td><b>{{currentCourse?.course}}</b></td>
+          <td><b>{{course?.name}}</b></td>
         </tr>
         <tr>
           <th><label><b>日期：</b></label></th>
@@ -38,8 +38,7 @@
       </table>
       <div>
         <button (click)="validateAddNewClassForm()" class="button" type="submit">送出申請</button>
-        <button id="inverseButton" onclick="location.href='/course-change'" class="button" title="返回" type="button">
-          返回</button>
+        <button id="inverseButton" onclick="history.back()" class="button" title="返回" type="button">返回</button>
       </div>
     </form>
   </div>

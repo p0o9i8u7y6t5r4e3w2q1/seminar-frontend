@@ -2,28 +2,28 @@
   <div class="sheet small">
     <h3>助教帳號申請</h3>
     <hr />
-    <form name="myForm" onsubmit="return signUp()" method="post">
+    <form name="myForm" (ngSubmit)="onSubmit()" method="post" ngNativeValidate>
       <div class="center column">
         <table>
           <tr>
             <th><label><b>學號：</b></label></th>
-            <td><input type="text" id="reg_stu_id" /></td>
+            <td><input type="text" id="reg_stu_id" [(ngModel)]="form.userID" required/></td>
           </tr>
           <tr>
             <th><label><b>姓名：</b></label></th>
-            <td><input type="text" id="reg_name" /></td>
+            <td><input type="text" id="reg_name" [(ngModel)]="form.name" required/></td>
           </tr>
           <tr>
             <th><label><b>Email：</b></label></th>
-            <td><input type="text" id="reg_email" /></td>
+            <td><input type="text" id="reg_email" [(ngModel)]="form.email" required/></td>
           </tr>
           <tr>
             <th><label><b>密碼：</b></label></th>
-            <td><input type="text" id="reg_password" /></td>
+            <td><input type="text" id="reg_password" [(ngModel)]="form.password" required/></td>
           </tr>
           <tr>
             <th><label><b>確認密碼：</b></label></th>
-            <td><input type="text" id="reg_confirm_password" /></td>
+            <td><input type="text" id="reg_confirm_password" [(ngModel)]="pwdCheck" required/></td>
           </tr>
         </table>
       </div>

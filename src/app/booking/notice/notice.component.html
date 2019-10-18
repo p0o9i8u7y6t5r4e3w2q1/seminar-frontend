@@ -33,16 +33,16 @@
       <p style="font-size:1.1em"><i class="exclamation circle icon"></i>
         教授、助教如須<b>調課、補課</b>，為確保系統能判定修課學生身分，請登入系統<b>課程管理</b>申請！</p>
 
-      <form name="acceptConditionForm" (ngSubmit)="submit" method="post">
+      <form name="acceptConditionForm" (ngSubmit)="onSubmit()" ngNativeValidate>
         <label>
           <input type="checkbox" id="checkAcceptCondition" name="checkAcceptCondition" required />
           我已閱讀使用須知並同意以上規範
         </label>
         <br /><br />
-        <button class="button" name="iimBtn" title="本系教職員生" routerLink="iim">
+        <button class="button" name="iimBtn" type="submit" title="本系教職員生">
           本系教職員生
         </button>
-        <button class="button" name="notIimBtn" title="非本系教職員生" routerLink="general">
+        <button class="button" name="notIimBtn" type="submit" title="非本系教職員生">
           非本系教職員生
         </button>
       </form>

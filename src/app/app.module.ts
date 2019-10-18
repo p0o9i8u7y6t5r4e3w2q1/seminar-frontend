@@ -10,6 +10,7 @@ import { CourseChangeComponents } from './course-change/course-change.setting';
 import { MixedComponents } from './mixed/mixed.setting';
 import { SemesterCourseComponents } from './semester-course/semester-course.setting';
 import { UserComponents } from './user/user.setting';
+import { ConstantStringPipe } from './basic';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { UserComponents } from './user/user.setting';
     ...MixedComponents,
     ...SemesterCourseComponents,
     ...UserComponents,
+    ConstantStringPipe,
   ],
   imports: [BrowserModule, HttpClientModule, FormsModule, AppRoutingModule],
   providers: [],

@@ -4,10 +4,10 @@
       <i class="search icon"></i><strong> 查詢刷卡紀錄 </strong>
     </h2>
     <hr />
-    <div style="text-align:left">
+    <form style="text-align:left" (ngSubmit)="query()" ngNativeValidate>
       <div class="group">
         <label>教室：</label>
-        <select id="new_class_classroom" name="classroomID" [(ngModel)]="classroomID">
+        <select id="new_class_classroom" name="classroomID" [(ngModel)]="classroomID" required>
           <option value="" selected disabled hidden>請選擇教室</option>
           <option *ngFor="let room of classroomOptions" [value]='room.value'>{{room.title}}</option>
         </select>
@@ -18,8 +18,8 @@
         <b>&nbsp;~&nbsp;</b>
         <input type="date" name="date" [(ngModel)]="endDate" />
       </div>
-    </div>
-    <br />
-    <button routerLink="/card-record/result" class="button"><i class="search icon"></i>查詢</button>
+      <br />
+      <button routerLink="/card-record/result" class="button"><i class="search icon"></i>查詢</button>
+    </form>
   </div>
 </section>

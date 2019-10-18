@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseComponent, FORM_PROGRESS } from '../../basic';
+import { BaseComponent } from '../../basic';
 import { Form } from '../../../lib/api-response';
 
 const FORM = 'form';
@@ -26,15 +26,13 @@ export class QueryResultComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.setTitle(this.title);
-    this.form = this.formTest; // this.storage.get(FORM);
+    this.form = this.storage.get(FORM);
 
     if (!this.form) {
-      alert('請先填入申請流水號');
+      alert('請先填入待查詢流水號');
       this.router.navigate(['/query-form']);
+    } else {
+      this.storage.delete(FORM);
     }
-  }
-
-  get formProgress() {
-    return FORM_PROGRESS[this.form.progress];
   }
 }

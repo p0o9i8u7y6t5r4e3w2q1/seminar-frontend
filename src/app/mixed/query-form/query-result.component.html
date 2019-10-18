@@ -3,7 +3,7 @@
     <b>流水號：{{form.formID}}</b><br /><br />
     教室：{{form.classroomID}}<br />
     時段：{{form.timeRange.startPeriod}} ~ {{form.timeRange.endPeriod}}<br />
-    審查進度：{{formProgress}}<br /><br />
+    審查進度：{{form.progress | string: 'form_progress'}}<br /><br />
     <a routerLink="/query-form" class="button">返回</a>
     <button onclick="deleteConfirmation()" class="button">取消申請</button>
   </div>

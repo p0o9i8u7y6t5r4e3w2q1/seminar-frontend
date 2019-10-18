@@ -3,13 +3,8 @@
     <h2><i class="user icon"></i><strong> 系主任</strong></h2>
     <hr />
     <b>系主任：</b>
-    <select name="section">
-      <ng-container *ngFor="let teacher of teachers">
-        <option *ngIf="teacher.id !== deptHead.id; else deptHeadOption" [value]="teacher.id">{{teacher.name}}</option>
-        <ng-template #deptHeadOption>
-          <option [value]="teacher.id" selected>{{teacher.name}}</option>
-        </ng-template>
-      </ng-container>
+    <select name="section" [(ngModel)]="teacherID">
+      <option *ngFor="let teacher of teachers" [value]="teacher.id">{{teacher.name}}</option>
     </select>
     <button class="button">儲存</button><br />
   </div>
@@ -46,13 +41,13 @@
         <span style="font-size:20px"><i class="user times icon"></i><strong> 刪除教授 </strong></span>
         <table style="width:380px" class="listTable">
           <tr>
-            <th><b>姓名</b></th>
             <th><b>教職員ID</b></th>
+            <th><b>姓名</b></th>
             <th><b>刪除</b></th>
           </tr>
           <tr *ngFor="let teacher of teachers">
-            <td>{{teacher.name}}</td>
             <td>{{teacher.id}}</td>
+            <td>{{teacher.name}}</td>
             <td><input type="checkbox" name="delete" value="1" /></td>
           </tr>
         </table>

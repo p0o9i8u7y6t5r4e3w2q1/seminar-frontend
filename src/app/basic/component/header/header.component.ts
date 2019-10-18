@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth } from '../../constant/auth.constant';
-import { ROLE_NAME } from '../../constant/basic.constant';
+import { ROLE } from '../../constant/array.constant';
 import { UserService } from '../../service/user.service';
 
 interface MenuItem {
@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
     this.userService.isLogin$.subscribe((isLogin: boolean) => {
       if (isLogin) {
         const user = this.userService.getUser();
-        this.welcomeStr = `${user.name}  ${ROLE_NAME[user.roleID]} 您好！`;
+        this.welcomeStr = `${user.name}  ${ROLE[user.roleID]} 您好！`;
       }
     });
   }

@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../service/user.service';
 import { ApiService } from '../service/api.service';
-import { CLASSROOM_OPTIONS, PERIOD_OPTIONS } from '../constant/basic.constant';
+import { CLASSROOM_OPTIONS, PERIOD_OPTIONS } from '../constant/option.constant';
 import { StorageService } from '../service/storage.service';
 
 @Injectable()

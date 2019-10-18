@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../basic';
 
+const CARD_RECORDS = 'card_records';
+
 @Component({
   selector: 'app-record-result',
   templateUrl: './record-result.component.html',
@@ -15,28 +17,24 @@ export class RecordResultComponent extends BaseComponent implements OnInit {
       time: new Date(2019, 8, 2, 9, 3),
       cardOwner: '???',
       swipeResult: 0,
-      eletricityResult: 0,
     },
     {
       course: '計算機程式與應用',
       time: new Date(2019, 8, 2, 9, 4),
       cardOwner: 'OOO',
       swipeResult: 1,
-      eletricityResult: 1,
     },
     {
       course: '計算機程式與應用',
       time: new Date(2019, 8, 2, 11, 3),
       cardOwner: 'OOO',
-      swipeResult: 1,
-      eletricityResult: 2,
+      swipeResult: 2,
     },
     {
       course: '雲端行動與應用',
       time: new Date(2019, 8, 3, 14, 59),
       cardOwner: 'XXX',
       swipeResult: 1,
-      eletricityResult: 1,
     },
   ];
 
@@ -44,21 +42,12 @@ export class RecordResultComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     super.setTitle(this.title);
-    this.results = this.resultTestList;
-  }
-
-  getSwipeResultString(swipeResult: number) {
-    return swipeResult ? '刷卡成功' : '刷卡失敗';
-  }
-
-  getEletricityResultString(result: number) {
-    switch (result) {
-      case 0:
-        return '供電失敗';
-      case 1:
-        return '供電成功';
-      case 2:
-        return '斷電成功';
+    this.results = this.resultTestList; // this.storage.get(CARD_RECORDS);
+    if (!this.results) {
+      alert('請先輸入查詢日期與教室');
+      this.router.navigate(['record']);
+    } else {
+      this.storage.delete(CARD_RECORDS);
     }
   }
 }

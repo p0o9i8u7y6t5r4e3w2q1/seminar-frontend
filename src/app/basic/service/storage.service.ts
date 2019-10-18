@@ -45,6 +45,10 @@ export class StorageService {
     return this.storage[key];
   }
 
+  delete(key: string) {
+    delete this.storage[key];
+  }
+
   has(key: string): boolean {
     return this.storage[key] != null;
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../basic';
+import { SemesterCourse, Person } from '../../../lib/api-response';
 
 @Component({
   selector: 'app-ta-setting',
@@ -8,7 +9,9 @@ import { BaseComponent } from '../../basic';
 })
 export class TaSettingComponent extends BaseComponent implements OnInit {
   protected title = '助教管理';
-  courseName: string;
+  courseID: string;
+  course: SemesterCourse = null;
+  studentID: string;
 
   taTestList = [
     { id: 'H31234567', name: '王一明' },
@@ -17,11 +20,25 @@ export class TaSettingComponent extends BaseComponent implements OnInit {
     { id: 'H31234591', name: '王四明' },
   ];
 
-  TAs: any[];
+  TAs: Person[];
 
   ngOnInit() {
     super.setTitle(this.title);
-    this.courseName = this.route.snapshot.params['course'];
+    this.courseID = this.route.snapshot.params.courseID;
+    this.api
+      .get(`semester-courses/${this.courseID}`)
+      .subscribe((data: SemesterCourse) => {
+        this.course = data;
+      });
+
+    this.api.get(`course-change/${this.courseID}/TAs`).subscribe({
+      next: (data: Person[]) => {
+        this.TAs = data;
+      },
+      error: () => alert('課程助教取得失敗'),
+    });
+
+    /*
     this.api.serverWork$.subscribe((serverWork: boolean) => {
       if (serverWork) {
         this.TAs = this.taTestList;
@@ -29,5 +46,20 @@ export class TaSettingComponent extends BaseComponent implements OnInit {
         this.TAs = this.taTestList;
       }
     });
+     */
+  }
+
+  addTA() {
+    this.api
+      .post(`course-change/${this.courseID}/TA/${this.studentID}`, null)
+      .subscribe({
+        next: () => {
+          alert('新增成功');
+        },
+        error: error => {
+          console.log(error);
+          alert('新增失敗');
+        },
+      });
   }
 }

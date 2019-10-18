@@ -6,7 +6,7 @@
     <hr />
     <div class="group">
       <label>課程：</label>
-      <input type="text" id="delete_class_name" value={{course.courseName}} readonly />
+      <input type="text" id="delete_class_name" value={{course.name}} readonly />
     </div>
 
     <div class="group">
@@ -169,7 +169,7 @@
     <br />
     <div>
       <button class="button" onclick="deleteClass()">刪除</button>
-      <button routerLink="/course-change" class="button" title="返回" type="button">返回</button>
+      <button onclick="history.back()" class="button" title="返回" type="button">返回</button>
     </div>
   </div>
 </section>

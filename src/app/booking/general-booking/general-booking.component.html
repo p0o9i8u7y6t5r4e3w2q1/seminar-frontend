@@ -4,7 +4,7 @@
       <strong>非本系借用申請 </strong><i class="pencil alternate icon"></i>
     </h2>
     <hr />
-    <form name="notiimRequestBorrowForm" method="post">
+    <form name="notiimRequestBorrowForm" (ngSubmit)="onSubmit()" method="post">
       <table>
         <tr>
           <th><label><b>姓名：</b></label></th>
@@ -39,8 +39,8 @@
         <tr>
           <th><label><b>教室：</b></label></th>
           <td><select [(ngModel)]="form.classroomID" name="classroomID">
-            <option value="" selected disabled hidden>請選擇教室</option>
-            <option *ngFor="let room of classroomOptions" [value]='room.value'>{{room.title}}</option>
+              <option value="" selected disabled hidden>請選擇教室</option>
+              <option *ngFor="let room of classroomOptions" [value]='room.value'>{{room.title}}</option>
             </select>
           </td>
           <th><label><b>座位數：</b></label></th>
@@ -77,7 +77,7 @@
 
       <div>
         <button class="button" type="submit">送出申請</button>
-        <button routerLink="/booking" class="button" title="返回" type="button">
+        <button class="button" title="返回" type="button" onclick="history.back()">
           返回</button>
       </div>
     </form>

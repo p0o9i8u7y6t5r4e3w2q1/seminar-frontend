@@ -25,4 +25,15 @@ export class IimBookingComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     super.setTitle(this.title);
   }
+
+  onSubmit() {
+    this.api.post('bookings/iim', this.form).subscribe({
+      next: () => {
+        alert('送出成功');
+      },
+      error: () => {
+        alert('送出失敗');
+      },
+    });
+  }
 }

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpParams } from '@angular/common/http';
 import { BaseComponent } from '../../basic';
+
+const CARD_RECORDS = 'card_records';
 
 @Component({
   selector: 'app-card-record',
@@ -15,5 +18,23 @@ export class CardRecordComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     super.setTitle(this.title);
+  }
+
+  query() {
+    let params: HttpParams = new HttpParams();
+    params = params.append('classroomID', this.classroomID);
+    params = params.append('from', this.startDate.toDateString());
+    params = params.append('to', this.endDate.toDateString());
+
+    this.api.get('card/records', { params }).subscribe({
+      next: data => {
+        this.storage.set(CARD_RECORDS, data);
+        this.router.navigate(['/card-record/result']);
+      },
+      error: error => {
+        console.log(error);
+        alert('查詢失敗');
+      },
+    });
   }
 }
