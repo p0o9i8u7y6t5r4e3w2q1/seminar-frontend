@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
 import { BaseComponent } from '../../basic';
 import { SemesterCourse } from '../../../lib/api-response';
+
+const COURSES$ = 'courses$';
 
 @Component({
   selector: 'app-course-change-list',
@@ -17,18 +21,21 @@ export class CourseChangeListComponent extends BaseComponent implements OnInit {
     { id: '1071H344900', course: '雲端行動應用' },
   ];
 
-  courses: SemesterCourse[];
+  courses$: Observable<SemesterCourse[]>;
 
   ngOnInit() {
     super.setTitle(this.title);
     this.courseID = this.route.snapshot.params['courseID'];
-    this.api.get(`semester-courses/own`).subscribe({
-      next: (data: SemesterCourse[]) => {
-        this.courses = data;
-      },
-      error: error => {
-        alert('課程取得失敗');
-      },
-    });
+    if (!this.storage.has(COURSES$)) {
+      this.storage.set(
+        COURSES$,
+        this.api.get(`semester-courses/own`).pipe(shareReplay(1)),
+      );
+    }
+    this.courses$ = this.storage.get(COURSES$);
+  }
+
+  protected init() {
+    console.log('call init');
   }
 }

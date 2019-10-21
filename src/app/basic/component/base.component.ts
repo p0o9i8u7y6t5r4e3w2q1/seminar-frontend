@@ -8,7 +8,6 @@ import { StorageService } from '../service/storage.service';
 
 @Injectable()
 export abstract class BaseComponent {
-  protected init: () => void;
   public readonly classroomOptions = CLASSROOM_OPTIONS;
   public readonly periodOptions = PERIOD_OPTIONS;
 
@@ -20,12 +19,12 @@ export abstract class BaseComponent {
     protected readonly api: ApiService,
     protected readonly storage: StorageService,
   ) {
-    if (this.init) {
-      this.init();
-    }
+    this.init();
   }
 
   public setTitle(title: string) {
     this.titleService.setTitle(title);
   }
+
+  protected init() {}
 }

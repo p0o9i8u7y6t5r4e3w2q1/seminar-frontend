@@ -6,6 +6,7 @@
     <hr />
     <form name="notiimRequestBorrowForm" (ngSubmit)="onSubmit()" method="post">
       <table>
+        <tbody>G
         <tr>
           <th><label><b>姓名：</b></label></th>
           <td colspan="5"><input type="text" id="name_input" /></td>
@@ -16,17 +17,17 @@
         </tr>
         <tr>
           <th><label><b>日期：</b></label></th>
-          <td colspan=" 5"><input type="date" id="date_input" /></td>
+          <td colspan="5"><input (change)="timeOnRange()" [(ngModel)]="form.timeRange.date" name="date" type="date" /></td>
         </tr>
         <tr>
           <th><label><b>節數：</b></label></th>
           <td colspan="5">
-            <select [(ngModel)]="form.timeRange.startPeriod" name="startPeriod">
+            <select (change)="timeOnRange()" [(ngModel)]="form.timeRange.startPeriod" name="startPeriod">
               <option value="" selected disabled hidden>起始節數</option>
               <option *ngFor="let period of periodOptions" [value]='period.value'>{{period.title}}</option>
             </select>
             <b>&nbsp;~&nbsp;</b>
-            <select [(ngModel)]="form.timeRange.endPeriod" name="endPeriod">
+            <select (change)="timeOnRange()" [(ngModel)]="form.timeRange.endPeriod" name="endPeriod">
               <option value="" selected disabled hidden>結束節數</option>
               <option *ngFor="let period of periodOptions" [value]='period.value'>{{period.title}}</option>
             </select>
@@ -38,41 +39,28 @@
         </tr>
         <tr>
           <th><label><b>教室：</b></label></th>
-          <td><select [(ngModel)]="form.classroomID" name="classroomID">
+          <td><select (change)="fetchClassroomInfo()" [(ngModel)]="form.classroomID" name="classroomID">
               <option value="" selected disabled hidden>請選擇教室</option>
               <option *ngFor="let room of classroomOptions" [value]='room.value'>{{room.title}}</option>
             </select>
           </td>
-          <th><label><b>座位數：</b></label></th>
-          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-          <th><label><b>價格：</b></label></th>
-          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+          <ng-container *ngIf="classroom$ && (classroom$ | async) as room; else space">
+            <th><label><b>座位數：</b></label></th>
+            <td>{{ (classroom$ | async)?.capacity }}</td>
+            <th><label><b>價格：</b></label></th>
+            <td>{{ (classroom$ | async)?.price | currency:'TWD':'symbol-narrow':'1.0' }}</td>
+          </ng-container>
+          <ng-template #space>
+            <th><label><b>座位數：</b></label></th>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <th><label><b>價格：</b></label></th>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+          </ng-template>
         </tr>
-        <tr>
-          <th colspan="6" class="titleAndAddBtn"><span>設備</span>
-            <button class="button">+</button>
-          </th>
-        </tr>
-        <tr>
-          <th><label><b>設備類別：</b></label></th>
-          <td><select name="section">
-              <option value="單槍投影機">單槍投影機</option>
-              <option value="投影筆">投影筆</option>
-              <option value="電腦">電腦</option>
-              <option value="VGA Cable">VGA Cable</option>
-              <option value="Net Cable">Net Cable</option>
-              <option value="Power Cable">Power Cable</option>
-              <option value="手提擴音機">手提擴音機</option>
-              <option value="錄影機">錄影機</option>
-            </select>
-          </td>
-          <th><label><b> 設備編號：</b></label></th>
-          <td colspan="3"><select name="section">
-              <option value="單槍投影機01">單槍投影機01</option>
-              <option value="單槍投影機02">單槍投影機02</option>
-            </select>
-          </td>
-        </tr>
+        </tbody>
+
+        <tbody booking-equipment fullColspan=6 [timeRange]="form.timeRange">
+        </tbody>
       </table>
 
       <div>

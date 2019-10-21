@@ -18,13 +18,19 @@ export class QueryFormComponent extends BaseComponent implements OnInit {
   }
 
   query() {
-    this.api.get(`forms/${this.formID}`).subscribe(form => {
-      if (form) {
-        this.storage.set(FORM, form);
-        this.router.navigate(['query-form/result']);
-      } else {
+    this.api.get(`forms/${this.formID}`).subscribe({
+      next: form => {
+        if (form) {
+          this.storage.set(FORM, form);
+          this.router.navigate(['query-form/result']);
+        } else {
+          alert('查無此申請');
+        }
+      },
+      error: error => {
+        // 因為格式輸入錯誤
         alert('查無此申請');
-      }
+      },
     });
   }
 }

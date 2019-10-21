@@ -1,0 +1,27 @@
+<tr>
+  <th [attr.colspan]="fullColspan" class="titleAndAddBtn">
+    <span>設備</span>
+    <button (click)="addEquipment()" class="button" type="button">+</button>
+  </th>
+</tr>
+<tr *ngFor="let selectedType of selectedEquipTypes; let i = index">
+  <th><label><b>設備類別：</b></label></th>
+  <td>
+    <select (change)="selectedTypeOnChange(i)" [(ngModel)]="selectedEquipTypes[i]" name="equipType">
+      <option value="" disabled hidden>請選擇類別</option>
+      <option *ngFor="let type of equipTypeOptions" [value]="type.value">{{type.title}}</option>
+    </select>
+  </td>
+  <th><label><b>設備編號：</b></label></th>
+  <td [attr.colspan]="fullColspan-3">
+    <select [(ngModel)]="equipmentIDs[i]" name="equip">
+      <ng-container *ngIf="allTypeEquipOptions[selectedType] as equipOptions$">
+        <option value="" selected disabled hidden>請選擇設備</option>
+        <ng-container *ngFor="let equip of equipOptions$ | async">
+          <option *ngIf="isNotSeletected(i, equip.id)" [value]="equip.id" [hidden]="">{{ equip.name }}</option>
+        </ng-container>
+      </ng-container>
+    </select>
+    <button class="button" type="button" (click)="removeEquipment(i)">-</button>
+  </td>
+</tr>

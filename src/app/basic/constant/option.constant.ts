@@ -45,3 +45,13 @@ export const EQUIPMENT_TYPE_OPTIONS = [
   { value: EquipmentType.ExtensionCord, title: '延長線' },
   { value: EquipmentType.Laptop, title: '筆電' },
 ];
+
+export const WEEK = [
+  { id: 'sunday', title: '日' },
+  { id: 'monday', title: '一' },
+  { id: 'tuesday', title: '二' },
+  { id: 'wednesday', title: '三' },
+  { id: 'thursday', title: '四' },
+  { id: 'friday', title: '五' },
+  { id: 'saturday', title: '六' },
+];

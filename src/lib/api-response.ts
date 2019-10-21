@@ -51,3 +51,18 @@ export interface CardRecord {
   swipeResult: number;
   cardOwner: string;
 }
+
+export interface ScheduleResult {
+  date: Date;
+  period: string;
+  classroomID: string;
+  scID?: string;
+  formID?: string;
+  status: number;
+}
+
+export class ClassroomDateSchedule {
+  classroomID: string;
+  date: Date;
+  scheduleResults: { [x: string]: ScheduleResult } = {};
+}

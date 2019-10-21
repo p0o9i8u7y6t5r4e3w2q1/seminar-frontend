@@ -8,7 +8,7 @@
         <th>刪除上課時段</th>
         <th>助教管理</th>
       </tr>
-      <tr *ngFor="let course of courses">
+      <tr *ngFor="let course of courses$ | async">
         <th>{{course.name}}</th>
         <td><a class="link" [routerLink]="['/course-change/makeup/', course.id]">新增</a></td>
         <td><a class="link" [routerLink]="['/course-change/suspended/', course.id]">刪除</a></td>

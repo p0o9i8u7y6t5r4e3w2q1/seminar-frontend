@@ -1,6 +1,6 @@
 <section class="content">
   <div class="center column">
-    <form class="center" name="queryAvailableTimeForm" onsubmit="return validateQueryAvailableTimeForm()" method="post">
+    <form class="center" name="queryAvailableTimeForm" (ngSubmit)="onSubmit()" method="post">
       <div class="group">
         <label><b>日期：</b>
           <input type="date" name="queryDate" [(ngModel)]="date" />
@@ -11,25 +11,24 @@
         <label><b>教室：</b><select [(ngModel)]="classroomID" name="classroomID">
             <option value="" selected disabled hidden>請選擇教室</option>
             <option *ngFor="let room of classroomOptions" [value]='room.value'>{{room.title}}</option>
-            </select>
+          </select>
         </label>
       </div>
       <button class="button" title="查詢" type="submit">查詢</button>
     </form>
 
-    <table id="resultSchedule">
+    <table id="resultSchedule" *ngIf="(schedules$ | async) as schedules">
       <tr>
         <th></th>
-        <th id="sunday">日</th>
-        <th id="monday">一</th>
-        <th id="tuesday">二</th>
-        <th id="wednesday">三</th>
-        <th id="thursday">四</th>
-        <th id="friday">五</th>
-        <th id="saturday">六</th>
+        <th *ngFor="let schedule of schedules;let i = index">
+          {{schedule.date | date: 'yyyy/MM/dd'}}({{week[i].title}})</th>
       </tr>
       <tr *ngFor="let period of periodOptions">
         <th>{{period.title}}</th>
+        <td *ngFor="let schedule of schedules">
+          {{schedule.scheduleResults[period.value]?.status | string: 'room_status'}}
+        </td>
+        <!--
         <td></td>
         <td></td>
         <td></td>
@@ -37,6 +36,7 @@
         <td></td>
         <td></td>
         <td></td>
+        -->
       </tr>
     </table>
   </div>
