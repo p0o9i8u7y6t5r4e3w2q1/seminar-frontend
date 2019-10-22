@@ -1,21 +1,21 @@
 <section class="content">
   <div class="container">
-    <b>教室: 61101<br />查詢區間：2019/09/02 ~ 2019/09/04 </b>
+    <b>教室: {{queryCondition.classroomID}}<br />
+      查詢區間：{{queryCondition.startDate | date: 'yyyy/MM/dd'}}
+      ~ {{queryCondition.endDate | date: 'yyyy/MM/dd'}} </b>
     <div style="text-align:center;">
       <table class="listTable">
         <tr>
-          <th>課程</th>
           <th>日期</th>
           <th>刷卡時間</th>
           <th>刷卡人</th>
           <th>刷卡結果</th>
           <th>供電狀態</th>
         </tr>
-        <tr *ngFor="let result of results">
-          <td>{{result.course}}</td>
+        <tr *ngFor="let result of datas">
           <td>{{result.time | date:'yyyy/MM/dd'}}</td>
           <td>{{result.time | date:'HH:mm'}}</td>
-          <td>{{result.cardOwner}}</td>
+          <td>{{result.cardOwner.name}}</td>
           <td>{{result.swipeResult | string: 'swipe_result' }}</td>
           <td>{{result.swipeResult | string: 'electricity_result' }}</td>
         </tr>

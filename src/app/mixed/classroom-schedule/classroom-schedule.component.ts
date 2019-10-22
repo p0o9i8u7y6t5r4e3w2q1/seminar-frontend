@@ -35,11 +35,11 @@ export class ClassroomScheduleComponent extends BaseComponent
 
   querySchedule() {
     const from: string = moment(this.date)
-      .startOf('week')
-      .format('YYYY-MM-DD');
+      .weekday(0)
+      .toString();
     const to: string = moment(this.date)
-      .endOf('week')
-      .format('YYYY-MM-DD');
+      .weekday(6)
+      .toString();
     console.log({ from: from.toString(), to: to.toString() });
     const params = new HttpParams()
       .set('from', from)

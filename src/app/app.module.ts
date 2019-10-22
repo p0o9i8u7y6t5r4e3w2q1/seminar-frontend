@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BasicComponents } from './basic/basic.setting';
@@ -11,7 +12,6 @@ import { MixedComponents } from './mixed/mixed.setting';
 import { SemesterCourseComponents } from './semester-course/semester-course.setting';
 import { UserComponents } from './user/user.setting';
 import { ConstantStringPipe } from './basic';
-import { EquipmentComponent } from './booking/equipment/equipment.component';
 
 @NgModule({
   declarations: [
@@ -23,13 +23,12 @@ import { EquipmentComponent } from './booking/equipment/equipment.component';
     ...SemesterCourseComponents,
     ...UserComponents,
     ConstantStringPipe,
-    EquipmentComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
+    NgxSmartModalModule.forRoot(),
     AppRoutingModule,
   ],
   providers: [],

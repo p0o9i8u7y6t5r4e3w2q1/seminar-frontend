@@ -7,56 +7,59 @@
     <form name="notiimRequestBorrowForm" (ngSubmit)="onSubmit()" method="post">
       <table>
         <tbody>G
-        <tr>
-          <th><label><b>姓名：</b></label></th>
-          <td colspan="5"><input type="text" id="name_input" /></td>
-        </tr>
-        <tr>
-          <th><label><b>電子信箱：</b></label></th>
-          <td colspan="5"><input type="email" /></td>
-        </tr>
-        <tr>
-          <th><label><b>日期：</b></label></th>
-          <td colspan="5"><input (change)="timeOnRange()" [(ngModel)]="form.timeRange.date" name="date" type="date" /></td>
-        </tr>
-        <tr>
-          <th><label><b>節數：</b></label></th>
-          <td colspan="5">
-            <select (change)="timeOnRange()" [(ngModel)]="form.timeRange.startPeriod" name="startPeriod">
-              <option value="" selected disabled hidden>起始節數</option>
-              <option *ngFor="let period of periodOptions" [value]='period.value'>{{period.title}}</option>
-            </select>
-            <b>&nbsp;~&nbsp;</b>
-            <select (change)="timeOnRange()" [(ngModel)]="form.timeRange.endPeriod" name="endPeriod">
-              <option value="" selected disabled hidden>結束節數</option>
-              <option *ngFor="let period of periodOptions" [value]='period.value'>{{period.title}}</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <th><label><b>活動名稱：</b></label></th>
-          <td colspan="5"><input class="longWidth" type="text" id="activity_name" size="50" /></td>
-        </tr>
-        <tr>
-          <th><label><b>教室：</b></label></th>
-          <td><select (change)="fetchClassroomInfo()" [(ngModel)]="form.classroomID" name="classroomID">
-              <option value="" selected disabled hidden>請選擇教室</option>
-              <option *ngFor="let room of classroomOptions" [value]='room.value'>{{room.title}}</option>
-            </select>
-          </td>
-          <ng-container *ngIf="classroom$ && (classroom$ | async) as room; else space">
-            <th><label><b>座位數：</b></label></th>
-            <td>{{ (classroom$ | async)?.capacity }}</td>
-            <th><label><b>價格：</b></label></th>
-            <td>{{ (classroom$ | async)?.price | currency:'TWD':'symbol-narrow':'1.0' }}</td>
-          </ng-container>
-          <ng-template #space>
-            <th><label><b>座位數：</b></label></th>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <th><label><b>價格：</b></label></th>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-          </ng-template>
-        </tr>
+          <tr>
+            <th><label><b>姓名：</b></label></th>
+            <td colspan="5">
+                <input type="text" id="name_input" name="name" [(ngModel)]="form.applicantName" required #name="ngModel" />
+            </td>
+          </tr>
+          <tr>
+            <th><label><b>電子信箱：</b></label></th>
+            <td colspan="5"><input type="email" /></td>
+          </tr>
+          <tr>
+            <th><label><b>日期：</b></label></th>
+            <td colspan="5"><input (change)="timeOnRange()" [(ngModel)]="form.timeRange.date" name="date" type="date" /></td>
+          </tr>
+          <tr>
+            <th><label><b>節數：</b></label></th>
+            <td colspan="5">
+              <select (change)="timeOnRange()" [(ngModel)]="form.timeRange.startPeriod" name="startPeriod">
+                <option value="" selected disabled hidden>起始節數</option>
+                <option *ngFor="let period of periodOptions" [value]='period.value'>{{period.title}}</option>
+              </select>
+              <b>&nbsp;~&nbsp;</b>
+              <select (change)="timeOnRange()" [(ngModel)]="form.timeRange.endPeriod" name="endPeriod">
+                <option value="" selected disabled hidden>結束節數</option>
+                <option *ngFor="let period of periodOptions" [value]='period.value'>{{period.title}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th><label><b>活動名稱：</b></label></th>
+            <td colspan="5"><input class="longWidth" type="text" id="activity_name" size="50" /></td>
+          </tr>
+          <tr>
+            <th><label><b>教室：</b></label></th>
+            <td><select (change)="fetchClassroomInfo()" [(ngModel)]="form.classroomID" name="classroomID">
+                <option value="" selected disabled hidden>請選擇教室</option>
+                <option *ngFor="let room of classroomOptions" [value]='room.value'>{{room.title}}</option>
+              </select><br/>
+              <p *ngIf="classroomConflict$ | async">此時段教室已佔用，請重新選擇</p>
+            </td>
+            <ng-container *ngIf="classroom$ && (classroom$ | async) as room; else space">
+              <th><label><b>座位數：</b></label></th>
+              <td>{{ (classroom$ | async)?.capacity }}</td>
+              <th><label><b>價格：</b></label></th>
+              <td>{{ (classroom$ | async)?.price | currency:'TWD':'symbol-narrow':'1.0' }}</td>
+            </ng-container>
+            <ng-template #space>
+              <th><label><b>座位數：</b></label></th>
+              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+              <th><label><b>價格：</b></label></th>
+              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            </ng-template>
+          </tr>
         </tbody>
 
         <tbody booking-equipment fullColspan=6 [timeRange]="form.timeRange">

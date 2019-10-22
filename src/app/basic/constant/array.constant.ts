@@ -15,8 +15,8 @@ export const ELECTRICITY_RESULT = ['供電失敗', '供電成功', '斷電成功
 export const ROOM_STATUS = [
   '未使用',
   '停課',
-  '正常上課',
+  '正課',
   '補課',
   '已被借用',
-  '正審核借用',
+  '審核借用中',
 ];

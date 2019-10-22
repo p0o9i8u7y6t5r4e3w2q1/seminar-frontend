@@ -31,6 +31,7 @@ export class GeneralBookingComponent extends BaseComponent implements OnInit {
 
   // to show selected classroom info
   classroom$: Observable<Classroom>;
+  classroomConflict$: Observable<boolean>;
 
   ngOnInit() {
     super.setTitle(this.title);
@@ -48,13 +49,39 @@ export class GeneralBookingComponent extends BaseComponent implements OnInit {
     });
   }
 
-  fetchClassroomInfo() {
+  timeOnChange() {
+    this.equipCmp.updateAllTypeEquipOptions();
+    this.fetchClassroomConflict();
+  }
+
+  classroomOnChange() {
+    this.fetchClassroom();
+    this.fetchClassroomConflict();
+  }
+
+  fetchClassroom() {
     this.classroom$ = this.api
       .get(`classrooms/${this.form.classroomID}`)
       .pipe(shareReplay(1));
   }
 
-  timeOnChange() {
-    this.equipCmp.updateAllTypeEquipOptions();
+  fetchClassroomConflict() {
+    /*
+    if (this.isTimeComplete() && this.form.classroomID !== '') {
+      this.classroomConflict$ = this.api.post(
+        `schedule/classroom/${this.form.classroomID}/conflict`,
+        this.form.timeRange,
+      );
+    }
+     */
+  }
+
+  isTimeComplete(): boolean {
+    console.log();
+    return (
+      this.form.timeRange.date != null &&
+      this.form.timeRange.startPeriod !== '' &&
+      this.form.timeRange.endPeriod !== ''
+    );
   }
 }

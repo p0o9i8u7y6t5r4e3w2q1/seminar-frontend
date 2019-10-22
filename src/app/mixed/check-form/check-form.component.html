@@ -9,21 +9,21 @@
         <th>日期</th>
         <th>開始節數</th>
         <th>結束節數</th>
-        <th>申請人身份</th>
+        <th>申請人ID</th>
         <th>申請人</th>
         <th>審核結果</th>
       </tr>
-      <tr *ngFor="let makeup of makeups">
+      <tr *ngFor="let makeup of makeups$ | async">
         <td>{{makeup.course}}</td>
         <td>{{makeup.classroomID}}</td>
         <td>{{makeup.timeRange.date | date: 'yyyy/MM/dd'}}</td>
         <td>{{makeup.timeRange.startPeriod}}</td>
         <td>{{makeup.timeRange.endPeriod}}</td>
-        <td>{{makeup.applicantRole}}</td>
-        <td>{{makeup.applicant}}</td>
+        <td>{{makeup.applicant.id}}</td>
+        <td>{{makeup.applicant.name}}</td>
         <td>
-          <button class="button">通過</button>
-          <button class="button">拒絕</button>
+          <button class="button" (click)="checkMakeupForm(makeup.formID, true)">通過</button>
+          <button class="button" (click)="checkMakeupForm(makeup.formID, false)">拒絕</button>
         </td>
       </tr>
     </table>
@@ -44,7 +44,7 @@
         <th>申請人</th>
         <th>審核結果</th>
       </tr>
-      <tr *ngFor="let booking of bookings;let i = index">
+      <tr *ngFor="let booking of bookings$ | async">
         <td>{{booking.reason}}</td>
         <td>{{booking.classroomID}}</td>
         <td>{{(booking.equipments)? booking.equipments.join(', ') : '無'}}</td>
@@ -53,8 +53,8 @@
         <td>{{booking.timeRange.endPeriod}}</td>
         <td>{{booking.applicantName || booking.applicantID}}</td>
         <td>
-          <button class="button" (click)="checkBookingForm(i, true)">通過</button>
-          <button class="button" (click)="checkBookingForm(i, false)">拒絕</button>
+          <button class="button" (click)="checkBookingForm(booking.formID, true)">通過</button>
+          <button class="button" (click)="checkBookingForm(booking.formID, false)">拒絕</button>
         </td>
       </tr>
     </table>

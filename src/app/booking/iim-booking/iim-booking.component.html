@@ -43,10 +43,11 @@
           </tr>
           <tr>
             <th><label><b>教室：</b></label></th>
-            <td><select (change)="fetchClassroom()" [(ngModel)]="form.classroomID" name="classroomID">
+            <td><select (change)="classroomOnChange()" [(ngModel)]="form.classroomID" name="classroomID">
                 <option value="" selected disabled hidden>請選擇教室</option>
                 <option *ngFor="let room of classroomOptions" [value]='room.value'>{{room.title}}</option>
               </select>
+              <span *ngIf="classroomConflict$ | async">此時段教室已佔用，請重新選擇</span>
             </td>
             <th><label><b>座位數：</b></label></th>
             <td>{{(classroom$ | async)?.capacity}}</td>

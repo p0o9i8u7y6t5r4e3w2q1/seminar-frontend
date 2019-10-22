@@ -38,15 +38,23 @@ export class RecordResultComponent extends BaseComponent implements OnInit {
     },
   ];
 
-  results: any[];
+  queryCondition: any = {
+    classroomID: '61201',
+    startDate: new Date('2019-09-02'),
+    endDate: new Date('2019-09-03'),
+  };
+  datas: any[];
 
   ngOnInit() {
     super.setTitle(this.title);
-    this.results = this.resultTestList; // this.storage.get(CARD_RECORDS);
-    if (!this.results) {
+    this.datas = this.resultTestList;
+    const tmp: any = this.storage.get(CARD_RECORDS);
+    if (!tmp) {
       alert('請先輸入查詢日期與教室');
-      this.router.navigate(['record']);
+      this.router.navigate(['card-record']);
     } else {
+      // this.datas = tmp.datas;
+      this.queryCondition = tmp.condition;
       this.storage.delete(CARD_RECORDS);
     }
   }

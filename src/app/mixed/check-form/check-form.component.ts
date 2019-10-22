@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { BaseComponent, Auth } from '../../basic';
-import { take } from 'rxjs/operators';
 import { Form } from '../../../lib/api-response';
 
 @Component({
@@ -66,18 +66,19 @@ export class CheckFormComponent extends BaseComponent implements OnInit {
   makeupAuth: boolean = true;
   bookingAuth: boolean = true;
 
-  makeups: any[];
-  bookings: any[];
+  makeups$: Observable<any[]>;
+  bookings$: Observable<any[]>;
 
   ngOnInit() {
     super.setTitle(this.title);
-    this.userService.isLogin$.pipe(take(1)).subscribe(() => {
+    this.userService.isLogin$.subscribe(() => {
       this.setAuth();
-      this.fetchPendingForms();
+      this.fetchMakeupForms();
+      this.fetchBookingForms();
     });
 
-    this.makeups = this.makeupTestList;
-    this.bookings = this.bookingTestList;
+    // this.makeups = this.makeupTestList;
+    // this.bookings = this.bookingTestList;
   }
 
   setAuth() {
@@ -85,29 +86,30 @@ export class CheckFormComponent extends BaseComponent implements OnInit {
     this.bookingAuth = this.userService.hasAuth(Auth.CHECK_BOOKING);
   }
 
-  fetchPendingForms() {
+  fetchMakeupForms() {
     if (this.makeupAuth) {
-      // this.api.get('');
-    }
-    if (this.bookingAuth) {
-      this.api.get('bookings/pending').subscribe((data: Form[]) => {
-        this.bookings = data;
-      });
+      this.makeups$ = this.api.get('course-change/makeup/pending');
     }
   }
 
-  checkBookingForm(i: number, isApproved: boolean) {
-    const form = this.bookings[i];
-    this.api.put(`bookings/${form.id}`, { isApproved }).subscribe(data => {
+  fetchBookingForms() {
+    if (this.bookingAuth) {
+      this.bookings$ = this.api.get('bookings/pending');
+    }
+  }
+
+  checkBookingForm(formID: string, isApproved: boolean) {
+    this.api.put(`bookings/${formID}/check`, { isApproved }).subscribe(data => {
+      this.fetchBookingForms();
       alert('成功');
     });
   }
 
-  checkMakeupForm(i: number, isApproved: boolean) {
-    const form = this.makeups[i];
+  checkMakeupForm(formID: string, isApproved: boolean) {
     this.api
-      .put(`course-change/makeup/${form.id}`, { isApproved })
+      .put(`course-change/makeup/${formID}/check`, { isApproved })
       .subscribe(data => {
+        this.fetchMakeupForms();
         alert('成功');
       });
   }

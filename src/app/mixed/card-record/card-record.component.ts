@@ -23,12 +23,20 @@ export class CardRecordComponent extends BaseComponent implements OnInit {
   query() {
     let params: HttpParams = new HttpParams();
     params = params.append('classroomID', this.classroomID);
-    params = params.append('from', this.startDate.toDateString());
-    params = params.append('to', this.endDate.toDateString());
+    params = params.append('from', this.startDate.toString());
+    params = params.append('to', this.endDate.toString());
 
     this.api.get('card/records', { params }).subscribe({
-      next: data => {
-        this.storage.set(CARD_RECORDS, data);
+      next: datas => {
+        const obj = {
+          condition: {
+            classroomID: this.classroomID,
+            startDate: this.startDate,
+            endDate: this.endDate,
+          },
+          datas,
+        }
+        this.storage.set(CARD_RECORDS, obj);
         this.router.navigate(['/card-record/result']);
       },
       error: error => {

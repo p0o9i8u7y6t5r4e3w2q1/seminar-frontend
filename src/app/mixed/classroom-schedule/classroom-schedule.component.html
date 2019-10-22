@@ -21,12 +21,18 @@
       <tr>
         <th></th>
         <th *ngFor="let schedule of schedules;let i = index">
-          {{schedule.date | date: 'yyyy/MM/dd'}}({{week[i].title}})</th>
+          {{schedule.date | date: 'yyyy/MM/dd'}}<br/>
+          ({{week[i].title}})
+        </th>
       </tr>
       <tr *ngFor="let period of periodOptions">
-        <th>{{period.title}}</th>
+        <th>{{period.value}}</th>
         <td *ngFor="let schedule of schedules">
-          {{schedule.scheduleResults[period.value]?.status | string: 'room_status'}}
+          <span style="font-weight:bold" *ngIf="schedule.results[period.value]?.obj">
+            {{schedule.results[period.value].obj.name}}<br /></span>
+          <span style="color:blue">
+            {{schedule.results[period.value]?.status | string: 'room_status'}}
+          </span>
         </td>
         <!--
         <td></td>

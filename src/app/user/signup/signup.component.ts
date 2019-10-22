@@ -24,6 +24,10 @@ export class SignupComponent extends BaseComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.pwdCheck !== this.form.password) {
+      alert('密碼輸入不一致，請重新確認');
+      return;
+    }
     this.api.post('users/TA', this.form).subscribe(() => {
       alert('您現在可以登入');
       this.router.navigate(['/login']);
