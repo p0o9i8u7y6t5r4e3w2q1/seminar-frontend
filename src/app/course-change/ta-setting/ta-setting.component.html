@@ -1,12 +1,15 @@
 <section class="content center">
   <div class="container sheet" id="whiteForm">
-    <h2><i class="edit icon"></i>課程：{{course?.name}}</h2>
+    <h2><i class="edit icon"></i>課程：{{(course$ | async)?.name}}</h2>
     <br />
     <div class="box">
       <span style="font-size:20px"><i class="user plus icon"></i><strong> 新增助教 </strong></span><br />
       <div class="group">
         <label>請輸入學號：</label>
-        <input type="text" name="ID" [(ngModel)]="studentID" />
+        <input type="text" name="ID" [(ngModel)]="studentID" list="availTAs" />
+        <datalist id="availTAs" *ngIf="availableTAs$ | async as availTAs">
+          <option *ngFor="let ta of availTAs; trackBy: trackByFn" [value]="ta.id">{{ta.name}}</option>
+        </datalist>
         <button class="button" (click)="addTA()">新增</button>
       </div>
     </div>
@@ -19,10 +22,10 @@
           <th><b>姓名</b></th>
           <th><b>刪除</b></th>
         </tr>
-        <tr *ngFor="let ta of TAs">
+        <tr *ngFor="let ta of courseTAs$ | async;trackBy: trackByFn">
           <td>{{ta.id}}</td>
           <td>{{ta.name}}</td>
-          <td><button class="button">刪除</button></td>
+          <td><button (click)="removeTA(ta.id)" class="button">刪除</button></td>
         </tr>
       </table>
     </div>

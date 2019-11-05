@@ -7,13 +7,48 @@
         <th>新增上課時段</th>
         <th>刪除上課時段</th>
         <th>助教管理</th>
+        <th>異動紀錄</th>
       </tr>
       <tr *ngFor="let course of courses$ | async">
         <th>{{course.name}}</th>
         <td><a class="link" [routerLink]="['/course-change/makeup/', course.id]">新增</a></td>
         <td><a class="link" [routerLink]="['/course-change/suspended/', course.id]">刪除</a></td>
         <td><a class="link" [routerLink]="['/course-change/ta/', course.id]">修改</a></td>
+        <td><a class="link" (click)="openHistoryModal(course)">查詢</a></td>
       </tr>
     </table>
   </div>
 </section>
+
+<ngx-smart-modal #historyModal identifier="historyModal" customClass="nsm-centered">
+  <h1><i class="calendar alternate outline icon"></i>{{historyModal.getData()?.courseName}}</h1>
+  <ng-container *ngIf="historyModal.getData()?.history$ | async as history; else nothing">
+    <div *ngFor="let item of history">
+      <span *ngIf="item.event==1">
+        <i class="calendar plus icon"></i>
+        {{ item.eventTime | date: 'yyyy/MM/dd hh:mm' }}<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        {{ item.person.name }}
+        {{ item.person.roleID | string: 'role'}}
+        申請於 {{item.detail.timeRange.date}}
+        {{item.detail.timeRange | string: 'course_time'}}
+        補課<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        ({{item.detail.formID}}-{{item.detail.progress | string: 'form_progress'}})
+      </span>
+      <span *ngIf="item.event==0">
+        <i class="calendar minus outline icon"></i>
+        {{ item.eventTime | date: 'yyyy/MM/dd hh:mm' }}<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        {{ item.person.name }}
+        {{ item.person.roleID | string: 'role'}}
+        取消於 {{item.detail.timeRange.date}}
+        {{item.detail.timeRange | string: 'course_time'}}
+        課程
+      </span>
+    </div>
+  </ng-container>
+  <ng-template #nothing>
+    查無歷史資料
+  </ng-template>
+</ngx-smart-modal>

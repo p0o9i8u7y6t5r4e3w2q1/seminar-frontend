@@ -4,7 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Auth } from '../constant/auth.constant';
 import { ApiService } from './api.service';
 import { StorageService } from './storage.service';
-import { of, throwError, Observable, BehaviorSubject } from 'rxjs';
+import { of, throwError, Observable, ReplaySubject } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { User } from '../../../lib/api-response';
 
@@ -16,7 +16,7 @@ const NOT_LOGGED_IN_MEG = 'Not Logged In';
 export class UserService {
   private auths: boolean[] = new Array<boolean>(8);
   private user: User = null;
-  isLoginSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+  isLoginSubject: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
 
   public NOT_LOGGED_IN_HANDLE = catchError((error: HttpErrorResponse) => {
     if (error.status === 401 && error.error.message === NOT_LOGGED_IN_MEG) {

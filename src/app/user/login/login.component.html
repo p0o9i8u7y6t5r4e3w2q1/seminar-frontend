@@ -1,23 +1,25 @@
 <section class="content center">
-  <div class="sheet small">
+  <form class="sheet small">
     <h3>Login</h3>
     <hr />
 
     <div class="group">
       <label><b>帳號：</b></label>
-      <input type="text" id="account" placeholder="Account" [(ngModel)]="userID" />
+      <input type="text" id="account" name="userID" placeholder="Account" [(ngModel)]="userID" />
     </div>
 
     <div class="group">
       <label><b>密碼：</b></label>
-      <input type="password" id="password" placeholder="Password" [(ngModel)]="password" />
+      <input type="password" id="password" name="password" placeholder="Password" [(ngModel)]="password" />
     </div>
 
+    <!--
     <div class="group">
       <a routerLink="/forgetPassword" class="sheetLink" title="忘記密碼" target="_self">忘記密碼</a>
     </div>
+    -->
     <br />
     <button (click)="login()" title="登入" class="button" target="_self">登入</button>
     <a title="註冊" class="button" routerLink="/signup" target="_self">註冊</a>
-  </div>
+  </form>
 </section>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../basic';
 import { Form } from '../../../lib/api-response';
+import { FormProgress } from '../../../lib/constant-manager';
 
 const FORM = 'form';
 
@@ -13,16 +14,6 @@ export class QueryResultComponent extends BaseComponent implements OnInit {
   protected title = '申請進度結果';
 
   form: Form;
-  formTest: Form = {
-    formID: '12345678',
-    classroomID: '61101',
-    timeRange: {
-      date: null,
-      startPeriod: '2',
-      endPeriod: '4',
-    },
-    progress: 2,
-  };
 
   ngOnInit() {
     this.setTitle(this.title);
@@ -34,5 +25,21 @@ export class QueryResultComponent extends BaseComponent implements OnInit {
     } else {
       this.storage.delete(FORM);
     }
+  }
+
+  canDeleted(status: FormProgress) {
+    return this.form.formID.startsWith('BF') && status === FormProgress.Pending;
+  }
+
+  deleteForm() {
+    this.api.delete('bookings/${this.form.formID}').subscribe({
+      next: () => {
+        alert('刪除成功');
+        this.router.navigate(['/query-form']);
+      },
+      error: () => {
+        alert('刪除失敗');
+      },
+    });
   }
 }

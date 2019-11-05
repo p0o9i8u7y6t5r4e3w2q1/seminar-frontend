@@ -11,7 +11,9 @@ import { CourseChangeComponents } from './course-change/course-change.setting';
 import { MixedComponents } from './mixed/mixed.setting';
 import { SemesterCourseComponents } from './semester-course/semester-course.setting';
 import { UserComponents } from './user/user.setting';
-import { ConstantStringPipe } from './basic';
+import { ConstantStringPipe, ExcludePipe } from './basic';
+import { NgPipesModule } from 'ngx-pipes';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { ConstantStringPipe } from './basic';
     ...SemesterCourseComponents,
     ...UserComponents,
     ConstantStringPipe,
+    ExcludePipe,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +33,8 @@ import { ConstantStringPipe } from './basic';
     FormsModule,
     NgxSmartModalModule.forRoot(),
     AppRoutingModule,
+    NgPipesModule,
+    NgxSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { StorageService, TOKEN } from './storage.service';
-import { of, Observable, UnaryFunction } from 'rxjs';
-import { map, shareReplay, catchError, timeout } from 'rxjs/operators';
+import { Observable, UnaryFunction } from 'rxjs';
+import { map, retry } from 'rxjs/operators';
+import { EventSourcePolyfill } from 'event-source-polyfill';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
   private baseUrl = 'http://localhost:3000/api';
-  public readonly serverWork$: Observable<boolean>;
+  // public readonly serverWork$: Observable<boolean>;
 
   private FETCH_TOKEN: UnaryFunction<any, any> = map((data: any) => {
     if (data && data[TOKEN]) {
@@ -21,12 +19,19 @@ export class ApiService {
     console.log(data.result);
     return data.result;
   });
-  private globalOperations: UnaryFunction<any, any>[] = [this.FETCH_TOKEN];
+  private globalOperations: UnaryFunction<any, any>[] = [
+    this.FETCH_TOKEN,
+    retry(1),
+  ];
 
   constructor(
     private readonly http: HttpClient,
     private readonly storage: StorageService,
   ) {
+    if (window.location.hostname !== 'localhost') {
+      this.baseUrl = 'api';
+    }
+    /*
     // 只在一開始監測server運作，並且分享檢測結果，不重複檢測
     this.serverWork$ = this.get('/app').pipe(
       timeout(1000),
@@ -37,6 +42,7 @@ export class ApiService {
       }),
       shareReplay(1),
     );
+     */
   }
 
   registerGlobalOperation(operator: any) {
@@ -64,12 +70,16 @@ export class ApiService {
     return http;
   }
 
+  private getAuthorizationHeader() {
+    return {
+      Authorization: 'Bearer ' + this.storage.token,
+    };
+  }
+
   getDefaultOptions() {
     const options: any = {};
     if (this.storage.token) {
-      options.headers = new HttpHeaders({
-        Authorization: 'Bearer ' + this.storage.token,
-      });
+      options.headers = new HttpHeaders(this.getAuthorizationHeader());
     }
     return options;
   }
@@ -96,5 +106,11 @@ export class ApiService {
     return this.pipeGlobalOperations(
       this.http.delete(this.getApiUrl(apiName), this.mergeOptions(options)),
     );
+  }
+
+  eventSource(apiName: string): EventSourcePolyfill {
+    return new EventSourcePolyfill(this.getApiUrl(apiName), {
+      headers: this.getAuthorizationHeader(),
+    });
   }
 }

@@ -11,7 +11,7 @@ export class SignupComponent extends BaseComponent implements OnInit {
   protected title = '註冊';
 
   form: CreateUserDto = {
-    userID: '',
+    id: '',
     name: '',
     password: '',
     email: '',

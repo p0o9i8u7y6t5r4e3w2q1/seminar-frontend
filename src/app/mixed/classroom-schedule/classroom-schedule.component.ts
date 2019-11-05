@@ -26,7 +26,7 @@ export class ClassroomScheduleComponent extends BaseComponent
   }
 
   onSubmit() {
-    if (this.classroomID == '' || this.date == null) {
+    if (this.classroomID === '' || this.date == null) {
       alert('請先選擇日期與教室，再行查詢');
     } else {
       this.querySchedule();
@@ -51,6 +51,4 @@ export class ClassroomScheduleComponent extends BaseComponent
       })
       .pipe(shareReplay(1));
   }
-
-  getSchedulePeriod(i: number, period: string) {}
 }

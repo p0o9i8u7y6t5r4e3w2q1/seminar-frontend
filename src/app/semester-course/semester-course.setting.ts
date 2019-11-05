@@ -15,11 +15,9 @@ export const SemesterCourseRoutes: Routes = [
   {
     path: 'semester-course/create',
     component: SemesterCourseComponent,
-    data: { type: 'create' },
   },
   {
-    path: 'semester-course/modify',
+    path: 'semester-course/modify/:scID',
     component: SemesterCourseComponent,
-    data: { type: 'modify' },
   },
 ];

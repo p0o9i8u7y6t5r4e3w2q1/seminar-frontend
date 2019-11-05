@@ -9,8 +9,10 @@
         <tbody>
           <tr>
             <th><label><b>學號：</b></label></th>
-            <td><input (focusout)="fetchApplicant()" [(ngModel)]="form.applicantID" 
-                  name="applicantID" type="text" id="stu_id_input" /></td>
+            <td>
+              <input (focusout)="fetchApplicant()" [(ngModel)]="form.applicantID" 
+                  name="applicantID" type="text" id="stu_id_input" />
+            </td>
             <th><label><b>姓名：</b></label></th>
             <td>{{(this.applicant$ | async)?.name  || '未知'}}</td>
           </tr>
@@ -20,8 +22,10 @@
           </tr>
           <tr>
             <th><label><b>日期：</b></label></th>
-            <td colspan="3"><input (change)="timeOnChange()" [(ngModel)]="form.timeRange.date" 
-                name="date" type="date" id="date_input" /></td>
+            <td colspan="3">
+              <input (change)="timeOnChange()" [(ngModel)]="form.timeRange.date" 
+                  name="date" type="date" id="date_input" />
+            </td>
           </tr>
           <tr>
             <th><label><b>節數：</b></label></th>
@@ -38,8 +42,7 @@
           </tr>
           <tr>
             <th><label><b>活動名稱：</b></label></th>
-            <td colspan="3"><input [(ngModel)]="form.reason" name="reason" 
-                  class="longWidth" type="text" id="activity_name" /></td>
+            <td colspan="3"><input [(ngModel)]="form.reason" name="reason" class="longWidth" type="text" id="activity_name" /></td>
           </tr>
           <tr>
             <th><label><b>教室：</b></label></th>
@@ -66,3 +69,13 @@
     </form>
   </div>
 </section>
+
+<ngx-smart-modal #formModal identifier="formModal" (onClose)="goBack()"
+        customClass="nsm-dialog-animation-fade nsm-centered">
+  <h1>送出成功</h1>
+  <div *ngIf="formModal.getData() as obj">
+    您的表單已經成功送出，以下為表單編號：<br />
+    <div style="text-align:center">{{obj.formID}}</div>
+    您可以到"查詢申請進度"去查詢您的表單審核進度
+  </div>
+</ngx-smart-modal>

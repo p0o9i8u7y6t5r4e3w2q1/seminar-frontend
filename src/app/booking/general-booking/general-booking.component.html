@@ -6,7 +6,7 @@
     <hr />
     <form name="notiimRequestBorrowForm" (ngSubmit)="onSubmit()" method="post">
       <table>
-        <tbody>G
+        <tbody>
           <tr>
             <th><label><b>姓名：</b></label></th>
             <td colspan="5">
@@ -19,17 +19,17 @@
           </tr>
           <tr>
             <th><label><b>日期：</b></label></th>
-            <td colspan="5"><input (change)="timeOnRange()" [(ngModel)]="form.timeRange.date" name="date" type="date" /></td>
+            <td colspan="5"><input (change)="timeOnChange()" [(ngModel)]="form.timeRange.date" name="date" type="date" /></td>
           </tr>
           <tr>
             <th><label><b>節數：</b></label></th>
             <td colspan="5">
-              <select (change)="timeOnRange()" [(ngModel)]="form.timeRange.startPeriod" name="startPeriod">
+              <select (change)="timeOnChange()" [(ngModel)]="form.timeRange.startPeriod" name="startPeriod">
                 <option value="" selected disabled hidden>起始節數</option>
                 <option *ngFor="let period of periodOptions" [value]='period.value'>{{period.title}}</option>
               </select>
               <b>&nbsp;~&nbsp;</b>
-              <select (change)="timeOnRange()" [(ngModel)]="form.timeRange.endPeriod" name="endPeriod">
+              <select (change)="timeOnChange()" [(ngModel)]="form.timeRange.endPeriod" name="endPeriod">
                 <option value="" selected disabled hidden>結束節數</option>
                 <option *ngFor="let period of periodOptions" [value]='period.value'>{{period.title}}</option>
               </select>
@@ -41,7 +41,7 @@
           </tr>
           <tr>
             <th><label><b>教室：</b></label></th>
-            <td><select (change)="fetchClassroomInfo()" [(ngModel)]="form.classroomID" name="classroomID">
+            <td><select (change)="fetchClassroom()" [(ngModel)]="form.classroomID" name="classroomID">
                 <option value="" selected disabled hidden>請選擇教室</option>
                 <option *ngFor="let room of classroomOptions" [value]='room.value'>{{room.title}}</option>
               </select><br/>
@@ -74,3 +74,13 @@
     </form>
   </div>
 </section>
+
+<ngx-smart-modal #formModal identifier="formModal" 
+  (onClose)="goBack()" customClass="nsm-dialog-animation-fade nsm-centered">
+  <h1>送出成功</h1>
+  <div *ngIf="formModal.getData() as obj">
+    您的表單已經成功送出，以下為表單編號：<br />
+    <div style="text-align:center">{{obj.formID}}</div>
+    您可以到"查詢申請進度"去查詢您的表單審核進度
+  </div>
+</ngx-smart-modal>

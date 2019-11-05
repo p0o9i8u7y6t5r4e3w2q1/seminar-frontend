@@ -3,10 +3,10 @@
     <h2><i class="user icon"></i><strong> 系主任</strong></h2>
     <hr />
     <b>系主任：</b>
-    <select name="section" [(ngModel)]="teacherID">
-      <option *ngFor="let teacher of teachers" [value]="teacher.id">{{teacher.name}}</option>
+    <select name="section" [(ngModel)]="deptHeadID">
+      <option *ngFor="let teacher of teachers$ | async;trackBy: trackByFn" [value]="teacher.id">{{teacher.name}}</option>
     </select>
-    <button class="button">儲存</button><br />
+    <button class="button" (click)="assignDeptHead()">儲存</button><br />
   </div>
   <div class="container sheet">
     <h2><i class="users icon"></i><strong> 教授</strong></h2>
@@ -14,24 +14,24 @@
     <div class="box center left" style="width:35%">
       <div>
         <span style="font-size:20px"><i class="user plus icon"></i><strong> 新增教授 </strong></span>
-        <form name="myForm" onsubmit="return validateForm()" method="post">
+        <form name="myForm" (ngSubmit)="createTeacher()" method="post">
           <div class="vgroup">
             <label>教職員ID：</label><br />
-            <input type="text" name="ID" />
+            <input type="text" name="ID" [(ngModel)]="form.id" />
           </div>
           <div class="vgroup">
             <label>姓名：</label><br />
-            <input type="text" name="name" />
+            <input type="text" name="name" [(ngModel)]="form.name" />
           </div>
           <div class="vgroup">
             <label>Email：</label><br />
-            <input type="text" name="email" /><br />
+            <input type="text" name="email" [(ngModel)]="form.email" /><br />
           </div>
           <div class="vgroup">
             <label>密碼：</label><br />
-            <input type="text" name="password" />
+            <input type="password" name="password" [(ngModel)]="form.password" />
           </div>
-          <button class="button">新增</button>
+          <button class="button" (click)="createTeacher()">新增</button>
         </form>
       </div>
     </div>
@@ -45,13 +45,13 @@
             <th><b>姓名</b></th>
             <th><b>刪除</b></th>
           </tr>
-          <tr *ngFor="let teacher of teachers">
+          <tr *ngFor="let teacher of teachers$ | async;let i = index;trackBy: trackByFn">
             <td>{{teacher.id}}</td>
             <td>{{teacher.name}}</td>
-            <td><input type="checkbox" name="delete" value="1" /></td>
+            <td><input type="checkbox" [name]="'delete_'+i" [(ngModel)]="deleteStatus[teacher.id]" /></td>
           </tr>
         </table>
-        <button class="button">刪除</button>
+        <button class="button" (click)="deleteTeachers()">刪除</button>
       </div>
     </div>
   </div>

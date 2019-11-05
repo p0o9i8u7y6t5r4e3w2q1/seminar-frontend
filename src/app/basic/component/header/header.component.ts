@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { Auth } from '../../constant/auth.constant';
-import { ROLE } from '../../constant/array.constant';
+import { ROLE } from '../../constant/template.constant';
 import { UserService } from '../../service/user.service';
+import { ApiService } from '../../service/api.service';
+import { StorageService } from '../../service/storage.service';
 
 interface MenuItem {
   title: string;
@@ -14,7 +18,7 @@ interface MenuItem {
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   menuItems: MenuItem[] = [
     { title: '查詢可借用時段', routerName: '/classroom-schedule' },
     { title: '申請借用教室與設備', routerName: '/booking' },
@@ -26,20 +30,34 @@ export class HeaderComponent implements OnInit {
     { title: '刷卡紀錄', routerName: '/card-record' },
   ];
 
-  welcomeStr: string;
+  isLogin$: Observable<boolean>;
+  user: any;
+  pendingCount: number;
+  source: EventSource;
 
   constructor(
     private readonly userService: UserService,
     private readonly router: Router,
+    protected readonly api: ApiService,
+    protected readonly storage: StorageService,
   ) {}
 
   ngOnInit() {
-    this.userService.isLogin$.subscribe((isLogin: boolean) => {
-      if (isLogin) {
-        const user = this.userService.getUser();
-        this.welcomeStr = `${user.name}  ${ROLE[user.roleID]} 您好！`;
-      }
-    });
+    this.isLogin$ = this.userService.isLogin$.pipe(
+      tap((isLogin: boolean) => {
+        if (isLogin) {
+          this.user = this.userService.getUser();
+          this.getPendingCount();
+        } else {
+          if (this.source) this.source.close();
+          this.user = null;
+        }
+      }),
+    );
+  }
+
+  ngOnDestroy() {
+    this.source.close();
   }
 
   public display(index: number): boolean {
@@ -69,5 +87,13 @@ export class HeaderComponent implements OnInit {
   public logout() {
     this.userService.logout();
     this.router.navigate(['/']);
+  }
+
+  public getPendingCount() {
+    this.source = this.api.eventSource('sse/forms/count');
+    this.source.addEventListener('message', (evt: any) => {
+      console.log(evt.data);
+      this.pendingCount = evt.data;
+    });
   }
 }

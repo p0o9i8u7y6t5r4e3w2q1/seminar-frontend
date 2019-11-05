@@ -19,6 +19,25 @@ export const PERIOD_OPTIONS = [
   { value: 'E', title: 'E　(22: 10~23: 00)' },
 ];
 
+export const PERIOD_NAMES = {
+  0: '0　(07: 10~08: 00)',
+  1: '1　(08: 10~09: 00)',
+  2: '2　(09: 10~10: 00)',
+  3: '3　(10: 10~11: 00)',
+  4: '4　(11: 10~12: 00)',
+  N: 'N　(12: 10~13: 00)',
+  5: '5　(13: 10~14: 00)',
+  6: '6　(14: 10~15: 00)',
+  7: '7　(15: 10~16: 00)',
+  8: '8　(16: 10~17: 00)',
+  9: '9　(17: 10~18: 00)',
+  A: 'A　(18: 10~19: 00)',
+  B: 'B　(19: 10~20: 00)',
+  C: 'C　(20: 10~21: 00)',
+  D: 'D　(21: 10~22: 00)',
+  E: 'E　(22: 10~23: 00)',
+};
+
 export const CLASSROOM_OPTIONS = [
   { value: '61101', title: '61101' },
   { value: '61102', title: '61102' },
@@ -35,6 +54,33 @@ export const CLASSROOM_OPTIONS = [
   { value: '61321', title: '61321(小會議室)' },
   { value: '61306', title: '61306(大會議室)' },
 ];
+
+export const CLASSROOM_NAMES = {
+  61101: '61101',
+  61102: '61102',
+  61103: '61103',
+  61104: '61104',
+  61200: '61200(大階梯講堂)',
+  61201: '61201',
+  61202: '61202',
+  61204: '61204',
+  61206: '61206(多功能講堂)',
+  61208: '61208',
+  61210: '61210',
+  61000: '2F貴賓室',
+  61321: '61321(小會議室)',
+  61306: '61306(大會議室)',
+};
+
+export const EQUIPMENT_TYPE_NAMES = {
+  [EquipmentType.Projector]: '投影機' ,
+  [EquipmentType.Microphone]: '麥克風' ,
+  [EquipmentType.MiniMic]: '小蜜蜂' ,
+  [EquipmentType.PresentationRemote]: '簡報筆' ,
+  [EquipmentType.ProjectionScreen]: '投影幕' ,
+  [EquipmentType.ExtensionCord]: '延長線' ,
+  [EquipmentType.Laptop]: '筆電',
+};
 
 export const EQUIPMENT_TYPE_OPTIONS = [
   { value: EquipmentType.Projector, title: '投影機' },

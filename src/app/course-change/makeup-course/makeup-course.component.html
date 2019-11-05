@@ -8,7 +8,7 @@
       <table>
         <tr>
           <th><b>課程：</b></th>
-          <td><b>{{course?.name}}</b></td>
+          <td><b>{{(course | async)?.name}}</b></td>
         </tr>
         <tr>
           <th><label><b>日期：</b></label></th>

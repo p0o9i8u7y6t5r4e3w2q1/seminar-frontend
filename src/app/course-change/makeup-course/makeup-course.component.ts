@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../basic';
+import { Observable } from 'rxjs';
 import { CreateMakeupCourseFormDto } from '../../../lib/api-request';
 import { SemesterCourse } from '../../../lib/api-response';
 
@@ -13,6 +14,7 @@ export class MakeupCourseComponent extends BaseComponent implements OnInit {
 
   courseID: string;
   course: SemesterCourse = null;
+  course$: Observable<SemesterCourse>;
 
   form: CreateMakeupCourseFormDto = {
     classroomID: '',
@@ -25,13 +27,9 @@ export class MakeupCourseComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     super.setTitle(this.title);
-    this.courseID = this.route.snapshot.params['courseID'];
+    this.courseID = this.util.param('courseID');
     console.log(this.courseID);
-    this.api
-      .get(`/semester-courses/${this.courseID}`)
-      .subscribe((result: SemesterCourse) => {
-        this.course = result;
-      });
+    this.course$ = this.api.get(`/semester-courses/${this.courseID}`);
   }
 
   validateAddNewClassForm() {

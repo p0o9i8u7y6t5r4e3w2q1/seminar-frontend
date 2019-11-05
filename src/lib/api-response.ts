@@ -32,7 +32,7 @@ export interface Classroom {
 export interface SemesterCourse {
   id: string;
   name: string;
-  time: Date;
+  time: string;
   teacherID: string;
   classroomID: string;
 }
@@ -53,7 +53,7 @@ export interface CardRecord {
 }
 
 export interface ScheduleResult {
-  date: Date;
+  date: string;
   period: string;
   classroomID: string;
   scID?: string;
@@ -63,6 +63,6 @@ export interface ScheduleResult {
 
 export class ClassroomDateSchedule {
   classroomID: string;
-  date: Date;
+  date: string;
   scheduleResults: { [x: string]: ScheduleResult } = {};
 }

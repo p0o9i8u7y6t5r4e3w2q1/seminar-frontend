@@ -21,16 +21,14 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     super.setTitle(this.title);
-    this.userService
-      .isLogin$.pipe(take(1))
-      .subscribe((isLogin: boolean) => {
-        if (isLogin) {
-          this.user = this.userService.getUser();
-        } else {
-          alert('尚未登入，請登入再操作');
-          this.router.navigate(['/']);
-        }
-      });
+    this.userService.isLogin$.pipe(take(1)).subscribe((isLogin: boolean) => {
+      if (isLogin) {
+        this.user = this.userService.getUser();
+      } else {
+        alert('尚未登入，請登入再操作');
+        this.router.navigate(['/']);
+      }
+    });
   }
 
   initUser(user: any) {
@@ -44,9 +42,17 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     }
   }
 
-  updateUser() {}
+  updateUser() {
+    this.api.post('/user/info', this.password).subscribe({
+      next: () => alert('更新成功'),
+      error: error => alert('更新失敗'),
+    });
+  }
 
   updatePassword() {
-    this.api.post('/user/updatePassword', this.password);
+    this.api.post('/user/updatePassword', this.password).subscribe({
+      next: () => alert('更新成功'),
+      error: error => alert('更新失敗'),
+    });
   }
 }

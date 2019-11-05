@@ -6,7 +6,7 @@ import {
 } from './constant-manager';
 
 export interface DatePeriodRangeDto {
-  date: Date;
+  date: Date | string;
   startPeriod: string;
   endPeriod: string;
 }
@@ -61,7 +61,7 @@ export interface CreateSemesterCourseDto {
 }
 
 export interface CreateUserDto {
-  userID: string;
+  id: string;
   password: string;
   name: string;
   email: string;

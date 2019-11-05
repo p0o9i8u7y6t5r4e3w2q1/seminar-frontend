@@ -7,23 +7,23 @@
         <table>
           <tr>
             <th><label><b>學號：</b></label></th>
-            <td><input type="text" id="reg_stu_id" [(ngModel)]="form.userID" required/></td>
+            <td><input type="text" id="reg_stu_id" name="userID" [(ngModel)]="form.userID" required/></td>
           </tr>
           <tr>
             <th><label><b>姓名：</b></label></th>
-            <td><input type="text" id="reg_name" [(ngModel)]="form.name" required/></td>
+            <td><input type="text" id="reg_name" name="name" [(ngModel)]="form.name" required/></td>
           </tr>
           <tr>
             <th><label><b>Email：</b></label></th>
-            <td><input type="text" id="reg_email" [(ngModel)]="form.email" required/></td>
+            <td><input type="text" id="reg_email" name="email" [(ngModel)]="form.email" required/></td>
           </tr>
           <tr>
             <th><label><b>密碼：</b></label></th>
-            <td><input type="text" id="reg_password" [(ngModel)]="form.password" required/></td>
+            <td><input type="text" id="reg_password" name="password" [(ngModel)]="form.password" required/></td>
           </tr>
           <tr>
             <th><label><b>確認密碼：</b></label></th>
-            <td><input type="text" id="reg_confirm_password" [(ngModel)]="pwdCheck" required/></td>
+            <td><input type="text" id="reg_confirm_password" name="pwdCheck" [(ngModel)]="pwdCheck" required/></td>
           </tr>
         </table>
       </div>
