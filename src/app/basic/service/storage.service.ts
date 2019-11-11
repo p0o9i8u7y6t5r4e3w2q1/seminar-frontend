@@ -18,7 +18,6 @@ export class StorageService {
 
   set token(token: string) {
     this._token = token;
-    alert('token 設定:'+token);
     token ? this.write(TOKEN, token) : this.remove(TOKEN);
   }
 

@@ -4,6 +4,7 @@ import { Form } from '../../../lib/api-response';
 import { FormProgress } from '../../../lib/constant-manager';
 
 const FORM = 'form';
+const DELETE_FORM_MODAL = 'deleteFormModal';
 
 @Component({
   selector: 'app-query-result',
@@ -27,12 +28,23 @@ export class QueryResultComponent extends BaseComponent implements OnInit {
     }
   }
 
-  canDeleted(status: FormProgress) {
-    return this.form.formID.startsWith('BF') && status === FormProgress.Pending;
+  canDeleted() {
+    return this.form.progress === FormProgress.Pending;
+  }
+
+  openDeleteForm() {
+    console.log(this.form.formID)
+    if (this.form.formID.startsWith('MF')) {
+      this.deleteForm();
+    } else {
+      this.util.modal.setModalData({ email: '' }, DELETE_FORM_MODAL);
+      this.util.modal.open(DELETE_FORM_MODAL);
+      console.log('here')
+    }
   }
 
   deleteForm() {
-    this.api.delete('bookings/${this.form.formID}').subscribe({
+    const subscribeAction = {
       next: () => {
         alert('刪除成功');
         this.router.navigate(['/query-form']);
@@ -40,6 +52,15 @@ export class QueryResultComponent extends BaseComponent implements OnInit {
       error: () => {
         alert('刪除失敗');
       },
-    });
+    };
+
+    if (this.form.formID.startsWith('BF')) {
+      const body = this.util.modal.getModalData(DELETE_FORM_MODAL);
+      this.api.delete(`bookings/${this.form.formID}`, { body }).subscribe(subscribeAction);
+    } else {
+      this.api
+        .delete(`course-change/makeup/${this.form.formID}`)
+        .subscribe(subscribeAction);
+    }
   }
 }

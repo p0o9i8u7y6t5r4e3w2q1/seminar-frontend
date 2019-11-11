@@ -1,10 +1,18 @@
 <section class="content center">
-  <div class="sheet small" id="whiteFormSmall">
+  <div *ngIf="form" class="sheet small" id="whiteFormSmall">
     <b>流水號：{{form.formID}}</b><br /><br />
-    教室：{{form.classroomID}}<br />
+    教室：{{form.classroomID | string: 'classroom'}}<br />
     時段：{{form.timeRange.startPeriod}} ~ {{form.timeRange.endPeriod}}<br />
     審查進度：{{form.progress | string: 'form_progress'}}<br /><br />
     <a routerLink="/query-form" class="button">返回</a>
-    <button (click)="deleteForm()" class="button" [disabled]="!canDeleted()">取消申請</button>
+    <button *ngIf="canDeleted()" (click)="openDeleteForm()" class="button">取消申請</button>
   </div>
 </section>
+
+<ngx-smart-modal #deleteFormModal identifier="deleteFormModal" dismissable="false" customClass="nsm-centered">
+  <div class="center column" *ngIf="deleteFormModal.hasData()">
+      <h2>請輸入申請時的信箱:</h2>
+      <input name="email" [(ngModel)]="deleteFormModal.getData().email" />
+      <button class="button" (click)="deleteForm()">確認</button>
+  </div>
+</ngx-smart-modal>

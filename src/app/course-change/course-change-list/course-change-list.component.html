@@ -6,14 +6,14 @@
         <th>課程</th>
         <th>新增上課時段</th>
         <th>刪除上課時段</th>
-        <th>助教管理</th>
+        <th *ngIf="!isTA">助教管理</th>
         <th>異動紀錄</th>
       </tr>
       <tr *ngFor="let course of courses$ | async">
         <th>{{course.name}}</th>
         <td><a class="link" [routerLink]="['/course-change/makeup/', course.id]">新增</a></td>
         <td><a class="link" [routerLink]="['/course-change/suspended/', course.id]">刪除</a></td>
-        <td><a class="link" [routerLink]="['/course-change/ta/', course.id]">修改</a></td>
+        <td *ngIf="!isTA"><a class="link" [routerLink]="['/course-change/ta/', course.id]">修改</a></td>
         <td><a class="link" (click)="openHistoryModal(course)">查詢</a></td>
       </tr>
     </table>

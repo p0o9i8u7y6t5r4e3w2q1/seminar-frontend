@@ -14,10 +14,10 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   user: User = {} as User;
 
   password: any = {
-    oldPwd: '',
-    newPwd: '',
-    newPwd2: '',
+    oldPassword: '',
+    newPassword: '',
   };
+  newPassword2: '';
 
   ngOnInit() {
     super.setTitle(this.title);
@@ -42,15 +42,20 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     }
   }
 
-  updateUser() {
-    this.api.post('/user/info', this.password).subscribe({
+  updateInfo() {
+    this.api.put('/user/info', { email: this.user.email }).subscribe({
       next: () => alert('更新成功'),
       error: error => alert('更新失敗'),
     });
   }
 
   updatePassword() {
-    this.api.post('/user/updatePassword', this.password).subscribe({
+    if (this.password.newPassword !== this.newPassword2) {
+      alert('新密碼輸入必須相同');
+      return;
+    }
+
+    this.api.put('/user/password', this.password).subscribe({
       next: () => alert('更新成功'),
       error: error => alert('更新失敗'),
     });

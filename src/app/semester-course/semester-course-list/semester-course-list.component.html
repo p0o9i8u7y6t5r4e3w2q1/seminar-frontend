@@ -23,7 +23,7 @@
         <td>{{course.teacher}}</td>
         <td>{{course.time}}</td>
         <td>{{course.classroomID | string: 'classroom'}}</td>
-        <td><button class="button">查詢</button></td>
+        <td><button class="button" (click)="queryStudents(course)">查詢</button></td>
         <td>
           <button [routerLink]="['/semester-course/modify/',course.id]" class="button">修改</button>
           <button (click)="deleteSemesterCourse(course.id)" class="button">刪除</button>
@@ -32,3 +32,24 @@
     </table>
   </div>
 </section>
+
+<ngx-smart-modal #studentsModal identifier="studentsModal" customClass="nsm-centered">
+  <div class="center column" *ngIf="studentsModal.hasData(); else nothing">
+    <h1>
+      {{studentsModal.getData()?.courseName}}-修課名單
+    </h1>
+    <table class="listTable">
+      <tr>
+        <th>學號</th>
+        <th>姓名</th>
+      </tr>
+      <tr *ngFor="let student of studentsModal.getData().students$ | async;trackBy: trackByFn">
+        <td>{{student.id}}</td>
+        <td>{{student.name}}</td>
+      </tr>
+    </table>
+  </div>
+  <ng-template #nothing>
+    查無歷史資料
+  </ng-template>
+</ngx-smart-modal>

@@ -7,17 +7,17 @@
 <tr *ngFor="let selectedType of selectedEquipTypes; let i = index">
   <th><label><b>設備類別：</b></label></th>
   <td>
-    <select (change)="selectedTypeOnChange(i)" [(ngModel)]="selectedEquipTypes[i]" name="equipType">
+    <select (change)="selectedTypeOnChange(i)" [(ngModel)]="selectedEquipTypes[i]" [name]="'equipType_'+i">
       <option value="" disabled hidden>請選擇類別</option>
-      <option *ngFor="let type of equipTypeOptions" [value]="type.value">{{type.title}}</option>
+      <option *ngFor="let type of equipTypeOptions;trackBy: trackByFn;" [value]="type.value">{{type.title}}</option>
     </select>
   </td>
   <th><label><b>設備編號：</b></label></th>
   <td [attr.colspan]="fullColspan-3">
-    <select [(ngModel)]="equipmentIDs[i]" name="equip">
+    <select [(ngModel)]="equipmentIDs[i]" [name]="'equip_'+i">
       <ng-container *ngIf="allTypeEquipOptions[selectedType] as equipOptions$">
         <option value="" selected disabled hidden>請選擇設備</option>
-        <ng-container *ngFor="let equip of equipOptions$ | async">
+        <ng-container *ngFor="let equip of equipOptions$ | async;trackBy: trackByFn">
           <option *ngIf="isNotSeletected(i, equip.id)" [value]="equip.id" [hidden]="">{{ equip.name }}</option>
         </ng-container>
       </ng-container>

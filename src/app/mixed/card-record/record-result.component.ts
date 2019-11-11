@@ -53,7 +53,7 @@ export class RecordResultComponent extends BaseComponent implements OnInit {
       alert('請先輸入查詢日期與教室');
       this.router.navigate(['card-record']);
     } else {
-      // this.datas = tmp.datas;
+      this.datas = tmp.datas;
       this.queryCondition = tmp.condition;
       this.storage.delete(CARD_RECORDS);
     }

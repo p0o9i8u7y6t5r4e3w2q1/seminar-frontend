@@ -23,7 +23,8 @@ export abstract class BaseComponent {
   public readonly periodNames = PERIOD_NAMES;
 
   // -1 as first number
-  updateSubject: BehaviorSubject<number> = new BehaviorSubject(-1);
+  readonly FIRST = -1;
+  updateSubject: BehaviorSubject<number> = new BehaviorSubject(this.FIRST);
   loading: Loading = new Loading();
 
   constructor(
@@ -44,11 +45,11 @@ export abstract class BaseComponent {
   protected init() {}
 
   // 通用的trackByFn，需自定義可覆寫或寫其他function
-  protected trackByFn(index: any, item: any) {
+  trackByFn(index: any, item: any) {
     return item.id;
   }
 
-  protected notify(updateCode: number) {
+  notify(updateCode: number) {
     this.updateSubject.next(updateCode);
   }
 

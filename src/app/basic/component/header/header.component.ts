@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Auth } from '../../constant/auth.constant';
-import { ROLE } from '../../constant/template.constant';
+import { RoleType } from '../../../../lib/constant-manager';
 import { UserService } from '../../service/user.service';
 import { ApiService } from '../../service/api.service';
 import { StorageService } from '../../service/storage.service';
@@ -49,7 +49,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.user = this.userService.getUser();
           this.getPendingCount();
         } else {
-          if (this.source) this.source.close();
+          if (this.source) {
+            this.source.close();
+          }
           this.user = null;
         }
       }),
@@ -90,10 +92,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public getPendingCount() {
+    if (
+      this.user.roleID === RoleType.TA ||
+      this.user.roleID === RoleType.Teacher
+    ) {
+      return;
+    }
+
     this.source = this.api.eventSource('sse/forms/count');
     this.source.addEventListener('message', (evt: any) => {
       console.log(evt.data);
       this.pendingCount = evt.data;
+    });
+    this.source.addEventListener('error', (error: any) => {
+      console.log(error);
+      this.source.close();
     });
   }
 }

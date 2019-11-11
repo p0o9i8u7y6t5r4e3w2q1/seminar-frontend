@@ -16,7 +16,7 @@
         <tr>
           <th><label>課程代號：</label></th>
           <td>
-            <input type="text" name="courseID" list="courseIDs" 
+            <input type="text" name="courseID" list="courseIDs"
                 [(ngModel)]="form.courseID" [disabled]="!isCreate"/>
             <datalist id="courseIDs">
               <option *ngFor="let course of courses$ | async" [value]="course.id">{{course.name}}</option>
@@ -66,7 +66,7 @@
           </td>
       </table>
       <button *ngIf="isCreate" (click)="createSemesterCourse()" class="button">新增</button>
-      <button *ngIf="!isCreate" (click)="modifySemesterCoruse()" class="button">修改</button>
+      <button *ngIf="!isCreate" (click)="modifySemesterCourse()" class="button">修改</button>
       <button onclick="history.back()" class="button">取消</button>
     </form>
   </div>

@@ -22,7 +22,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
         alert('登入成功');
         this.router.navigate(['/course-change']);
       },
-      error: () => alert('帳號或密碼錯誤'),
+      error: (error) => {
+        console.log(error)
+        alert('帳號或密碼錯誤')},
     });
   }
 }

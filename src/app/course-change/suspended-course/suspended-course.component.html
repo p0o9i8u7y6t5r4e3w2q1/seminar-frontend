@@ -11,7 +11,7 @@
 
     <div class="group">
       <label><b>日期：</b></label>
-      <input type="date" id="delete_date" [(ngModel)]="selectedDate" (change)="fetchCourseTime()" />
+      <input type="date" id="delete_date" [(ngModel)]="selectedDate" (change)="notify(0)" />
     </div>
     <table id="delete_class" *ngIf="(courseTime$ | async) as courseTime">
       <tr>

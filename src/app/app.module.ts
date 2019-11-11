@@ -11,7 +11,7 @@ import { CourseChangeComponents } from './course-change/course-change.setting';
 import { MixedComponents } from './mixed/mixed.setting';
 import { SemesterCourseComponents } from './semester-course/semester-course.setting';
 import { UserComponents } from './user/user.setting';
-import { ConstantStringPipe, ExcludePipe } from './basic';
+import { ConstantStringPipe } from './basic';
 import { NgPipesModule } from 'ngx-pipes';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -25,7 +25,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ...SemesterCourseComponents,
     ...UserComponents,
     ConstantStringPipe,
-    ExcludePipe,
   ],
   imports: [
     BrowserModule,

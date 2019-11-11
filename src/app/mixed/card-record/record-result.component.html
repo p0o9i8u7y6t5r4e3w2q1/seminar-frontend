@@ -15,7 +15,7 @@
         <tr *ngFor="let result of datas">
           <td>{{result.time | date:'yyyy/MM/dd'}}</td>
           <td>{{result.time | date:'HH:mm'}}</td>
-          <td>{{result.cardOwner.name}}</td>
+          <td>{{result.cardOwner}}</td>
           <td>{{result.swipeResult | string: 'swipe_result' }}</td>
           <td>{{result.swipeResult | string: 'electricity_result' }}</td>
         </tr>

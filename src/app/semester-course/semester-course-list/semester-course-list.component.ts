@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import { BaseComponent, getYearAndSemester } from '../../basic';
+import { SemesterCourse } from '../../../lib/api-response';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+
+const STUDENTS_MODAL = 'studentsModal';
 
 @Component({
   selector: 'app-semester-course-list',
@@ -46,5 +49,14 @@ export class SemesterCourseListComponent extends BaseComponent
       alert('刪除成功');
       this.notify(0);
     });
+  }
+
+  queryStudents(sc: SemesterCourse) {
+    const students$ = this.api.get(`semester-courses/${sc.id}/students`);
+    this.util.modal.setModalData(
+      { courseName: sc.name, students$ },
+      STUDENTS_MODAL,
+    );
+    this.util.modal.open(STUDENTS_MODAL);
   }
 }

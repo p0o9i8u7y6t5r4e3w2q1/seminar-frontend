@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { shareReplay, map } from 'rxjs/operators';
 import { BaseComponent } from '../../basic';
 import { SemesterCourse } from '../../../lib/api-response';
+import { RoleType } from '../../../lib/constant-manager';
 
 const COURSES$ = 'courses$';
 const HISTORY_MODAL = 'historyModal';
@@ -14,14 +15,15 @@ const HISTORY_MODAL = 'historyModal';
 })
 export class CourseChangeListComponent extends BaseComponent implements OnInit {
   protected title = '課程管理';
-  courseID: string;
-
   courses$: Observable<SemesterCourse[]>;
+  isTA = true;
 
   ngOnInit() {
     super.setTitle(this.title);
-    this.courseID = this.util.param('courseID');
-    this.courses$ = this.api.get(`semester-courses/own`).pipe(shareReplay(1));
+    this.userService.isLogin$.subscribe(() => {
+      this.isTA = this.userService.getUser().roleID === RoleType.TA;
+      this.courses$ = this.api.get(`semester-courses/own`).pipe(shareReplay(1));
+    });
   }
 
   openHistoryModal(course: SemesterCourse) {

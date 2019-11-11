@@ -5,7 +5,7 @@
     </h2>
     <hr />
     <div class="center">
-      <form name="myForm" method="post">
+      <form name="myForm" (ngSubmit)="updateInfo()" method="post">
         <table>
           <tr>
             <th><label><b>識別號：</b></label></th>
@@ -20,7 +20,7 @@
             <td><input type="email" [(ngModel)]="user.email" name="email" required /></td>
           </tr>
         </table>
-        <button class="button" type="submit" title="儲存" type="button">儲存</button>
+        <button class="button" type="submit" title="儲存">儲存</button>
       </form>
     </div>
   </div>
@@ -29,22 +29,22 @@
     <h2><strong>密碼修改</strong><i class="pencil alternate icon"></i></h2>
     <hr />
     <div class="center">
-      <form name="passwordForm" method="post">
+      <form name="passwordForm" (ngSubmit)="updatePassword()" method="post">
         <table>
           <tr>
             <th><label><b>原密碼：</b></label></th>
-            <td><input type="password" [(ngModel)]="password.oldPwd" name="oldPwd" /></td>
+            <td><input type="password" [(ngModel)]="password.oldPassword" name="oldPwd" /></td>
           </tr>
           <tr>
             <th><label><b>新密碼：</b></label></th>
-            <td><input type="password" [(ngModel)]="password.newPwd" name="newPwd" /></td>
+            <td><input type="password" [(ngModel)]="password.newPassword" name="newPwd" /></td>
           </tr>
           <tr>
             <th><label><b>確認新密碼：</b></label></th>
-            <td><input type="password" [(ngModel)]="password.newPwd2" name="newPwd" /></td>
+            <td><input type="password" [(ngModel)]="newPassword2" name="newPwd2" /></td>
           </tr>
         </table>
-        <button class="button" type="submit" title="修改密碼" type="button">修改密碼</button>
+        <button class="button" type="submit" title="修改密碼">修改密碼</button>
       </form>
     </div>
   </div>

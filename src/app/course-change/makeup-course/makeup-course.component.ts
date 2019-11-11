@@ -27,8 +27,7 @@ export class MakeupCourseComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     super.setTitle(this.title);
-    this.courseID = this.util.param('courseID');
-    console.log(this.courseID);
+    this.courseID = this.util.childParam('courseID');
     this.course$ = this.api.get(`/semester-courses/${this.courseID}`);
   }
 

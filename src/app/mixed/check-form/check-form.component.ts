@@ -6,6 +6,7 @@ import { Form } from '../../../lib/api-response';
 
 const BOOKING = 1;
 const MAKEUPCOURSE = 0;
+
 @Component({
   selector: 'app-check-form',
   templateUrl: './check-form.component.html',
@@ -37,7 +38,7 @@ export class CheckFormComponent extends BaseComponent implements OnInit {
   fetchMakeupForms() {
     if (this.makeupAuth) {
       this.makeups$ = this.update$.pipe(
-        filter(code => code === MAKEUPCOURSE),
+        filter(code => code === MAKEUPCOURSE || code === this.FIRST),
         switchMap(() => this.api.get('course-change/makeup/pending')),
       );
     }
@@ -46,7 +47,7 @@ export class CheckFormComponent extends BaseComponent implements OnInit {
   fetchBookingForms() {
     if (this.bookingAuth) {
       this.bookings$ = this.update$.pipe(
-        filter(code => code === BOOKING),
+        filter(code => code === BOOKING || code === this.FIRST),
         switchMap(() => this.api.get('bookings/pending')),
       );
     }

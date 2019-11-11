@@ -74,6 +74,7 @@ export interface SuspendedCourseDto {
 
 export interface UpdateSemesterCourseDto {
   time?: string;
+  teacherID?: string;
   classroomID?: string;
 }
 

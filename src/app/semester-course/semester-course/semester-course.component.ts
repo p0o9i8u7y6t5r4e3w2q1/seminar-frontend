@@ -3,7 +3,10 @@ import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { BaseComponent, getYearAndSemester, WEEK } from '../../basic';
-import { CreateSemesterCourseDto } from '../../../lib/api-request';
+import {
+  CreateSemesterCourseDto,
+  UpdateSemesterCourseDto,
+} from '../../../lib/api-request';
 import { SemesterCourse } from '../../../lib/api-response';
 import { RoleType } from '../../../lib/constant-manager';
 
@@ -29,6 +32,9 @@ export class SemesterCourseComponent extends BaseComponent implements OnInit {
   form: CreateSemesterCourseDto & { name: string };
   times: CourseTime[];
 
+  // for modify
+  oldSC?: SemesterCourse;
+
   initMode() {
     const url = this.router.url;
     this.isCreate = url.endsWith('create');
@@ -49,10 +55,13 @@ export class SemesterCourseComponent extends BaseComponent implements OnInit {
       this.assignYearAndSemester();
       this.fetchCourses();
     } else {
-      this.util
-        .childParam$('scID')
-        .pipe(switchMap(scID => this.api.get(`semester-courses/${scID}`)))
+      const scID = this.util.childParam('scID');
+      this.api
+        .get(`semester-courses/${scID}`)
         .subscribe((sc: SemesterCourse) => {
+          if (this.isCreate) {
+            this.oldSC = sc;
+          }
           Object.assign(this.form, sc, this.sliceScID(sc.id));
           this.splitTime(sc.time);
         });
@@ -143,5 +152,31 @@ export class SemesterCourseComponent extends BaseComponent implements OnInit {
   // one time
   fetchCourses() {
     this.courses$ = this.api.get(`courses`);
+  }
+
+  modifySemesterCourse() {
+    this.form.time = this.combineTimes();
+
+    const update: UpdateSemesterCourseDto = {};
+    if (this.oldSC.teacherID !== this.form.teacherID) {
+      update.teacherID = this.form.teacherID;
+    }
+    if (this.oldSC.time !== this.form.time) {
+      update.time = this.form.time;
+    }
+    if (this.oldSC.classroomID !== this.form.classroomID) {
+      update.classroomID = this.form.classroomID;
+    }
+
+    if (Object.keys(update).length > 0) {
+      this.api.put(`semester-courses/${this.oldSC.id}`, update).subscribe({
+        next: () => {
+          alert('更新成功');
+        },
+        error: error => {
+          alert('更新失敗');
+        },
+      });
+    }
   }
 }

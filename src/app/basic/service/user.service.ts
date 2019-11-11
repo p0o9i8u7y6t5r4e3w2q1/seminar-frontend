@@ -19,7 +19,7 @@ export class UserService {
   isLoginSubject: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
 
   public NOT_LOGGED_IN_HANDLE = catchError((error: HttpErrorResponse) => {
-    if (error.status === 401 && error.error.message === NOT_LOGGED_IN_MEG) {
+    if (error.status === 401) {
       console.log('need login');
       this.notLogin();
       this.clearUser();
@@ -120,7 +120,7 @@ export class UserService {
   }
 
   fetchUser() {
-    this.api.get('/user/info').subscribe({
+    this.api.rawGet('/user/info').subscribe({
       next: (data: User) => this.setUser(data),
       // 第一次取得使用者資料失敗，不必顯示尚未登入資訊
       error: error => this.clearUser(),
@@ -129,12 +129,12 @@ export class UserService {
 
   login(userID: string, password: string): Observable<any> {
     return this.api
-      .post('/user/login', { userID, password })
+      .rawPost('/user/login', { userID, password })
       .pipe(tap(data => this.setUser(data)));
   }
 
   logout() {
-    this.api.post('/user/logout', null).subscribe({
+    this.api.rawPost('/user/logout', null).subscribe({
       error: error => {
         console.log(error);
       },

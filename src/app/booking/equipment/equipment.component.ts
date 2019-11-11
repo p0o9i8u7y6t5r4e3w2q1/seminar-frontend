@@ -95,4 +95,9 @@ export class EquipmentComponent implements OnInit {
   getEquipmentIDs() {
     return this.equipmentIDs.filter(value => value !== '');
   }
+
+  trackByFn(index: any, item: any) {
+    return item.id;
+  }
+
 }

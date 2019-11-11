@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse,
+} from '@angular/common/http';
 import { StorageService, TOKEN } from './storage.service';
-import { Observable, UnaryFunction } from 'rxjs';
-import { map, retry } from 'rxjs/operators';
+import { Observable, UnaryFunction, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 
 @Injectable({
@@ -19,10 +23,7 @@ export class ApiService {
     console.log(data.result);
     return data.result;
   });
-  private globalOperations: UnaryFunction<any, any>[] = [
-    this.FETCH_TOKEN,
-    retry(1),
-  ];
+  private globalOperations: UnaryFunction<any, any>[] = [];
 
   constructor(
     private readonly http: HttpClient,
@@ -43,6 +44,10 @@ export class ApiService {
       shareReplay(1),
     );
      */
+  }
+
+  canRetry(error: HttpErrorResponse) {
+    return error.status === 401 && this.storage.token;
   }
 
   registerGlobalOperation(operator: any) {
@@ -84,27 +89,76 @@ export class ApiService {
     return options;
   }
 
+  rawPost(apiName: string, body: any, options?: any) {
+    return this.http
+      .post(this.getApiUrl(apiName), body, this.mergeOptions(options))
+      .pipe(this.FETCH_TOKEN);
+  }
+
   post(apiName: string, body: any, options?: any) {
     return this.pipeGlobalOperations(
-      this.http.post(this.getApiUrl(apiName), body, this.mergeOptions(options)),
+      this.rawPost(apiName, body, options)
+        .pipe(
+          catchError(error =>
+            this.canRetry(error)
+              ? this.rawPost(apiName, body, options)
+              : throwError(error),
+          ),
+        ),
     );
+  }
+
+  rawGet(apiName: string, options?: any) {
+    return this.http
+      .get(this.getApiUrl(apiName), this.mergeOptions(options))
+      .pipe(this.FETCH_TOKEN);
   }
 
   get(apiName: string, options?: any) {
     return this.pipeGlobalOperations(
-      this.http.get(this.getApiUrl(apiName), this.mergeOptions(options)),
+      this.rawGet(apiName, options).pipe(
+        catchError(error =>
+          this.canRetry(error)
+            ? this.rawGet(apiName, options)
+            : throwError(error),
+        ),
+      ),
     );
+  }
+
+  rawPut(apiName: string, body: any, options?: any) {
+    return this.http
+      .put(this.getApiUrl(apiName), body, this.mergeOptions(options))
+      .pipe(this.FETCH_TOKEN);
   }
 
   put(apiName: string, body: any, options?: any) {
     return this.pipeGlobalOperations(
-      this.http.put(this.getApiUrl(apiName), body, this.mergeOptions(options)),
+      this.rawPut(apiName, body, options).pipe(
+        catchError(error =>
+          this.canRetry(error)
+            ? this.rawPut(apiName, body, options)
+            : throwError(error),
+        ),
+      ),
     );
+  }
+
+  rawDelete(apiName: string, options?: any) {
+    return this.http
+      .delete(this.getApiUrl(apiName), this.mergeOptions(options))
+      .pipe(this.FETCH_TOKEN);
   }
 
   delete(apiName: string, options?: any) {
     return this.pipeGlobalOperations(
-      this.http.delete(this.getApiUrl(apiName), this.mergeOptions(options)),
+      this.rawDelete(apiName, options).pipe(
+        catchError(error =>
+          this.canRetry(error)
+            ? this.rawDelete(apiName, options)
+            : throwError(error),
+        ),
+      ),
     );
   }
 

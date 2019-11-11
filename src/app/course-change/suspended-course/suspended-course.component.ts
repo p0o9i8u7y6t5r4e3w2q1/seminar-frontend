@@ -10,7 +10,7 @@ import { SuspendedCourseDto } from '../../../lib/api-request';
 import { SemesterCourse, ScheduleResult } from '../../../lib/api-response';
 import { Period } from '../../../lib/constant-manager';
 import { Observable, forkJoin } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { map, shareReplay, switchMap, filter } from 'rxjs/operators';
 import * as moment from 'moment';
 
 @Component({
@@ -32,39 +32,51 @@ export class SuspendedCourseComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     super.setTitle(this.title);
-    this.courseID = this.util.param('courseID');
+    this.courseID = this.util.childParam('courseID');
     this.course$ = this.api
       .get(`semester-courses/${this.courseID}`)
       .pipe(shareReplay(1));
+    this.fetchCourseTime();
+  }
+
+  getSelectedFromAndTo() {
+    const from = moment(this.selectedDate).weekday(0);
+    const to = moment(this.selectedDate).weekday(6);
+    return { from, to };
+  }
+
+  isValidate() {
+    return this.selectedDate && this.selectedDate.toString() > '2018-01-01';
+  }
+
+  mapScheduleResult(schedules: ScheduleResult[]) {
+    for (const schedule of schedules) {
+      const key = schedule.date + schedule.period + schedule.classroomID;
+      this.timeCheckBox[key] = false;
+    }
+
+    const { from, to } = this.getSelectedFromAndTo();
+    const range = dateStringRange(from, to);
+    const result = this.mapDateArrayToObject(range, schedules);
+    console.log(result);
+    return result;
   }
 
   fetchCourseTime() {
-    if (this.selectedDate == null) {
-      return;
-    }
+    this.courseTime$ = this.update$.pipe(
+      filter(() => this.isValidate()),
+      switchMap(() => {
+        const { from, to } = this.getSelectedFromAndTo();
+        const params = new HttpParams()
+          .set('from', from.format('YYYY-MM-DD'))
+          .set('to', to.format('YYYY-MM-DD'));
 
-    const from = moment(this.selectedDate).weekday(0);
-    const to = moment(this.selectedDate).weekday(6);
-
-    const params = new HttpParams()
-      .set('from', from.format('YYYY-MM-DD'))
-      .set('to', to.format('YYYY-MM-DD'));
-
-    this.courseTime$ = this.api
-      .get(`schedule/semester-course/${this.courseID}`, { params })
-      .pipe(
-        map(schedules => {
-          for (const schedule of schedules) {
-            const key = schedule.date + schedule.period + schedule.classroomID;
-            this.timeCheckBox[key] = false;
-          }
-
-          const range = dateStringRange(from, to);
-          const result = this.mapDateArrayToObject(range, schedules);
-          return result;
-        }),
-        shareReplay(1),
-      );
+        return this.api.get(`schedule/semester-course/${this.courseID}`, {
+          params,
+        });
+      }),
+      map(schedules => this.mapScheduleResult(schedules)),
+    );
   }
 
   private mapDateArrayToObject(range: string[], schedules: ScheduleResult[]) {
@@ -75,7 +87,7 @@ export class SuspendedCourseComponent extends BaseComponent implements OnInit {
 
     for (const schedule of schedules) {
       const obj = result[schedule.date];
-      if (obj[schedule.period] == undefined) {
+      if (obj[schedule.period] === undefined) {
         obj[schedule.period] = [];
       }
       obj[schedule.period].push(schedule);
