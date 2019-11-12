@@ -40,11 +40,11 @@ export class ClassroomScheduleComponent extends BaseComponent
     const to: string = moment(this.date)
       .weekday(6)
       .toString();
-    console.log({ from: from.toString(), to: to.toString() });
     const params = new HttpParams()
       .set('from', from)
       .set('to', to)
       .set('classroomID', this.classroomID);
+
     this.schedules$ = this.api
       .get(`schedule/classroom/${this.classroomID}`, {
         params,

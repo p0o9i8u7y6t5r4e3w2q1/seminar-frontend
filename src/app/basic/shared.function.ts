@@ -1,6 +1,9 @@
 import * as moment from 'moment';
 
-export function mapToArrayObject(souArray: any[], keyField: (item: any) => string) {
+export function mapToArrayObject(
+  souArray: any[],
+  keyField: (item: any) => string,
+) {
   const result: { [x: string]: any[] } = {};
 
   for (const item of souArray) {
@@ -24,10 +27,16 @@ export function dateStringRange(
   format = 'YYYY-MM-DD',
 ) {
   const result: any[] = [];
-  if (from > to) { return result; }
+  if (from > to) {
+    return result;
+  }
 
-  if (from instanceof Date) { from = moment(from); }
-  if (to instanceof Date) { to = moment(to); }
+  if (from instanceof Date) {
+    from = moment(from);
+  }
+  if (to instanceof Date) {
+    to = moment(to);
+  }
   const diff = to.diff(from, 'days');
 
   for (let i = 0; i <= diff; i++) {
