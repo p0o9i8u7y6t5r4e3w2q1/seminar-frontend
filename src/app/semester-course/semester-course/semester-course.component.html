@@ -1,4 +1,4 @@
-<section class="content center">
+d<section class="content center">
   <div class="container sheet" id="whiteForm">
     <h2>
       <i class="calendar plus outline icon"></i><strong>{{mode}}</strong>
@@ -11,19 +11,18 @@
             <strong>{{form.year}}學年度 第{{form.semester}}學期</strong><br />
           </th>
           <th><label>分班碼：(選填)</label></th>
-          <td><input class="shortWidth" type="text" name="courseNo" [disabled]="!isCreate"/></td>
+          <td><input class="shortWidth" type="text" name="courseNo" [(ngModel)]="form.courseNo" [disabled]="!isCreate" /></td>
         </tr>
         <tr>
           <th><label>課程代號：</label></th>
           <td>
-            <input type="text" name="courseID" list="courseIDs"
-                [(ngModel)]="form.courseID" [disabled]="!isCreate"/>
+            <input type="text" name="courseID" list="courseIDs" [(ngModel)]="form.courseID" [disabled]="!isCreate" />
             <datalist id="courseIDs">
               <option *ngFor="let course of courses$ | async" [value]="course.id">{{course.name}}</option>
             </datalist>
           </td>
           <th><label>課程名稱：</label></th>
-          <td><input type="text" name="courseName" [(ngModel)]="form.name" [disabled]="!isCreate"/></td>
+          <td><input type="text" name="courseName" [(ngModel)]="form.courseName" [disabled]="!isCreate" /></td>
         </tr>
         <tr>
           <th><label>教授：</label></th>
@@ -50,7 +49,7 @@
           <td colspan="3">
             <select class="shortWidth" [name]="'weekday_'+i" [(ngModel)]="time.weekday">
               <option value="" selected disabled hidden>星期</option>
-              <option *ngFor="let day of week;let w = index" [value]='w'>{{day.title}}</option>
+              <option *ngFor="let day of week" [value]='day.id'>{{day.title}}</option>
             </select>
             &nbsp;
             <select [name]="'startPeriod_'+i" [(ngModel)]="time.startPeriod">

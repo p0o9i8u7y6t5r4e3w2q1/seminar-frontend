@@ -1,0 +1,24 @@
+.container {
+  margin-top: 10px
+}
+
+.subNavBar {
+  color: #555;
+  display: inline;
+  position: absolute;
+}
+
+.subNavBar a {
+  cursor: pointer;
+}
+
+.subNavBar .active {
+  color: #c0c0c0;
+  pointer-events: none;
+}
+
+hr {
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+

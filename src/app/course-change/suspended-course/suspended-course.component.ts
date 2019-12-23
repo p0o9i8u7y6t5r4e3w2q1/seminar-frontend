@@ -5,13 +5,14 @@ import {
   BaseComponent,
   mapToArrayObject,
   dateStringRange,
+  toDateString,
+  setDay,
 } from '../../basic';
 import { SuspendedCourseDto } from '../../../lib/api-request';
 import { SemesterCourse, ScheduleResult } from '../../../lib/api-response';
 import { Period } from '../../../lib/constant-manager';
 import { Observable, forkJoin } from 'rxjs';
 import { map, shareReplay, switchMap, filter } from 'rxjs/operators';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-suspended-course',
@@ -40,8 +41,8 @@ export class SuspendedCourseComponent extends BaseComponent implements OnInit {
   }
 
   getSelectedFromAndTo() {
-    const from = moment(this.selectedDate).weekday(0);
-    const to = moment(this.selectedDate).weekday(6);
+    const from = setDay(this.selectedDate, 0);
+    const to = setDay(this.selectedDate, 6);
     return { from, to };
   }
 
@@ -68,8 +69,8 @@ export class SuspendedCourseComponent extends BaseComponent implements OnInit {
       switchMap(() => {
         const { from, to } = this.getSelectedFromAndTo();
         const params = new HttpParams()
-          .set('from', from.format('YYYY-MM-DD'))
-          .set('to', to.format('YYYY-MM-DD'));
+          .set('from', toDateString(from))
+          .set('to', toDateString(to));
 
         return this.api.get(`schedule/semester-course/${this.courseID}`, {
           params,

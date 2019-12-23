@@ -1,0 +1,42 @@
+<div class="center column">
+  <form class="center" name="queryAvailableTimeForm" (ngSubmit)="onSubmit()" method="post">
+    <div class="hgroup">
+      <label><b>日期：</b>
+        <input type="date" name="queryDate" [(ngModel)]="timeRange.date" />
+      </label>
+    </div>
+    <div class="hgroup">
+      <label><b>節數：</b></label>
+      <select [(ngModel)]="timeRange.startPeriod" name="startPeriod">
+        <option value="" selected disabled hidden>起始節數</option>
+        <option *ngFor="let period of periodOptions" [value]='period.value'>{{period.title}}</option>
+      </select>
+      <b>&nbsp;~&nbsp;</b>
+      <select [(ngModel)]="timeRange.endPeriod" name="endPeriod">
+        <option value="" selected disabled hidden>結束節數</option>
+        <option *ngFor="let period of periodOptions" [value]='period.value'>{{period.title}}</option>
+      </select>
+    </div>
+    <button class="button" title="查詢" type="submit">查詢</button>
+  </form>
+
+  <table *ngIf="(classrooms$ | async) as classrooms" id="boldTable">
+    <tr>
+      <th>教室</th>
+      <th>可容納人數</th>
+      <th>價格(半日)</th>
+      <th>備註</th>
+    </tr>
+    <tr *ngFor="let classroom of classrooms;trackBy: trackByFn">
+      <th>{{classroom.id | string: 'classroom'}}</th>
+      <td>{{classroom.capacity}}</td>
+      <td>{{classroom.price}}</td>
+      <td>
+        <span *ngIf="classroom.pending; else noPending">審核中</span>
+        <ng-template #noPending>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </ng-template>
+      </td>
+    </tr>
+  </table>
+</div>

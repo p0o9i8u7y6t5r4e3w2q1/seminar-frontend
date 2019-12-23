@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   isLogin$: Observable<boolean>;
   user: any;
-  pendingCount: number;
+  pendingCount: string = '0';
   source: EventSource;
 
   constructor(
@@ -47,7 +47,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       tap((isLogin: boolean) => {
         if (isLogin) {
           this.user = this.userService.getUser();
-          this.getPendingCount();
+          this.setPendingCount();
         } else {
           if (this.source) {
             this.source.close();
@@ -82,6 +82,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
+  public hasPending(): boolean {
+    return this.pendingCount !== '0';
+  }
+
   public isLogin(): boolean {
     return this.userService.hasAuth(Auth.LOGIN);
   }
@@ -91,7 +95,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['/']);
   }
 
-  public getPendingCount() {
+  public setPendingCount() {
     if (
       this.user.roleID === RoleType.TA ||
       this.user.roleID === RoleType.Teacher

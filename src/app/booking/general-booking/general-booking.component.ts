@@ -43,7 +43,7 @@ export class GeneralBookingComponent extends BookingComponent
       },
       error: error => {
         console.log(error);
-        alert('送出失敗');
+        alert('送出失敗，請確認資料是否合法與申請時段是否衝堂');
       },
     });
   }

@@ -39,8 +39,9 @@ export class IimBookingComponent extends BookingComponent implements OnInit {
         this.util.modal.setModalData({ formID: form.formID }, FORM_MODAL, true);
         this.util.modal.open(FORM_MODAL);
       },
-      error: () => {
-        alert('送出失敗');
+      error: (err) => {
+        console.log(err);
+        alert('送出失敗，請確認資料是否合法與申請時段是否衝堂');
       },
     });
   }

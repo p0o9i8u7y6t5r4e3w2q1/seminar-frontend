@@ -50,7 +50,6 @@ export abstract class BookingComponent extends BaseComponent {
   }
 
   isTimeComplete(): boolean {
-    console.log();
     return (
       this.form.timeRange.date != null &&
       this.form.timeRange.startPeriod !== '' &&

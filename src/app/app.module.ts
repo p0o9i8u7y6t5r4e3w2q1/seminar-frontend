@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
@@ -11,9 +11,11 @@ import { CourseChangeComponents } from './course-change/course-change.setting';
 import { MixedComponents } from './mixed/mixed.setting';
 import { SemesterCourseComponents } from './semester-course/semester-course.setting';
 import { UserComponents } from './user/user.setting';
-import { ConstantStringPipe } from './basic';
+import { ConstantStringPipe, TimezoneDatePipe, DEFAULT_SETTING } from './basic';
 import { NgPipesModule } from 'ngx-pipes';
 import { NgxSpinnerModule } from 'ngx-spinner';
+
+DEFAULT_SETTING.TIMEZONE = 'Z';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ...SemesterCourseComponents,
     ...UserComponents,
     ConstantStringPipe,
+    TimezoneDatePipe,
   ],
   imports: [
     BrowserModule,

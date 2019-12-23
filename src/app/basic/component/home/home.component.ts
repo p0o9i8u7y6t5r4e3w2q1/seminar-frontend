@@ -7,5 +7,9 @@ import { BaseComponent } from '../base.component';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent extends BaseComponent implements OnInit {
-  ngOnInit() {}
+  protected title = '教室設備借用暨電力管理系統';
+
+  ngOnInit() {
+    super.setTitle(this.title);
+  }
 }

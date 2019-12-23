@@ -19,8 +19,8 @@
     "@angular/platform-browser": "~8.2.10",
     "@angular/platform-browser-dynamic": "~8.2.10",
     "@angular/router": "~8.2.10",
+    "date-fns": "^2.8.1",
     "event-source-polyfill": "^1.0.9",
-    "moment": "^2.24.0",
     "ngx-pipes": "^2.6.0",
     "ngx-smart-modal": "^7.2.1",
     "ngx-spinner": "^8.0.3",
@@ -47,6 +47,7 @@
     "protractor": "~5.4.2",
     "ts-node": "~8.4.1",
     "tslint": "~5.20.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "webpack-bundle-analyzer": "^3.6.0"
   }
 }

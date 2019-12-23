@@ -14,34 +14,34 @@ export class RecordResultComponent extends BaseComponent implements OnInit {
   resultTestList = [
     {
       course: '計算機程式與應用',
-      time: new Date(2019, 8, 2, 9, 3),
-      cardOwner: '???',
+      recordTime: new Date(2019, 10, 4, 9, 3),
+      cardOwner: '未知',
       swipeResult: 0,
     },
     {
       course: '計算機程式與應用',
-      time: new Date(2019, 8, 2, 9, 4),
-      cardOwner: 'OOO',
+      recordTime: new Date(2019, 10, 4, 9, 4),
+      cardOwner: '備用卡A',
       swipeResult: 1,
     },
     {
-      course: '計算機程式與應用',
-      time: new Date(2019, 8, 2, 11, 3),
-      cardOwner: 'OOO',
+      course: '工業管理概論',
+      recordTime: new Date(2019, 10, 4, 11, 3),
+      cardOwner: '備用卡A',
       swipeResult: 2,
     },
     {
-      course: '雲端行動與應用',
-      time: new Date(2019, 8, 3, 14, 59),
-      cardOwner: 'XXX',
+      course: '',
+      recordTime: new Date(2019, 10, 5, 10, 10),
+      cardOwner: '林助教',
       swipeResult: 1,
     },
   ];
 
   queryCondition: any = {
     classroomID: '61201',
-    startDate: new Date('2019-09-02'),
-    endDate: new Date('2019-09-03'),
+    startDate: new Date('2019-11-04'),
+    endDate: new Date('2019-11-05'),
   };
   datas: any[];
 
@@ -54,6 +54,7 @@ export class RecordResultComponent extends BaseComponent implements OnInit {
       this.router.navigate(['card-record']);
     } else {
       this.datas = tmp.datas;
+      // this.datas = this.resultTestList;
       this.queryCondition = tmp.condition;
       this.storage.delete(CARD_RECORDS);
     }

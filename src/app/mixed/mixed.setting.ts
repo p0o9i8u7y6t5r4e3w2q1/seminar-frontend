@@ -5,11 +5,17 @@ import { RecordResultComponent } from './card-record/record-result.component';
 import { QueryFormComponent } from './query-form/query-form.component';
 import { QueryResultComponent } from './query-form/query-result.component';
 import { RoleSettingComponent } from './role-setting/role-setting.component';
-import { ClassroomScheduleComponent } from './classroom-schedule/classroom-schedule.component';
+import {
+  ClassroomScheduleComponent,
+  TimeRangeSearchComponent,
+  ClassroomWeekSearchComponent,
+} from './classroom-schedule';
 
 export const MixedComponents = [
   RoleSettingComponent,
   ClassroomScheduleComponent,
+  TimeRangeSearchComponent,
+  ClassroomWeekSearchComponent,
   CheckFormComponent,
   CardRecordComponent,
   RecordResultComponent,
@@ -18,7 +24,20 @@ export const MixedComponents = [
 ];
 
 export const MixedRoutes: Routes = [
-  { path: 'classroom-schedule', component: ClassroomScheduleComponent },
+  {
+    path: 'classroom-schedule',
+    component: ClassroomScheduleComponent,
+    children: [
+      {
+        path: 'time-range-search',
+        component: TimeRangeSearchComponent,
+      },
+      {
+        path: 'classroom-week-search',
+        component: ClassroomWeekSearchComponent,
+      },
+    ],
+  },
   { path: 'check-form', component: CheckFormComponent },
   { path: 'role-setting', component: RoleSettingComponent },
   { path: 'card-record', component: CardRecordComponent },

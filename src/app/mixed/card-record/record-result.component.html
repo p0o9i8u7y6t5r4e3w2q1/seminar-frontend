@@ -13,9 +13,9 @@
           <th>供電狀態</th>
         </tr>
         <tr *ngFor="let result of datas">
-          <td>{{result.time | date:'yyyy/MM/dd'}}</td>
-          <td>{{result.time | date:'HH:mm'}}</td>
-          <td>{{result.cardOwner}}</td>
+          <td>{{result.recordTime | date:'yyyy/MM/dd'}}</td>
+          <td>{{result.recordTime | date:'HH:mm'}}</td>
+          <td>{{(result.cardOwner)? result.cardOwner: '未知'}}</td>
           <td>{{result.swipeResult | string: 'swipe_result' }}</td>
           <td>{{result.swipeResult | string: 'electricity_result' }}</td>
         </tr>

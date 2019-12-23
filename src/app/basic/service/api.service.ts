@@ -21,7 +21,7 @@ export class ApiService {
       this.storage.token = data[TOKEN];
     }
     console.log(data.result);
-    return data.result;
+    return (data) ? data.result : data;
   });
   private globalOperations: UnaryFunction<any, any>[] = [];
 

@@ -29,7 +29,7 @@ export class SemesterCourseComponent extends BaseComponent implements OnInit {
   courses$: Observable<any>;
   semester$: Observable<any>;
 
-  form: CreateSemesterCourseDto & { name: string };
+  form: CreateSemesterCourseDto & { courseName?: string };
   times: CourseTime[];
 
   // for modify
@@ -75,7 +75,7 @@ export class SemesterCourseComponent extends BaseComponent implements OnInit {
       semester: 0,
       courseID: '',
       courseNo: '',
-      name: '',
+      courseName: '',
       time: '',
       teacherID: '',
       classroomID: '',
@@ -112,9 +112,11 @@ export class SemesterCourseComponent extends BaseComponent implements OnInit {
 
   createSemesterCourse() {
     this.form.time = this.combineTimes();
-    this.api.post(`semester-courses`, this.form).subscribe(() => {
-      alert('新建成功');
-      this.router.navigate(['semester-course']);
+    this.api.post(`semester-courses`, this.form).subscribe({
+      next: () => {
+        alert('新建成功');
+        this.router.navigate(['semester-course']);
+      },
     });
   }
 

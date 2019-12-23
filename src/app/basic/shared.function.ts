@@ -1,4 +1,5 @@
-import * as moment from 'moment';
+import { format, differenceInDays } from 'date-fns';
+export { setDay } from 'date-fns';
 
 export function mapToArrayObject(
   souArray: any[],
@@ -17,49 +18,50 @@ export function mapToArrayObject(
   return result;
 }
 
-export function toDateString(date: Date, format = 'YYYY-MM-DD'): string {
-  return moment(date).format(format);
+export function toDateString(date: Date, fm: string = 'yyyy-MM-dd'): string {
+  return format(date, fm);
+}
+
+export function addDays(date: Date, num: number): Date {
+  const result = new Date(date);
+  result.setDate(date.getUTCDate() + num);
+  return result;
 }
 
 export function dateStringRange(
-  from: Date | moment.Moment,
-  to: Date | moment.Moment,
-  format = 'YYYY-MM-DD',
+  from: Date,
+  to: Date,
+  fm: string = 'yyyy-MM-dd',
 ) {
   const result: any[] = [];
   if (from > to) {
     return result;
   }
 
-  if (from instanceof Date) {
-    from = moment(from);
-  }
-  if (to instanceof Date) {
-    to = moment(to);
-  }
-  const diff = to.diff(from, 'days');
+  const diff = differenceInDays(to, from);
 
   for (let i = 0; i <= diff; i++) {
-    result.push(from.format(format));
-    from.add(1, 'days');
+    result.push(format(from, fm));
+    from = addDays(from, 1);
   }
 
   return result;
 }
 
-export function getYearAndSemester(
-  date: Date,
-): { year: number; semester: number } {
+export function getYearAndSemester(date: Date) {
   let year: number;
   let semester: number;
-  const mom = moment(date);
 
-  // month是八月以後
-  if (mom.month() + 1 >= 8) {
-    year = mom.year() - 1911;
+  const month = date.getUTCMonth() + 1;
+  // month是八月以後或二月以前
+  if (month >= 8) {
+    year = date.getUTCFullYear() - 1911;
+    semester = 1;
+  } else if (month < 2) {
+    year = date.getUTCFullYear() - 1912;
     semester = 1;
   } else {
-    year = mom.year() - 1911 - 1;
+    year = date.getUTCFullYear() - 1912;
     semester = 2;
   }
 

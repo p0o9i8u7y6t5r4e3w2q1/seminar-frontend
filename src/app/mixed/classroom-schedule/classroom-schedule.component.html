@@ -1,40 +1,12 @@
-<section class="content">
-  <div class="center column">
-    <form class="center" name="queryAvailableTimeForm" (ngSubmit)="onSubmit()" method="post">
-      <div class="group">
-        <label><b>日期：</b>
-          <input type="date" name="queryDate" [(ngModel)]="date" />
-        </label>
-      </div>
-
-      <div class="group">
-        <label><b>教室：</b><select [(ngModel)]="classroomID" name="classroomID">
-            <option value="" selected disabled hidden>請選擇教室</option>
-            <option *ngFor="let room of classroomOptions" [value]='room.value'>{{room.title}}</option>
-          </select>
-        </label>
-      </div>
-      <button class="button" title="查詢" type="submit">查詢</button>
-    </form>
-
-    <table id="resultSchedule" *ngIf="(schedules$ | async) as schedules">
-      <tr>
-        <th></th>
-        <th *ngFor="let schedule of schedules;let i = index">
-          {{schedule.date | date: 'yyyy/MM/dd'}}<br/>
-          ({{week[i].title}})
-        </th>
-      </tr>
-      <tr *ngFor="let period of periodOptions">
-        <th>{{period.value}}</th>
-        <td *ngFor="let schedule of schedules">
-          <span style="font-weight:bold" *ngIf="schedule.results[period.value]?.obj">
-            {{schedule.results[period.value].obj.name}}<br /></span>
-          <span style="color:blue">
-            {{schedule.results[period.value]?.status | string: 'room_status'}}
-          </span>
-        </td>
-      </tr>
-    </table>
+<section class="wrapper">
+  <div class="container">
+    <div class="subNavBar">
+      <a routerLink="classroom-week-search" routerLinkActive="active" title="查詢教室時間表">查詢教室時間表</a>
+      &nbsp; | &nbsp;
+      <a routerLink="time-range-search" routerLinkActive="active" title="查詢可用教室">查詢可用教室</a>
+    </div>
+    <br />
+    <hr>
   </div>
+  <router-outlet></router-outlet>
 </section>
