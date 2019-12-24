@@ -140,6 +140,7 @@ export class UserService {
       },
     });
     this.clearUser();
+    this.router.navigate(['/']);
   }
 
   private setUser(user: User) {

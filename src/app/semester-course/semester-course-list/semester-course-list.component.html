@@ -7,7 +7,7 @@
     </span>
 
     <a routerLink="/semester-course/create" class="button">新增課程</a>
-    <table class="listTable">
+    <table *ngIf="(semesterCourses$ | async) as semesterCourses" class="listTable">
       <tr>
         <th>學期課程代號</th>
         <th>課程</th>
@@ -17,18 +17,23 @@
         <th>修課學生名單</th>
         <th>編輯課程</th>
       </tr>
-      <tr *ngFor="let course of semesterCourses$ | async;trackBy: trackByFn">
-        <td>{{course.id}}</td>
-        <td>{{course.name}}</td>
-        <td>{{course.teacher}}</td>
-        <td>{{course.time}}</td>
-        <td>{{course.classroomID | string: 'classroom'}}</td>
-        <td><button class="button" (click)="queryStudents(course)">查詢</button></td>
-        <td>
-          <button [routerLink]="['/semester-course/modify/',course.id]" class="button">修改</button>
-          <button (click)="deleteSemesterCourse(course.id)" class="button">刪除</button>
-        </td>
-      </tr>
+      <ng-container *ngIf="semesterCourses.length; else empty">
+        <tr *ngFor="let course of semesterCourses; trackBy: trackByFn">
+          <td>{{course.id}}</td>
+          <td>{{course.name}}</td>
+          <td>{{course.teacher}}</td>
+          <td>{{course.time}}</td>
+          <td>{{course.classroomID | string: 'classroom'}}</td>
+          <td><button class="button" (click)="queryStudents(course)">查詢</button></td>
+          <td>
+            <button [routerLink]="['/semester-course/modify/',course.id]" class="button">修改</button>
+            <button (click)="deleteSemesterCourse(course.id)" class="button">刪除</button>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-template #empty>
+        <tr empty-row fullColspan="7"></tr>
+      </ng-template>
     </table>
   </div>
 </section>

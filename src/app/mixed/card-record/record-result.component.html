@@ -12,13 +12,18 @@
           <th>刷卡結果</th>
           <th>供電狀態</th>
         </tr>
-        <tr *ngFor="let result of datas">
-          <td>{{result.recordTime | date:'yyyy/MM/dd'}}</td>
-          <td>{{result.recordTime | date:'HH:mm'}}</td>
-          <td>{{(result.cardOwner)? result.cardOwner: '未知'}}</td>
-          <td>{{result.swipeResult | string: 'swipe_result' }}</td>
-          <td>{{result.swipeResult | string: 'electricity_result' }}</td>
-        </tr>
+        <ng-container *ngIf="datas?.length; else empty">
+          <tr *ngFor="let result of datas">
+            <td>{{result.recordTime | date:'yyyy/MM/dd'}}</td>
+            <td>{{result.recordTime | date:'HH:mm'}}</td>
+            <td>{{(result.cardOwner)? result.cardOwner: '未知'}}</td>
+            <td>{{result.swipeResult | string: 'swipe_result' }}</td>
+            <td>{{result.swipeResult | string: 'electricity_result' }}</td>
+          </tr>
+        </ng-container>
+        <ng-template #empty>
+          <tr empty-row fullColspan="5"></tr>
+        </ng-template>
       </table>
     </div>
     <a onclick="history.back()" class="button">返回</a>

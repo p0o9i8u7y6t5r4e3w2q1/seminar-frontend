@@ -77,10 +77,12 @@ export class SuspendedCourseComponent extends BaseComponent implements OnInit {
         });
       }),
       map(schedules => this.mapScheduleResult(schedules)),
+      shareReplay(),
     );
   }
 
   private mapDateArrayToObject(range: string[], schedules: ScheduleResult[]) {
+    console.log({range, schedules})
     const result: any = {};
     for (const date of range) {
       result[date] = {};
@@ -88,6 +90,7 @@ export class SuspendedCourseComponent extends BaseComponent implements OnInit {
 
     for (const schedule of schedules) {
       const obj = result[schedule.date];
+      console.log({obj})
       if (obj[schedule.period] === undefined) {
         obj[schedule.period] = [];
       }
@@ -144,6 +147,10 @@ export class SuspendedCourseComponent extends BaseComponent implements OnInit {
         endPeriod: Period[endIdx],
       },
     };
+  }
+
+  getScheduleKey(schedule) {
+    return schedule.date + schedule.period + schedule.classroomID;
   }
 
   callSuspendedCourseApi(bodys: SuspendedCourseDto[]) {

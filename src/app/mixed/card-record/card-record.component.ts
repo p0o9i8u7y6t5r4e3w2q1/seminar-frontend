@@ -13,8 +13,8 @@ export class CardRecordComponent extends BaseComponent implements OnInit {
   protected title = '刷卡紀錄查詢';
 
   classroomID = '';
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
 
   ngOnInit() {
     super.setTitle(this.title);
@@ -35,7 +35,7 @@ export class CardRecordComponent extends BaseComponent implements OnInit {
             endDate: this.endDate,
           },
           datas,
-        }
+        };
         this.storage.set(CARD_RECORDS, obj);
         this.router.navigate(['/card-record/result']);
       },

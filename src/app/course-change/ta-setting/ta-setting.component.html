@@ -16,17 +16,22 @@
     <br />
     <div class="box">
       <span style="font-size:20px"><i class="user times icon"></i><strong> 刪除助教 </strong></span><br />
-      <table id="singleLineTable" style="width:400px;">
+      <table *ngIf="(courseTAs$ | async) as courseTAs" id="singleLineTable" style="width:400px;">
         <tr>
           <th><b>學號</b></th>
           <th><b>姓名</b></th>
           <th><b>刪除</b></th>
         </tr>
-        <tr *ngFor="let ta of courseTAs$ | async;trackBy: trackByFn">
-          <td>{{ta.id}}</td>
-          <td>{{ta.name}}</td>
-          <td><button (click)="removeTA(ta.id)" class="button">刪除</button></td>
-        </tr>
+        <ng-container *ngIf="courseTAs.length; else empty">
+          <tr *ngFor="let ta of courseTAs;trackBy: trackByFn">
+            <td>{{ta.id}}</td>
+            <td>{{ta.name}}</td>
+            <td><button (click)="removeTA(ta.id)" class="button">刪除</button></td>
+          </tr>
+        </ng-container>
+        <ng-template #empty>
+          <tr empty-row fullColspan="3"></tr>
+        </ng-template>
       </table>
     </div>
   </div>

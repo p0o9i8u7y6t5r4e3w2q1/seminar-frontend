@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Auth } from '../../constant/auth.constant';
 import { RoleType } from '../../../../lib/constant-manager';
@@ -12,6 +12,8 @@ interface MenuItem {
   title: string;
   routerName: string;
 }
+
+const PENDING_COUNT = 'pending_count';
 
 @Component({
   selector: 'app-header',
@@ -32,6 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   isLogin$: Observable<boolean>;
   user: any;
+  pendingUpdate$ = new ReplaySubject(1);
   pendingCount: string = '0';
   source: EventSource;
 
@@ -40,7 +43,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     protected readonly api: ApiService,
     protected readonly storage: StorageService,
-  ) {}
+  ) {
+    this.storage.set(PENDING_COUNT, this.pendingUpdate$);
+  }
 
   ngOnInit() {
     this.isLogin$ = this.userService.isLogin$.pipe(
@@ -92,6 +97,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public logout() {
     this.userService.logout();
+    this.source.close();
+    this.source = null;
     this.router.navigate(['/']);
   }
 
@@ -105,8 +112,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.source = this.api.eventSource('sse/forms/count');
     this.source.addEventListener('message', (evt: any) => {
-      console.log(evt.data);
+      console.log({ sse: evt.data });
       this.pendingCount = evt.data;
+      this.pendingUpdate$.next(this.pendingCount);
     });
     this.source.addEventListener('error', (error: any) => {
       console.log(error);

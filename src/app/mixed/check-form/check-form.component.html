@@ -2,7 +2,7 @@
   <div class="container sheet" *ngIf="makeupAuth">
     <h2><i class="calendar check icon"></i><strong> 補課審核 </strong></h2>
     <hr />
-    <table class="listTable">
+    <table *ngIf="(makeups$ | async) as makeups" class="listTable">
       <tr>
         <th>課程</th>
         <th>教室</th>
@@ -13,19 +13,21 @@
         <th>申請人</th>
         <th>審核結果</th>
       </tr>
-      <tr *ngFor="let makeup of makeups$ | async">
-        <td>{{makeup.course}}</td>
-        <td>{{makeup.classroomID}}</td>
-        <td>{{makeup.timeRange.date | date: 'yyyy/MM/dd'}}</td>
-        <td>{{makeup.timeRange.startPeriod}}</td>
-        <td>{{makeup.timeRange.endPeriod}}</td>
-        <td>{{makeup.applicant.id}}</td>
-        <td>{{makeup.applicant.name}}</td>
-        <td>
-          <button class="button" (click)="checkMakeupForm(makeup.formID, true)">通過</button>
-          <button class="button" (click)="checkMakeupForm(makeup.formID, false)">拒絕</button>
-        </td>
-      </tr>
+      <ng-container *ngIf="makeups.length; else empty">
+        <tr *ngFor="let makeup of makeups;trackBy: trackByFn">
+          <td>{{makeup.course}}</td>
+          <td>{{makeup.classroomID}}</td>
+          <td>{{makeup.timeRange.date | date: 'yyyy/MM/dd'}}</td>
+          <td>{{makeup.timeRange.startPeriod}}</td>
+          <td>{{makeup.timeRange.endPeriod}}</td>
+          <td>{{makeup.applicant.id}}</td>
+          <td>{{makeup.applicant.name}}</td>
+          <td>
+            <button class="button" (click)="checkMakeupForm(makeup.formID, true)">通過</button>
+            <button class="button" (click)="checkMakeupForm(makeup.formID, false)">拒絕</button>
+          </td>
+        </tr>
+      </ng-container>
     </table>
   </div>
   <div class="container sheet" *ngIf="bookingAuth">
@@ -33,7 +35,7 @@
       <i class="calendar check icon"></i><strong> 活動／器材借用審核 </strong>
     </h2>
     <hr />
-    <table class="listTable">
+    <table *ngIf="(bookings$ | async) as bookings" class="listTable">
       <tr>
         <th>事由</th>
         <th>教室</th>
@@ -44,19 +46,24 @@
         <th>申請人</th>
         <th>審核結果</th>
       </tr>
-      <tr *ngFor="let booking of bookings$ | async">
-        <td>{{booking.reason}}</td>
-        <td>{{booking.classroomID}}</td>
-        <td>{{(booking.equipments)? booking.equipments.join(', ') : '無'}}</td>
-        <td>{{booking.timeRange.date | date:'yyyy/MM/dd'}}</td>
-        <td>{{booking.timeRange.startPeriod}}</td>
-        <td>{{booking.timeRange.endPeriod}}</td>
-        <td>{{booking.applicantName || booking.applicantID}}</td>
-        <td>
-          <button class="button" (click)="checkBookingForm(booking.formID, true)">通過</button>
-          <button class="button" (click)="checkBookingForm(booking.formID, false)">拒絕</button>
-        </td>
-      </tr>
+      <ng-container *ngIf="bookings.length; else empty">
+        <tr *ngFor="let booking of bookings;trackBy: trackByFn">
+          <td>{{booking.reason}}</td>
+          <td>{{booking.classroomID}}</td>
+          <td>{{(booking.equipments)? booking.equipments.join(', ') : '無'}}</td>
+          <td>{{booking.timeRange.date | date:'yyyy/MM/dd'}}</td>
+          <td>{{booking.timeRange.startPeriod}}</td>
+          <td>{{booking.timeRange.endPeriod}}</td>
+          <td>{{booking.applicantName || booking.applicantID}}</td>
+          <td>
+            <button class="button" (click)="checkBookingForm(booking.formID, true)">通過</button>
+            <button class="button" (click)="checkBookingForm(booking.formID, false)">拒絕</button>
+          </td>
+        </tr>
+      </ng-container>
     </table>
   </div>
 </section>
+<ng-template #empty>
+  <tr empty-row fullColspan="8"></tr>
+</ng-template>

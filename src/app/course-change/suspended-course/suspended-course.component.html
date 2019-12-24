@@ -25,7 +25,7 @@
         <th>{{period}}</th>
         <td *ngFor="let dateSchedules of courseTime | values">
           <div *ngFor="let schedule of dateSchedules[period]">
-            <ng-container *ngIf="(schedule.date + schedule.period + schedule.classroomID) as key">
+            <ng-container *ngIf="getScheduleKey(schedule) as key">
               <input type="checkbox" value="check" [name]="key" [(ngModel)]="timeCheckBox[key]" /> {{schedule.classroomID}}
             </ng-container>
           </div>
@@ -33,9 +33,8 @@
       </tr>
     </table>
 
-    <br />
     <div>
-      <button class="button" (click)="suspendCourse()">刪除</button>
+      <button class="button" (click)="suspendCourse()" [hidden]="!(courseTime$ | async)">刪除</button>
       <button onclick="history.back()" class="button" title="返回" type="button">返回</button>
     </div>
   </div>

@@ -3,7 +3,7 @@ import { HttpParams } from '@angular/common/http';
 import { BaseComponent, getYearAndSemester } from '../../basic';
 import { SemesterCourse } from '../../../lib/api-response';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, shareReplay } from 'rxjs/operators';
 
 const STUDENTS_MODAL = 'studentsModal';
 
@@ -34,7 +34,7 @@ export class SemesterCourseListComponent extends BaseComponent
     this.semester$ = this.api.get(`semester`, { params });
     this.semesterCourses$ = this.fromUpdate$(
       switchMap(() => this.api.get(`semester-courses`, { params })),
-    );
+    ).pipe(shareReplay(1));
   }
 
   assignYearAndSemester() {

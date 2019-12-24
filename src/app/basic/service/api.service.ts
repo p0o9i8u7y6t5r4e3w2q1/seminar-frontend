@@ -20,8 +20,8 @@ export class ApiService {
     if (data && data[TOKEN]) {
       this.storage.token = data[TOKEN];
     }
-    console.log(data.result);
-    return (data) ? data.result : data;
+    console.log({ data: (data ? data.result : data) });
+    return data ? data.result : data;
   });
   private globalOperations: UnaryFunction<any, any>[] = [];
 
@@ -97,14 +97,13 @@ export class ApiService {
 
   post(apiName: string, body: any, options?: any) {
     return this.pipeGlobalOperations(
-      this.rawPost(apiName, body, options)
-        .pipe(
-          catchError(error =>
-            this.canRetry(error)
-              ? this.rawPost(apiName, body, options)
-              : throwError(error),
-          ),
+      this.rawPost(apiName, body, options).pipe(
+        catchError(error =>
+          this.canRetry(error)
+            ? this.rawPost(apiName, body, options)
+            : throwError(error),
         ),
+      ),
     );
   }
 

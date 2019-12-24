@@ -39,17 +39,22 @@
     <div class="box center right">
       <div>
         <span style="font-size:20px"><i class="user times icon"></i><strong> 刪除教授 </strong></span>
-        <table style="width:380px" class="listTable">
+        <table *ngIf="(teachers$ | async) as teachers" style="width:380px" class="listTable">
           <tr>
             <th><b>教職員ID</b></th>
             <th><b>姓名</b></th>
             <th><b>刪除</b></th>
           </tr>
-          <tr *ngFor="let teacher of teachers$ | async;let i = index;trackBy: trackByFn">
-            <td>{{teacher.id}}</td>
-            <td>{{teacher.name}}</td>
-            <td><input type="checkbox" [name]="'delete_'+i" [(ngModel)]="deleteStatus[teacher.id]" /></td>
-          </tr>
+          <ng-container *ngIf="teachers.length; else empty">
+            <tr *ngFor="let teacher of teachers;let i = index;trackBy: trackByFn">
+              <td>{{teacher.id}}</td>
+              <td>{{teacher.name}}</td>
+              <td><input type="checkbox" [name]="'delete_'+i" [(ngModel)]="deleteStatus[teacher.id]" /></td>
+            </tr>
+          </ng-container>
+          <ng-template #empty>
+            <tr empty-row fullColspan="3"></tr>
+          </ng-template>
         </table>
         <button class="button" (click)="deleteTeachers()">刪除</button>
       </div>

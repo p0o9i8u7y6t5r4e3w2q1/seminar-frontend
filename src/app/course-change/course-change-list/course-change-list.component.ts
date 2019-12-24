@@ -20,9 +20,13 @@ export class CourseChangeListComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     super.setTitle(this.title);
-    this.userService.isLogin$.subscribe(() => {
-      this.isTA = this.userService.getUser().roleID === RoleType.TA;
-      this.courses$ = this.api.get(`semester-courses/own`).pipe(shareReplay(1));
+    this.userService.isLogin$.subscribe(isLogin => {
+      if (isLogin) {
+        this.isTA = this.userService.getUser().roleID === RoleType.TA;
+        this.courses$ = this.api
+          .get(`semester-courses/own`)
+          .pipe(shareReplay(1));
+      }
     });
   }
 

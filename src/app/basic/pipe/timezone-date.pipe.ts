@@ -13,7 +13,7 @@ export class TimezoneDatePipe extends DatePipe {
     locale?: string,
   ): string {
     return super.transform(
-      value,
+      new Date(value),
       format,
       timezone || DEFAULT_SETTING.TIMEZONE,
       locale || DEFAULT_SETTING.LOCALE_ID,

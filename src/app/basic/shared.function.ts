@@ -1,5 +1,4 @@
-import { format, differenceInDays } from 'date-fns';
-export { setDay } from 'date-fns';
+import { format, differenceInDays, setDay as setDayFn } from 'date-fns';
 
 export function mapToArrayObject(
   souArray: any[],
@@ -18,50 +17,65 @@ export function mapToArrayObject(
   return result;
 }
 
-export function toDateString(date: Date, fm: string = 'yyyy-MM-dd'): string {
-  return format(date, fm);
+export function setDay(date: Date | string, day: number) {
+  return setDayFn(new Date(date), day);
 }
 
-export function addDays(date: Date, num: number): Date {
+export function toDateString(
+  date: Date | string,
+  fm: string = 'yyyy-MM-dd',
+): string {
+  // console.log(`toDateString: ${date}`);
+  const tempDate = new Date(date);
+  return format(tempDate, fm);
+}
+
+export function addDays(date: Date | string, num: number): Date {
+  // console.log(`addDays: ${date}`);
   const result = new Date(date);
-  result.setDate(date.getUTCDate() + num);
+  result.setDate(result.getUTCDate() + num);
   return result;
 }
 
 export function dateStringRange(
-  from: Date,
-  to: Date,
+  from: Date | string,
+  to: Date | string,
   fm: string = 'yyyy-MM-dd',
 ) {
+  // console.log(`dateStringRange: ${{ from, to }}`);
+  const fromDate = new Date(from);
+  const toDate = new Date(to);
+
   const result: any[] = [];
-  if (from > to) {
+  if (fromDate > toDate) {
     return result;
   }
 
-  const diff = differenceInDays(to, from);
+  const diff = differenceInDays(toDate, fromDate);
 
   for (let i = 0; i <= diff; i++) {
-    result.push(format(from, fm));
-    from = addDays(from, 1);
+    result.push(format(addDays(fromDate, i), fm));
   }
 
   return result;
 }
 
-export function getYearAndSemester(date: Date) {
+export function getYearAndSemester(date: Date | string) {
+  // console.log(`getYearAndSemester: ${{ date }}`);
+  const tempDate = new Date(date);
   let year: number;
   let semester: number;
 
-  const month = date.getUTCMonth() + 1;
+  const month = tempDate.getUTCMonth() + 1;
   // month是八月以後或二月以前
   if (month >= 8) {
-    year = date.getUTCFullYear() - 1911;
+    year = tempDate.getUTCFullYear() - 1911;
     semester = 1;
   } else if (month < 2) {
-    year = date.getUTCFullYear() - 1912;
+    year = tempDate.getUTCFullYear() - 1912;
     semester = 1;
   } else {
-    year = date.getUTCFullYear() - 1912;
+    year = tempDate.getUTCFullYear() - 1912;
     semester = 2;
   }
 

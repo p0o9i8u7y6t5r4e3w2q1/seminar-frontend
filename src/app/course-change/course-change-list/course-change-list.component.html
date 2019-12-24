@@ -1,7 +1,7 @@
 <section class="content">
   <div class="container">
     <p><i class="exclamation circle icon"></i><b>若需要調課，請先刪除原時段，再新增上課時段</b></p>
-    <table id="boldTable">
+    <table *ngIf="(courses$ | async) as courses" id="boldTable">
       <tr>
         <th>課程</th>
         <th>新增上課時段</th>
@@ -9,13 +9,16 @@
         <th *ngIf="!isTA">助教管理</th>
         <th>異動紀錄</th>
       </tr>
-      <tr *ngFor="let course of courses$ | async">
-        <th>{{course.name}}</th>
-        <td><a class="link" [routerLink]="['/course-change/makeup/', course.id]">新增</a></td>
-        <td><a class="link" [routerLink]="['/course-change/suspended/', course.id]">刪除</a></td>
-        <td *ngIf="!isTA"><a class="link" [routerLink]="['/course-change/ta/', course.id]">修改</a></td>
-        <td><a class="link" (click)="openHistoryModal(course)">查詢</a></td>
-      </tr>
+      <ng-container *ngIf="courses.length; else empty">
+        <tr *ngFor="let course of courses; trackBy: trackByFn">
+          <th>{{course.name}}</th>
+          <td><a class="link" [routerLink]="['/course-change/makeup/', course.id]">新增</a></td>
+          <td><a class="link" [routerLink]="['/course-change/suspended/', course.id]">刪除</a></td>
+          <td *ngIf="!isTA"><a class="link" [routerLink]="['/course-change/ta/', course.id]">修改</a></td>
+          <td><a class="link" (click)="openHistoryModal(course)">查詢</a></td>
+        </tr>
+      </ng-container>
+      <ng-template #empty><tr empty-row [fullColspan]="(isTA) ? 4 : 5"></tr></ng-template>
     </table>
   </div>
 </section>

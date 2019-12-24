@@ -27,16 +27,16 @@
       <th>價格(半日)</th>
       <th>備註</th>
     </tr>
-    <tr *ngFor="let classroom of classrooms;trackBy: trackByFn">
-      <th>{{classroom.id | string: 'classroom'}}</th>
-      <td>{{classroom.capacity}}</td>
-      <td>{{classroom.price}}</td>
-      <td>
-        <span *ngIf="classroom.pending; else noPending">審核中</span>
-        <ng-template #noPending>
-          <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        </ng-template>
-      </td>
-    </tr>
+    <ng-container *ngIf="classrooms.length; else empty">
+      <tr *ngFor="let classroom of classrooms;trackBy: trackByFn">
+        <th>{{classroom.id | string: 'classroom'}}</th>
+        <td>{{classroom.capacity}}</td>
+        <td>{{classroom.price}}</td>
+        <td><span *ngIf="classroom.pending">審核中</span></td>
+      </tr>
+    </ng-container>
+    <ng-template #empty>
+      <tr empty-row fullColspan="4"></tr>
+    </ng-template>
   </table>
 </div>

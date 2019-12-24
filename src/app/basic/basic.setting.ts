@@ -4,8 +4,10 @@ import { FooterComponent } from './component/footer/footer.component';
 import { HomeComponent } from './component/home/home.component';
 import { IntroductionComponent } from './component/introduction/introduction.component';
 import { NotFoundComponent } from './component/not-found/not-found.component';
+import { TableEmptyRowComponent }from  './component/table-empty-row.component';
 
 export const BasicComponents = [
+  TableEmptyRowComponent,
   HeaderComponent,
   FooterComponent,
   HomeComponent,
